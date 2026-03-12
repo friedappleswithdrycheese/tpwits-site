@@ -1,0 +1,76 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { engagementModels } from "@/data/services";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Users, Building2, FileCheck, GitMerge, ArrowRight } from "lucide-react";
+
+const iconMap: Record<string, React.ElementType> = {
+  Users,
+  Building2,
+  FileCheck,
+  GitMerge,
+};
+
+const descriptionOverrides: Record<string, string> = {
+  "Dedicated Team":
+    "A hand-picked squad of 5-50 engineers, embedded in your workflows with a dedicated tech lead, weekly sprint reviews, and shared Jira/Confluence governance. Average ramp-up: 2 weeks. 95%+ retention rate across engagements.",
+  "Offshore Development Center":
+    "Your own engineering hub with dedicated workspace, infrastructure, and hand-selected senior talent. Full HR, IT, and facilities management included. Teams of 15-100+ with ISO 27001-certified operations and sub-4-hour response SLAs.",
+  "Fixed Price Projects":
+    "Defined scope, milestone-based delivery, and guaranteed budget with no overruns. Includes architecture review, QA, and UAT sign-off at each gate. Ideal for 8-24 week initiatives with clear requirements and compliance mandates.",
+};
+
+export default function EngagementModels() {
+  return (
+    <section className="section-padding bg-white dot-pattern">
+      <div className="container-custom">
+        <SectionHeading
+          label="Engagement Models"
+          title="How can we engage?"
+          description="Three proven delivery models — each with defined governance, escalation paths, and SLAs. Choose the structure that fits your project scope, compliance requirements, and speed-to-market targets."
+          align="center"
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {engagementModels.slice(0, 3).map((model, index) => {
+            const Icon = iconMap[model.icon];
+            return (
+              <motion.div
+                key={model.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group bg-white border border-border rounded-2xl p-6 sm:p-8 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-6">
+                  {Icon && (
+                    <Icon className="w-6 h-6 text-gray-500" />
+                  )}
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  {model.title}
+                </h3>
+                <p className="text-sm text-foreground-muted leading-relaxed mb-6">
+                  {descriptionOverrides[model.title] || model.description}
+                </p>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors"
+                >
+                  {model.title === "Dedicated Team" ? "Partner with Specialists" :
+                   model.title === "Offshore Development Center" ? "Build Your ODC" :
+                   model.title === "Fixed Price Projects" ? "Get a Fixed Estimate" :
+                   "Get Started"}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

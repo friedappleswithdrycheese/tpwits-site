@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shape Samples — Round 3</title>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { background: #f5f5f5; font-family: -apple-system, sans-serif; padding: 28px; }
+    h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .sub { color: #999; margin-bottom: 20px; font-size: 12px; }
+    .row-label { font-size: 13px; font-weight: 700; color: #e8713a; margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .row-label:first-of-type { margin-top: 0; }
+    .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 24px; }
+    .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+    .card canvas { display: block; width: 100%; aspect-ratio: 1; }
+    .label { padding: 7px 10px; font-size: 11px; font-weight: 600; color: #555; border-top: 1px solid #eee; }
+    .picked { border: 2px solid #e8713a; }
+    .picked .label { color: #e8713a; }
+  </style>
+</head>
+<body>
+  <h1>Shape Samples — Round 3</h1>
+  <p class="sub">Top rows = your 5 picks (Dome, Chain, Torus, Ripple, Cube). Below = 15 new shapes — pick 4 more.</p>
+
+  <div class="row-label">✓ Already Picked</div>
+  <div class="grid" id="picked"></div>
+
+  <div class="row-label">New Options — Pick 4 More</div>
+  <div class="grid" id="grid"></div>
+
+<script>
+const S = 600;
+
+function addCard(name, num, fn, container, picked) {
+  const c = document.createElement('canvas');
+  c.width = S; c.height = S;
+  fn(c.getContext('2d'));
+  const d = document.createElement('div');
+  d.className = 'card' + (picked ? ' picked' : '');
+  d.appendChild(c);
+  const l = document.createElement('div');
+  l.className = 'label';
+  l.textContent = picked ? `✓ ${name}` : `#${num}  ${name}`;
+  d.appendChild(l);
+  document.getElementById(container).appendChild(d);
+}
+
+/* ── Core helpers ── */
+function orb(ctx, x, y, r) {
+  // Shadow
+  const sh = ctx.createRadialGradient(x+r*0.05, y+r*0.12, r*0.5, x+r*0.05, y+r*0.12, r*1.4);
+  sh.addColorStop(0, 'rgba(160,70,25,0.13)'); sh.addColorStop(1, 'transparent');
+  ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.arc(x+r*0.05, y+r*0.12, r*1.4, 0, Math.PI*2); ctx.fill();
+  // Body
+  const g = ctx.createRadialGradient(x-r*0.28, y-r*0.28, r*0.02, x, y, r);
+  g.addColorStop(0, '#ffead6'); g.addColorStop(0.2, '#f5a66a'); g.addColorStop(0.5, '#e8713a');
+  g.addColorStop(0.78, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  // Specular highlight
+  const hl = ctx.createRadialGradient(x-r*0.32, y-r*0.32, 0, x-r*0.2, y-r*0.2, r*0.55);
+  hl.addColorStop(0, 'rgba(255,255,255,0.7)'); hl.addColorStop(0.35, 'rgba(255,240,225,0.2)'); hl.addColorStop(1, 'transparent');
+  ctx.fillStyle = hl;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+}
+
+function torusRing(ctx, cx, cy, R, t, squish) {
+  for (let pass = 0; pass < 2; pass++) {
+    const startA = pass === 0 ? Math.PI : 0;
+    const endA = pass === 0 ? Math.PI*2 : Math.PI;
+    for (let a = startA; a < endA; a += 0.012) {
+      const x = cx + Math.cos(a)*R, y = cy + Math.sin(a)*R*squish;
+      const z = Math.sin(a);
+      const lit = pass === 0 ? 0.38 + z*0.3 : 0.5 + z*0.5;
+      const tr = t*(0.82 + z*0.18);
+      const g = ctx.createRadialGradient(x-tr*0.22, y-tr*0.22, 0, x, y, tr);
+      g.addColorStop(0, `rgba(255,236,218,${lit})`); g.addColorStop(0.35, `rgba(245,168,108,${lit})`);
+      g.addColorStop(0.7, `rgba(232,113,58,${lit*0.85})`); g.addColorStop(1, `rgba(139,58,18,${lit*0.45})`);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x, y, tr, 0, Math.PI*2); ctx.fill();
+    }
+  }
+}
+
+/* Helper: 3D tube segment */
+function tubeSegment(ctx, x, y, r, angle) {
+  const g = ctx.createRadialGradient(x - r*0.25*Math.cos(angle), y - r*0.25*Math.sin(angle), 0, x, y, r);
+  g.addColorStop(0, 'rgba(255,236,218,0.95)');
+  g.addColorStop(0.25, 'rgba(245,168,108,0.85)');
+  g.addColorStop(0.55, 'rgba(232,113,58,0.75)');
+  g.addColorStop(0.8, 'rgba(196,90,40,0.55)');
+  g.addColorStop(1, 'rgba(139,58,18,0.25)');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+}
+
+/* ── PICKED SHAPES ── */
+
+// Dome
+addCard('Dome', 0, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 280, cy = 345, r = 160;
+  const sh = ctx.createRadialGradient(cx, cy+12, 15, cx, cy+12, r*1.15);
+  sh.addColorStop(0, 'rgba(140,55,18,0.1)'); sh.addColorStop(1, 'transparent');
+  ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.ellipse(cx, cy+12, r*1.1, 25, 0, 0, Math.PI*2); ctx.fill();
+  ctx.save();
+  ctx.beginPath(); ctx.ellipse(cx, cy, r, r, 0, Math.PI, 0); ctx.closePath(); ctx.clip();
+  const g = ctx.createRadialGradient(cx-r*0.3, cy-r*0.55, r*0.03, cx, cy, r);
+  g.addColorStop(0, '#fff'); g.addColorStop(0.12, '#ffead6'); g.addColorStop(0.32, '#f5a66a');
+  g.addColorStop(0.58, '#e8713a'); g.addColorStop(0.8, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fillRect(0,0,S,S);
+  ctx.restore();
+  ctx.beginPath(); ctx.ellipse(cx, cy, r, 7, 0, 0, Math.PI*2);
+  const bg = ctx.createLinearGradient(cx-r, cy, cx+r, cy);
+  bg.addColorStop(0, '#8b3a12'); bg.addColorStop(0.4, '#e8713a'); bg.addColorStop(0.6, '#f5a66a'); bg.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = bg; ctx.fill();
+  ctx.filter = 'none';
+}, 'picked', true);
+
+// Chain
+addCard('Chain', 0, ctx => {
+  ctx.filter = 'blur(2.5px)';
+  [[210,280],[300,290],[390,275]].forEach(([cx,cy]) => {
+    torusRing(ctx, cx, cy, 75, 22, 0.4);
+  });
+  ctx.filter = 'none';
+}, 'picked', true);
+
+// Torus
+addCard('Torus', 0, ctx => {
+  ctx.filter = 'blur(3px)';
+  torusRing(ctx, 285, 295, 128, 48, 0.38);
+  ctx.filter = 'none';
+}, 'picked', true);
+
+
+// Ripple
+addCard('Ripple', 0, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 285, cy = 295;
+  for (let i = 6; i >= 0; i--) {
+    const r = 40 + i*25;
+    const alpha = 0.55 - i*0.06;
+    const w = 12 - i*0.8;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    const g = ctx.createRadialGradient(cx, cy, r-w, cx, cy, r+w*0.5);
+    g.addColorStop(0, 'transparent');
+    g.addColorStop(0.3, `rgba(232,113,58,${alpha*0.3})`);
+    g.addColorStop(0.5, `rgba(245,166,106,${alpha})`);
+    g.addColorStop(0.7, `rgba(232,113,58,${alpha*0.3})`);
+    g.addColorStop(1, 'transparent');
+    ctx.strokeStyle = `rgba(232,113,58,${alpha})`;
+    ctx.lineWidth = w;
+    ctx.stroke();
+  }
+  orb(ctx, cx, cy, 28);
+  ctx.filter = 'none';
+}, 'picked', true);
+
+// Cube
+addCard('Cube', 0, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 280, cy = 290, s = 120;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy-s*0.9); ctx.lineTo(cx+s, cy-s*0.35); ctx.lineTo(cx, cy+s*0.2); ctx.lineTo(cx-s, cy-s*0.35); ctx.closePath();
+  const tg = ctx.createLinearGradient(cx-s, cy-s*0.9, cx+s, cy+s*0.2);
+  tg.addColorStop(0, '#ffead6'); tg.addColorStop(0.5, '#f5a66a'); tg.addColorStop(1, '#e8713a');
+  ctx.fillStyle = tg; ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(cx-s, cy-s*0.35); ctx.lineTo(cx, cy+s*0.2); ctx.lineTo(cx, cy+s*0.9); ctx.lineTo(cx-s, cy+s*0.35); ctx.closePath();
+  const lfg = ctx.createLinearGradient(cx-s, cy, cx, cy);
+  lfg.addColorStop(0, '#8b3a12'); lfg.addColorStop(0.5, '#c45a28'); lfg.addColorStop(1, '#e8713a');
+  ctx.fillStyle = lfg; ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(cx+s, cy-s*0.35); ctx.lineTo(cx, cy+s*0.2); ctx.lineTo(cx, cy+s*0.9); ctx.lineTo(cx+s, cy+s*0.35); ctx.closePath();
+  const rfg = ctx.createLinearGradient(cx, cy, cx+s, cy);
+  rfg.addColorStop(0, '#e8713a'); rfg.addColorStop(0.5, '#c45a28'); rfg.addColorStop(1, '#9b4218');
+  ctx.fillStyle = rfg; ctx.fill();
+  ctx.strokeStyle = 'rgba(255,235,215,0.2)'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cx, cy-s*0.9); ctx.lineTo(cx, cy+s*0.2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx-s, cy-s*0.35); ctx.lineTo(cx, cy+s*0.2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx+s, cy-s*0.35); ctx.lineTo(cx, cy+s*0.2); ctx.stroke();
+  ctx.filter = 'none';
+}, 'picked', true);
+
+/* ── NEW OPTIONS (Round 3) ── */
+
+/* 1. Lens — biconvex lens shape */
+addCard('Lens', 1, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 285, cy = 295;
+  // Shadow
+  const sh = ctx.createRadialGradient(cx+5, cy+10, 20, cx+5, cy+10, 200);
+  sh.addColorStop(0, 'rgba(140,55,18,0.1)'); sh.addColorStop(1, 'transparent');
+  ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.ellipse(cx+5, cy+10, 190, 30, 0, 0, Math.PI*2); ctx.fill();
+  // Lens body — two arcs forming a convex lens
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(cx, cy - 45, 155, 130, 0, 0.15, Math.PI - 0.15);
+  ctx.ellipse(cx, cy + 45, 155, 130, 0, Math.PI + 0.15, -0.15);
+  ctx.closePath();
+  ctx.clip();
+  const g = ctx.createRadialGradient(cx - 55, cy - 40, 5, cx, cy, 165);
+  g.addColorStop(0, '#ffead6'); g.addColorStop(0.18, '#f5a66a'); g.addColorStop(0.45, '#e8713a');
+  g.addColorStop(0.72, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, S, S);
+  // Specular
+  const hl = ctx.createRadialGradient(cx - 50, cy - 30, 0, cx - 35, cy - 20, 80);
+  hl.addColorStop(0, 'rgba(255,255,255,0.65)'); hl.addColorStop(0.4, 'rgba(255,240,225,0.15)'); hl.addColorStop(1, 'transparent');
+  ctx.fillStyle = hl; ctx.fillRect(0, 0, S, S);
+  ctx.restore();
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 2. Pill — capsule shape */
+addCard('Pill', 2, ctx => {
+  ctx.filter = 'blur(3px)';
+  ctx.save();
+  ctx.translate(285, 300);
+  ctx.rotate(-0.4);
+  const w = 60, h = 145;
+  // Shadow
+  const sh = ctx.createRadialGradient(5, 10, 20, 5, 10, 180);
+  sh.addColorStop(0, 'rgba(140,55,18,0.1)'); sh.addColorStop(1, 'transparent');
+  ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.ellipse(5, 10, 90, 20, -0.4, 0, Math.PI*2); ctx.fill();
+  // Body
+  ctx.beginPath();
+  ctx.arc(0, -h + w, w, Math.PI, 0); // top cap
+  ctx.lineTo(w, h - w);
+  ctx.arc(0, h - w, w, 0, Math.PI); // bottom cap
+  ctx.closePath();
+  const g = ctx.createLinearGradient(-w*1.2, 0, w*1.2, 0);
+  g.addColorStop(0, '#8b3a12'); g.addColorStop(0.18, '#c45a28'); g.addColorStop(0.35, '#e8713a');
+  g.addColorStop(0.45, '#f5a66a'); g.addColorStop(0.52, '#ffead6');
+  g.addColorStop(0.6, '#f5a66a'); g.addColorStop(0.75, '#e8713a');
+  g.addColorStop(0.88, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fill();
+  // Specular streak
+  const sl = ctx.createLinearGradient(-12, -h, -12, h);
+  sl.addColorStop(0, 'rgba(255,255,255,0.05)'); sl.addColorStop(0.2, 'rgba(255,255,255,0.35)');
+  sl.addColorStop(0.5, 'rgba(255,255,255,0.4)'); sl.addColorStop(0.8, 'rgba(255,255,255,0.15)'); sl.addColorStop(1, 'transparent');
+  ctx.fillStyle = sl; ctx.fillRect(-22, -h, 16, h*2);
+  ctx.restore();
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 3. Saturn — sphere with tilted ring */
+addCard('Saturn', 3, ctx => {
+  ctx.filter = 'blur(2.5px)';
+  const cx = 285, cy = 295;
+  // Back half of ring
+  for (let a = Math.PI; a < Math.PI * 2; a += 0.01) {
+    const x = cx + Math.cos(a) * 180;
+    const y = cy + Math.sin(a) * 45;
+    const alpha = 0.3 + Math.sin(a) * 0.15;
+    const g = ctx.createRadialGradient(x, y-3, 0, x, y, 10);
+    g.addColorStop(0, `rgba(245,166,106,${alpha})`);
+    g.addColorStop(0.6, `rgba(232,113,58,${alpha*0.6})`);
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI*2); ctx.fill();
+  }
+  // Sphere
+  orb(ctx, cx, cy, 82);
+  // Front half of ring
+  for (let a = 0; a < Math.PI; a += 0.01) {
+    const x = cx + Math.cos(a) * 180;
+    const y = cy + Math.sin(a) * 45;
+    const alpha = 0.45 + Math.sin(a) * 0.35;
+    const g = ctx.createRadialGradient(x, y-3, 0, x, y, 12);
+    g.addColorStop(0, `rgba(255,236,218,${alpha})`);
+    g.addColorStop(0.4, `rgba(245,166,106,${alpha*0.8})`);
+    g.addColorStop(0.7, `rgba(232,113,58,${alpha*0.5})`);
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI*2); ctx.fill();
+  }
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 4. Cone — smooth cone */
+addCard('Cone', 4, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 280, tip = 120, base = 430;
+  // Shadow
+  const sh = ctx.createRadialGradient(cx+5, base+8, 10, cx+5, base+8, 160);
+  sh.addColorStop(0, 'rgba(140,55,18,0.1)'); sh.addColorStop(1, 'transparent');
+  ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.ellipse(cx+5, base+8, 145, 18, 0, 0, Math.PI*2); ctx.fill();
+  // Body
+  ctx.beginPath();
+  ctx.moveTo(cx, tip);
+  ctx.lineTo(cx + 135, base);
+  ctx.ellipse(cx, base, 135, 22, 0, 0, Math.PI);
+  ctx.closePath();
+  const g = ctx.createLinearGradient(cx - 140, 0, cx + 140, 0);
+  g.addColorStop(0, '#8b3a12'); g.addColorStop(0.25, '#c45a28'); g.addColorStop(0.42, '#e8713a');
+  g.addColorStop(0.48, '#f5a66a'); g.addColorStop(0.53, '#ffead6');
+  g.addColorStop(0.58, '#f5a66a'); g.addColorStop(0.7, '#e8713a');
+  g.addColorStop(0.85, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fill();
+  // Highlight near tip
+  const th = ctx.createRadialGradient(cx - 8, tip + 30, 0, cx, tip + 50, 60);
+  th.addColorStop(0, 'rgba(255,255,255,0.45)'); th.addColorStop(0.4, 'rgba(255,240,225,0.1)'); th.addColorStop(1, 'transparent');
+  ctx.fillStyle = th; ctx.fill();
+  // Base ellipse
+  ctx.beginPath(); ctx.ellipse(cx, base, 135, 22, 0, 0, Math.PI * 2);
+  const bg = ctx.createLinearGradient(cx - 135, base, cx + 135, base);
+  bg.addColorStop(0, '#8b3a12'); bg.addColorStop(0.3, '#c45a28'); bg.addColorStop(0.5, '#e8713a'); bg.addColorStop(0.7, '#c45a28'); bg.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = bg; ctx.fill();
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 5. Bubbles — 3 glossy bubbles (different sizes, overlapping) */
+addCard('Bubbles', 5, ctx => {
+  ctx.filter = 'blur(2px)';
+  orb(ctx, 220, 330, 95);
+  orb(ctx, 350, 290, 75);
+  orb(ctx, 280, 210, 55);
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 6. Dumbbell — two spheres connected by a bar */
+addCard('Dumbbell', 6, ctx => {
+  ctx.filter = 'blur(2.5px)';
+  ctx.save(); ctx.translate(285, 295); ctx.rotate(-0.35);
+  // Connecting bar
+  const bw = 22, bh = 120;
+  const bg = ctx.createLinearGradient(-bw, 0, bw, 0);
+  bg.addColorStop(0, 'rgba(139,58,18,0.7)'); bg.addColorStop(0.3, 'rgba(196,90,40,0.8)');
+  bg.addColorStop(0.45, 'rgba(245,166,106,0.9)'); bg.addColorStop(0.55, 'rgba(255,234,214,0.95)');
+  bg.addColorStop(0.7, 'rgba(245,166,106,0.9)'); bg.addColorStop(0.85, 'rgba(196,90,40,0.8)');
+  bg.addColorStop(1, 'rgba(139,58,18,0.7)');
+  ctx.fillStyle = bg;
+  ctx.fillRect(-bw, -bh, bw*2, bh*2);
+  ctx.restore();
+  // Two spheres
+  orb(ctx, 285 - Math.sin(0.35)*120, 295 - Math.cos(0.35)*120, 68);
+  orb(ctx, 285 + Math.sin(0.35)*120, 295 + Math.cos(0.35)*120, 68);
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 7. Disc — angled flat disc/coin */
+addCard('Disc', 7, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 285, cy = 295;
+  // Shadow
+  const sh = ctx.createRadialGradient(cx+5, cy+35, 20, cx+5, cy+35, 180);
+  sh.addColorStop(0, 'rgba(140,55,18,0.1)'); sh.addColorStop(1, 'transparent');
+  ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.ellipse(cx+5, cy+35, 170, 25, 0, 0, Math.PI*2); ctx.fill();
+  // Side edge (thickness)
+  ctx.beginPath();
+  ctx.ellipse(cx, cy + 14, 155, 55, 0, 0, Math.PI);
+  ctx.ellipse(cx, cy + 2, 155, 55, 0, Math.PI, 0, true);
+  ctx.closePath();
+  const eg = ctx.createLinearGradient(cx - 155, cy, cx + 155, cy);
+  eg.addColorStop(0, '#8b3a12'); eg.addColorStop(0.3, '#c45a28'); eg.addColorStop(0.5, '#e8713a');
+  eg.addColorStop(0.7, '#c45a28'); eg.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = eg; ctx.fill();
+  // Top face
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, 155, 55, 0, 0, Math.PI * 2);
+  const g = ctx.createRadialGradient(cx - 40, cy - 15, 5, cx, cy, 160);
+  g.addColorStop(0, '#ffead6'); g.addColorStop(0.18, '#f5a66a'); g.addColorStop(0.45, '#e8713a');
+  g.addColorStop(0.72, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fill();
+  // Specular on top
+  const hl = ctx.createRadialGradient(cx - 40, cy - 12, 0, cx - 25, cy - 5, 65);
+  hl.addColorStop(0, 'rgba(255,255,255,0.6)'); hl.addColorStop(0.4, 'rgba(255,240,225,0.15)'); hl.addColorStop(1, 'transparent');
+  ctx.fillStyle = hl;
+  ctx.beginPath(); ctx.ellipse(cx, cy, 155, 55, 0, 0, Math.PI*2); ctx.fill();
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 8. Mushroom — mushroom cap with stem */
+addCard('Mushroom', 8, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 280, cy = 290;
+  // Stem
+  const sw = 35, sh2 = 100;
+  const sg = ctx.createLinearGradient(cx - sw, 0, cx + sw, 0);
+  sg.addColorStop(0, 'rgba(139,58,18,0.6)'); sg.addColorStop(0.3, 'rgba(196,90,40,0.75)');
+  sg.addColorStop(0.45, 'rgba(245,166,106,0.85)'); sg.addColorStop(0.55, 'rgba(255,234,214,0.9)');
+  sg.addColorStop(0.7, 'rgba(245,166,106,0.85)'); sg.addColorStop(0.85, 'rgba(196,90,40,0.75)');
+  sg.addColorStop(1, 'rgba(139,58,18,0.6)');
+  ctx.fillStyle = sg;
+  ctx.beginPath();
+  ctx.moveTo(cx - sw, cy + 20);
+  ctx.lineTo(cx - sw*0.85, cy + sh2 + 30);
+  ctx.quadraticCurveTo(cx, cy + sh2 + 50, cx + sw*0.85, cy + sh2 + 30);
+  ctx.lineTo(cx + sw, cy + 20);
+  ctx.closePath();
+  ctx.fill();
+  // Cap (dome)
+  ctx.save();
+  ctx.beginPath();
+  ctx.ellipse(cx, cy + 20, 140, 120, 0, Math.PI, 0);
+  ctx.closePath();
+  ctx.clip();
+  const cg = ctx.createRadialGradient(cx - 45, cy - 55, 5, cx, cy - 10, 145);
+  cg.addColorStop(0, '#ffead6'); cg.addColorStop(0.15, '#f5a66a'); cg.addColorStop(0.4, '#e8713a');
+  cg.addColorStop(0.7, '#c45a28'); cg.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = cg; ctx.fillRect(0, 0, S, S);
+  // Specular on cap
+  const hl = ctx.createRadialGradient(cx - 45, cy - 40, 0, cx - 30, cy - 30, 70);
+  hl.addColorStop(0, 'rgba(255,255,255,0.6)'); hl.addColorStop(0.4, 'rgba(255,240,225,0.15)'); hl.addColorStop(1, 'transparent');
+  ctx.fillStyle = hl; ctx.fillRect(0, 0, S, S);
+  ctx.restore();
+  // Underside rim
+  ctx.beginPath();
+  ctx.ellipse(cx, cy + 20, 140, 12, 0, 0, Math.PI);
+  const ug = ctx.createLinearGradient(cx - 140, cy + 20, cx + 140, cy + 20);
+  ug.addColorStop(0, '#8b3a12'); ug.addColorStop(0.3, '#c45a28'); ug.addColorStop(0.5, '#e8713a'); ug.addColorStop(0.7, '#c45a28'); ug.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = ug; ctx.fill();
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 9. Pebble — smooth organic stone shape */
+addCard('Pebble', 9, ctx => {
+  ctx.filter = 'blur(3.5px)';
+  const cx = 280, cy = 300;
+  // Shadow
+  const sh = ctx.createRadialGradient(cx+8, cy+18, 20, cx+8, cy+18, 190);
+  sh.addColorStop(0, 'rgba(140,55,18,0.12)'); sh.addColorStop(1, 'transparent');
+  ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.ellipse(cx+8, cy+18, 175, 35, 0.1, 0, Math.PI*2); ctx.fill();
+  // Organic shape using bezier
+  ctx.beginPath();
+  ctx.moveTo(cx + 30, cy - 110);
+  ctx.bezierCurveTo(cx + 145, cy - 85, cx + 155, cy + 35, cx + 105, cy + 105);
+  ctx.bezierCurveTo(cx + 50, cy + 145, cx - 85, cy + 135, cx - 130, cy + 75);
+  ctx.bezierCurveTo(cx - 158, cy + 15, cx - 145, cy - 65, cx - 85, cy - 105);
+  ctx.bezierCurveTo(cx - 30, cy - 135, cx + 10, cy - 120, cx + 30, cy - 110);
+  ctx.closePath();
+  const g = ctx.createRadialGradient(cx - 40, cy - 40, 8, cx + 10, cy + 10, 160);
+  g.addColorStop(0, '#ffead6'); g.addColorStop(0.2, '#f5a66a'); g.addColorStop(0.5, '#e8713a');
+  g.addColorStop(0.78, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fill();
+  // Highlight
+  const hl = ctx.createRadialGradient(cx - 45, cy - 45, 0, cx - 30, cy - 30, 80);
+  hl.addColorStop(0, 'rgba(255,255,255,0.55)'); hl.addColorStop(0.4, 'rgba(255,240,225,0.12)'); hl.addColorStop(1, 'transparent');
+  ctx.fillStyle = hl; ctx.fill();
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 10. Horn — curved tusk/horn */
+addCard('Horn', 10, ctx => {
+  ctx.filter = 'blur(2.5px)';
+  // Draw as tapered curved tube
+  const pts = [];
+  for (let t = 0; t <= 1; t += 0.005) {
+    const x = 160 + t * 250;
+    const y = 400 - t * 200 - Math.sin(t * Math.PI * 0.8) * 100;
+    const r = 55 * (1 - t * 0.75); // tapers
+    pts.push({x, y, r, t});
+  }
+  pts.forEach(p => {
+    const g = ctx.createLinearGradient(p.x, p.y - p.r, p.x, p.y + p.r);
+    g.addColorStop(0, `rgba(139,58,18,${0.6 + p.t*0.2})`);
+    g.addColorStop(0.2, `rgba(196,90,40,${0.7 + p.t*0.15})`);
+    g.addColorStop(0.38, `rgba(245,166,106,${0.85})`);
+    g.addColorStop(0.46, `rgba(255,234,214,${0.92})`);
+    g.addColorStop(0.55, `rgba(245,166,106,${0.85})`);
+    g.addColorStop(0.78, `rgba(196,90,40,${0.7 + p.t*0.15})`);
+    g.addColorStop(1, `rgba(139,58,18,${0.5 + p.t*0.2})`);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(p.x, p.y, 2.5, p.r, 0, 0, Math.PI*2); ctx.fill();
+  });
+  // Tip highlight
+  const last = pts[pts.length - 1];
+  const th = ctx.createRadialGradient(last.x, last.y - 3, 0, last.x, last.y, 18);
+  th.addColorStop(0, 'rgba(255,255,255,0.5)'); th.addColorStop(1, 'transparent');
+  ctx.fillStyle = th; ctx.fillRect(last.x-20, last.y-20, 40, 40);
+  // Base orb
+  orb(ctx, pts[0].x, pts[0].y, 55);
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 11. Shell — nautilus spiral shell */
+addCard('Shell', 11, ctx => {
+  ctx.filter = 'blur(2.5px)';
+  const cx = 295, cy = 300;
+  // Draw spiral shell from outside in
+  const segments = [];
+  for (let t = 0; t < Math.PI * 4.5; t += 0.02) {
+    const r = 170 * Math.exp(-t * 0.12);
+    const x = cx + Math.cos(t + 0.5) * r * 0.9;
+    const y = cy + Math.sin(t + 0.5) * r * 0.7;
+    const sz = r * 0.18;
+    if (sz < 3) continue;
+    segments.push({x, y, sz, t});
+  }
+  // Draw back to front
+  segments.reverse().forEach(p => {
+    const lit = 0.4 + Math.sin(p.t) * 0.3 + (1 - p.sz/30) * 0.2;
+    const g = ctx.createRadialGradient(p.x - p.sz*0.25, p.y - p.sz*0.25, 0, p.x, p.y, p.sz);
+    g.addColorStop(0, `rgba(255,236,218,${Math.min(1, lit + 0.3)})`);
+    g.addColorStop(0.3, `rgba(245,166,106,${lit})`);
+    g.addColorStop(0.65, `rgba(232,113,58,${lit * 0.8})`);
+    g.addColorStop(1, `rgba(139,58,18,${lit * 0.35})`);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.sz, 0, Math.PI*2); ctx.fill();
+  });
+  // Center highlight
+  const ch = ctx.createRadialGradient(cx + 8, cy + 2, 0, cx + 8, cy + 2, 22);
+  ch.addColorStop(0, 'rgba(255,255,255,0.6)'); ch.addColorStop(1, 'transparent');
+  ctx.fillStyle = ch; ctx.fillRect(cx - 25, cy - 25, 60, 60);
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 12. Twist — twisted ribbon/band */
+addCard('Twist', 12, ctx => {
+  ctx.filter = 'blur(2px)';
+  const cx = 285, cy = 300;
+  for (let pass = 0; pass < 2; pass++) {
+    for (let t = -2.5; t < 2.5; t += 0.012) {
+      const y = cy + t * 65;
+      const twist = t * 1.6;
+      const w = 85;
+      const front = Math.cos(twist);
+      const side = Math.sin(twist);
+      if (pass === 0 && side >= 0) continue;
+      if (pass === 1 && side < 0) continue;
+      const x = cx + side * w * 0.4;
+      const thickness = Math.abs(front) * 8 + 4;
+      const halfW = Math.abs(front) * w * 0.45 + 5;
+      const lit = pass === 0 ? 0.3 + Math.abs(side) * 0.2 : 0.5 + Math.abs(front) * 0.4;
+      const g = ctx.createLinearGradient(x - halfW, y, x + halfW, y);
+      g.addColorStop(0, `rgba(139,58,18,${lit*0.5})`);
+      g.addColorStop(0.2, `rgba(196,90,40,${lit*0.7})`);
+      g.addColorStop(0.4, `rgba(245,166,106,${lit})`);
+      g.addColorStop(0.5, `rgba(255,234,214,${lit})`);
+      g.addColorStop(0.6, `rgba(245,166,106,${lit})`);
+      g.addColorStop(0.8, `rgba(196,90,40,${lit*0.7})`);
+      g.addColorStop(1, `rgba(139,58,18,${lit*0.5})`);
+      ctx.fillStyle = g;
+      ctx.fillRect(x - halfW, y - 1, halfW * 2, 2.5);
+    }
+  }
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 13. Blob — organic amoeba shape */
+addCard('Blob', 13, ctx => {
+  ctx.filter = 'blur(4px)';
+  const cx = 280, cy = 295;
+  // Organic shape using polar coordinates with noise
+  ctx.beginPath();
+  const points = [];
+  for (let a = 0; a < Math.PI * 2; a += 0.02) {
+    const r = 145 + Math.sin(a * 3) * 30 + Math.cos(a * 5) * 20 + Math.sin(a * 7 + 1) * 12;
+    const x = cx + Math.cos(a) * r * 0.95;
+    const y = cy + Math.sin(a) * r * 0.75;
+    points.push({x, y});
+  }
+  ctx.moveTo(points[0].x, points[0].y);
+  for (let i = 1; i < points.length; i++) {
+    const p = points[i];
+    const pp = points[i-1];
+    const cpx = (pp.x + p.x) / 2;
+    const cpy = (pp.y + p.y) / 2;
+    ctx.quadraticCurveTo(pp.x, pp.y, cpx, cpy);
+  }
+  ctx.closePath();
+  const g = ctx.createRadialGradient(cx - 45, cy - 35, 8, cx, cy, 170);
+  g.addColorStop(0, '#ffead6'); g.addColorStop(0.18, '#f5a66a'); g.addColorStop(0.45, '#e8713a');
+  g.addColorStop(0.72, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fill();
+  // Specular
+  const hl = ctx.createRadialGradient(cx - 50, cy - 40, 0, cx - 30, cy - 25, 85);
+  hl.addColorStop(0, 'rgba(255,255,255,0.55)'); hl.addColorStop(0.35, 'rgba(255,240,225,0.12)'); hl.addColorStop(1, 'transparent');
+  ctx.fillStyle = hl; ctx.fill();
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 14. Crown — tiara/crown shape */
+addCard('Crown', 14, ctx => {
+  ctx.filter = 'blur(3px)';
+  const cx = 280, cy = 310;
+  // Crown body with 5 peaks
+  ctx.beginPath();
+  const baseY = cy + 60, topY = cy - 80;
+  ctx.moveTo(cx - 145, baseY);
+  for (let i = 0; i < 5; i++) {
+    const px = cx - 120 + i * 60;
+    const valleyX = px + 30;
+    const peakHeight = i === 2 ? topY - 20 : (i === 1 || i === 3) ? topY : topY + 25;
+    ctx.lineTo(px, peakHeight);
+    if (i < 4) ctx.lineTo(valleyX, cy);
+  }
+  ctx.lineTo(cx + 145, baseY);
+  // Rounded bottom
+  ctx.quadraticCurveTo(cx + 145, baseY + 35, cx, baseY + 40);
+  ctx.quadraticCurveTo(cx - 145, baseY + 35, cx - 145, baseY);
+  ctx.closePath();
+  const g = ctx.createRadialGradient(cx - 30, cy - 30, 10, cx, cy + 20, 180);
+  g.addColorStop(0, '#ffead6'); g.addColorStop(0.2, '#f5a66a'); g.addColorStop(0.5, '#e8713a');
+  g.addColorStop(0.78, '#c45a28'); g.addColorStop(1, '#8b3a12');
+  ctx.fillStyle = g; ctx.fill();
+  // Highlight
+  const hl = ctx.createRadialGradient(cx - 25, cy - 25, 0, cx - 10, cy - 10, 70);
+  hl.addColorStop(0, 'rgba(255,255,255,0.5)'); hl.addColorStop(0.4, 'rgba(255,240,225,0.12)'); hl.addColorStop(1, 'transparent');
+  ctx.fillStyle = hl; ctx.fill();
+  // Jewels on peaks
+  const peakXs = [cx-120, cx-60, cx, cx+60, cx+120];
+  const peakYs = [topY+25, topY, topY-20, topY, topY+25];
+  peakXs.forEach((px, i) => {
+    orb(ctx, px, peakYs[i] + 15, 12);
+  });
+  ctx.filter = 'none';
+}, 'grid');
+
+/* 15. Mobius — mobius strip */
+addCard('Möbius', 15, ctx => {
+  ctx.filter = 'blur(2px)';
+  const cx = 285, cy = 295, R = 120;
+  // Mobius strip: parametric surface
+  for (let pass = 0; pass < 2; pass++) {
+    for (let u = 0; u < Math.PI * 2; u += 0.008) {
+      const halfTwist = u / 2;
+      const w = 45;
+      // Two edges of the strip
+      for (let v = -1; v <= 1; v += 0.08) {
+        const x = cx + (R + v * w * Math.cos(halfTwist)) * Math.cos(u);
+        const y = cy + (R + v * w * Math.cos(halfTwist)) * Math.sin(u) * 0.4;
+        const z = v * w * Math.sin(halfTwist);
+        const isBack = Math.sin(u) < 0;
+        if (pass === 0 && !isBack) continue;
+        if (pass === 1 && isBack) continue;
+        const lit = pass === 0 ? 0.25 + (1 + Math.cos(u)) * 0.15 : 0.45 + (1 + Math.cos(u)) * 0.25;
+        const sz = 4;
+        const g = ctx.createRadialGradient(x - 1, y - 1, 0, x, y, sz);
+        g.addColorStop(0, `rgba(255,236,218,${lit})`);
+        g.addColorStop(0.4, `rgba(245,166,106,${lit * 0.8})`);
+        g.addColorStop(0.75, `rgba(232,113,58,${lit * 0.6})`);
+        g.addColorStop(1, `rgba(139,58,18,${lit * 0.3})`);
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(x, y, sz, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+  }
+  ctx.filter = 'none';
+}, 'grid');
+
+</script>
+</body>
+</html>
