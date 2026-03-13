@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function TechStack() {
   return (
@@ -16,16 +17,16 @@ export default function TechStack() {
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <span className="section-label text-primary uppercase tracking-wide font-bold">
-              ABOUT US
+            <span className="section-label text-primary/80">
+              About Us
             </span>
 
-            <h2 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-white">
+            <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-white">
               Built on engineering excellence.{" "}
               <span className="text-white/40">Driven by outcomes.</span>
             </h2>
 
-            <p className="mt-6 text-lg text-white/60 leading-relaxed max-w-xl">
+            <p className="mt-5 text-lg text-white/60 leading-relaxed max-w-xl">
               Enterprise leaders trust TPWITS to architect mission-critical
               systems&nbsp;&mdash; from production-grade AI and cloud-native
               platforms to digital products that scale across industries. We

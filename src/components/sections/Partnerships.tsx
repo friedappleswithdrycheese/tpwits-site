@@ -16,6 +16,7 @@ export default function Partnerships() {
     <section className="section-padding bg-white">
       <div className="container-custom">
         <SectionHeading
+          label="Partnerships"
           title="Our partnerships with industry leaders"
           align="center"
         />

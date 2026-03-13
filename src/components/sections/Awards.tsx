@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -266,24 +267,12 @@ export default function Awards() {
     <section className="section-padding bg-white dot-pattern relative">
       <div className="container-custom">
         {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-6">
-            <span className="w-6 h-px bg-gray-300" />
-            Recognition
-            <span className="w-6 h-px bg-gray-300" />
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight">
-            We&apos;ve been recognized by the best,
-            <br />
-            year after year
-          </h2>
-        </motion.div>
+        <SectionHeading
+          label="Recognition"
+          title="We've been recognized by the best, year after year"
+          align="center"
+          className="mb-16"
+        />
 
         {/* Award Badges */}
         <motion.div

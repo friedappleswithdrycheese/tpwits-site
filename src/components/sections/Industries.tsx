@@ -62,9 +62,9 @@ export default function Industries() {
                   href={`/industries/${industry.slug}`}
                   className="group block bg-white/[0.05] border border-white/[0.08] rounded-xl p-6 text-center hover:bg-white/[0.08] hover:border-white/[0.12] hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-white/[0.06] flex items-center justify-center mx-auto mb-4">
+                  <div className="w-14 h-14 rounded-xl bg-primary/[0.08] border border-primary/[0.1] flex items-center justify-center mx-auto mb-4">
                     {Icon && (
-                      <Icon className="w-6 h-6 text-white/50" />
+                      <Icon className="w-6 h-6 text-primary/60" />
                     )}
                   </div>
                   <h3 className="text-base font-semibold text-white">

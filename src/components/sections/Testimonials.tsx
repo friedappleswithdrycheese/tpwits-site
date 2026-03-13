@@ -53,7 +53,7 @@ export default function Testimonials() {
 
           {/* Decorative quote mark */}
           <div className="text-center mb-2">
-            <span className="text-8xl font-serif text-white/[0.06] leading-none select-none">&ldquo;</span>
+            <span className="text-8xl font-serif text-primary/[0.12] leading-none select-none">&ldquo;</span>
           </div>
 
           {/* Testimonial content */}
@@ -73,8 +73,8 @@ export default function Testimonials() {
 
                 {/* Avatar + info */}
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-14 h-14 rounded-full bg-white/[0.08] border border-white/[0.1] flex items-center justify-center">
-                    <span className="text-white/60 font-bold text-base">
+                  <div className="w-14 h-14 rounded-full bg-primary/[0.08] border border-primary/[0.15] flex items-center justify-center">
+                    <span className="text-primary/70 font-bold text-base">
                       {testimonials[current].name
                         .split(" ")
                         .map((n) => n[0])
