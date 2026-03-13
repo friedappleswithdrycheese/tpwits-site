@@ -25,7 +25,7 @@ export default function AISection() {
   return (
     <section className="relative overflow-hidden bg-navy">
       <GridPattern className="opacity-10" />
-      <div className="container-custom py-28 md:py-36 lg:py-44 relative z-10">
+      <div className="container-custom section-padding relative z-10">
         {/* Label */}
         <motion.p
           initial={{ opacity: 0 }}
