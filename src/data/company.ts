@@ -1,7 +1,7 @@
 export const companyStats = [
-  { value: "12+", label: "Years on Market" },
-  { value: "350+", label: "Professionals on Board" },
-  { value: "73%", label: "Clients Return for Long-term Partnerships" },
+  { value: "17+", label: "Years in Operation" },
+  { value: "800+", label: "Engineers Worldwide" },
+  { value: "94%", label: "Client Retention" },
   { value: "4", label: "Global Offices" },
 ];
 
@@ -45,6 +45,7 @@ export const companyInfo = {
     { city: "San Francisco", country: "USA", type: "Headquarters" },
     { city: "Lahore", country: "Pakistan", type: "Engineering Hub" },
     { city: "Dubai", country: "UAE", type: "Regional Office" },
+    { city: "London", country: "UK", type: "Regional Office" },
   ],
   partners: [
     "Amazon Web Services",

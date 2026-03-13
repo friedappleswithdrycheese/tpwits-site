@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     quote:
-      "Most cloud migration partners talk about cost savings. TPWITS actually delivered them — 38% infrastructure reduction, 3x deployment velocity, and zero downtime during cutover. That's rare at our scale.",
+      "Most cloud migration partners talk about cost savings. TPWITS actually delivered them — 38% infrastructure reduction in the first quarter, zero downtime during cutover, and our release cycles went from monthly to weekly. That's rare at our scale.",
     name: "Robert K Burger",
     title: "COO, Sterne Kessler",
   },

@@ -4,13 +4,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-const stats = [
-  { value: "17+", label: "Years on Market" },
-  { value: "800+", label: "Engineers" },
-  { value: "94%", label: "Client Retention" },
-  { value: "4", label: "Global Offices" },
-];
-
 export default function TechStack() {
   return (
     <section className="section-padding bg-navy">
@@ -28,7 +21,8 @@ export default function TechStack() {
             </span>
 
             <h2 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-white">
-              17 years of engineering excellence. Built for what&apos;s next.
+              Built on engineering excellence.{" "}
+              <span className="text-white/40">Driven by outcomes.</span>
             </h2>
 
             <p className="mt-6 text-lg text-white/60 leading-relaxed max-w-xl">
@@ -37,20 +31,6 @@ export default function TechStack() {
               platforms to digital products that scale across industries. We
               don&apos;t just write code. We engineer outcomes.
             </p>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-8 mt-10">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <span className="text-3xl md:text-4xl font-extrabold text-white">
-                    {stat.value}
-                  </span>
-                  <p className="text-sm text-white/50 uppercase tracking-wider mt-1">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
 
             {/* CTA Link */}
             <Link
