@@ -110,7 +110,7 @@ export default function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 w-[700px] bg-white rounded-2xl shadow-2xl border border-border p-6 mt-2"
+                      className="absolute top-full left-1/2 -translate-x-1/2 w-[700px] bg-white rounded-2xl shadow-2xl border border-border p-6 mt-2 overflow-hidden"
                     >
                       <div className="grid grid-cols-3 gap-2">
                         {item.children.map((child) => {
@@ -165,7 +165,7 @@ export default function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-2xl border border-border py-2 mt-2"
+                      className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-2xl border border-border py-2 mt-2 overflow-hidden"
                     >
                       {item.children.map((child) => (
                         <Link
