@@ -5,9 +5,26 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { caseStudies } from "@/data/company";
 import CTASection from "@/components/sections/CTASection";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Brain, Landmark, ShoppingCart, GraduationCap, Shield, Truck, Heart, Zap, Film, Building, Code2, Cloud, Blocks, Rocket } from "lucide-react";
 
 const ACCENT_COLORS = ["#E8713A", "#8B5CF6", "#10B981", "#3B82F6", "#F59E0B", "#EC4899"];
+
+const industryIcons: Record<string, React.ElementType> = {
+  Healthcare: Heart,
+  "Healthcare / Telemedicine": Heart,
+  Fintech: Landmark,
+  "Fintech / Web3": Blocks,
+  Retail: ShoppingCart,
+  "Retail / E-Commerce": ShoppingCart,
+  "Legal Tech": Shield,
+  "Supply Chain / CPG": Truck,
+  "Cybersecurity / Identity": Shield,
+  Web3: Blocks,
+  "Media / Web3": Film,
+  EdTech: GraduationCap,
+  "SaaS / MarTech": Rocket,
+  "Nonprofit / Social Impact": Heart,
+};
 
 export default function CaseStudiesPage() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -81,15 +98,36 @@ export default function CaseStudiesPage() {
                 transition={{ duration: 0.5, delay: (index % 4) * 0.1 }}
               >
                 <Link href={`/case-studies/${study.slug}`} className="group bg-white rounded-2xl overflow-hidden border border-border hover:border-transparent hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 hover:-translate-y-1 h-full block">
-                  {/* Image */}
-                  <div className="relative h-56 bg-gradient-to-br from-dark to-dark-secondary overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                  {/* Visual Header */}
+                  <div className="relative h-56 bg-gradient-to-br from-[#0A0A0A] to-[#171717] overflow-hidden">
+                    {/* Grid pattern */}
+                    <div className="absolute inset-0 card-grid-pattern" />
+                    {/* Diagonal lines */}
+                    <div className="absolute inset-0 card-diagonal-pattern" />
+                    {/* Color glow */}
                     <div
-                      className="absolute inset-0 opacity-20"
+                      className="absolute inset-0 opacity-15"
                       style={{
-                        backgroundImage: `radial-gradient(circle at 30% 50%, ${ACCENT_COLORS[index % ACCENT_COLORS.length]} 0%, transparent 50%)`,
+                        backgroundImage: `radial-gradient(ellipse at 30% 60%, ${ACCENT_COLORS[index % ACCENT_COLORS.length]} 0%, transparent 55%)`,
                       }}
                     />
+                    {/* Secondary glow */}
+                    <div
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage: `radial-gradient(ellipse at 80% 20%, ${ACCENT_COLORS[(index + 2) % ACCENT_COLORS.length]} 0%, transparent 45%)`,
+                      }}
+                    />
+                    {/* Large watermark icon */}
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-[0.06]">
+                      {(() => {
+                        const Icon = industryIcons[study.industry] || Code2;
+                        return <Icon className="w-32 h-32 text-white" strokeWidth={1} />;
+                      })()}
+                    </div>
+                    {/* Bottom gradient for readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+                    {/* Tags */}
                     <div className="absolute bottom-4 left-6 z-20 flex gap-2">
                       {study.tags.map((tag: string) => (
                         <span
@@ -100,6 +138,7 @@ export default function CaseStudiesPage() {
                         </span>
                       ))}
                     </div>
+                    {/* Arrow */}
                     <div className="absolute top-4 right-4 z-20">
                       <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary transition-all duration-300">
                         <ArrowUpRight className="w-4 h-4 text-white" />

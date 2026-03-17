@@ -386,6 +386,25 @@ html {
   background-size: 24px 24px;
 }
 
+/* Grid pattern overlay for card visuals */
+.card-grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Diagonal lines pattern */
+.card-diagonal-pattern {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 14px,
+    rgba(255, 255, 255, 0.03) 14px,
+    rgba(255, 255, 255, 0.03) 15px
+  );
+}
+
 /* ============================================================
    CARD HOVER — clean, minimal cards
    ============================================================ */

@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { blogPosts } from "@/data/blog";
+import { Brain, Cloud, Shield, Blocks, Code2, Cpu } from "lucide-react";
+
+const categoryIcons: Record<string, React.ReactNode> = {
+  AI: <Brain className="w-16 h-16 text-white" strokeWidth={1} />,
+  Cloud: <Cloud className="w-16 h-16 text-white" strokeWidth={1} />,
+  Cybersecurity: <Shield className="w-16 h-16 text-white" strokeWidth={1} />,
+  Web3: <Blocks className="w-16 h-16 text-white" strokeWidth={1} />,
+  Engineering: <Code2 className="w-16 h-16 text-white" strokeWidth={1} />,
+};
 
 export const metadata: Metadata = {
   title: "Blog | TPWITS",
@@ -39,12 +48,21 @@ export default function BlogPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {blogPosts.map((post) => (
               <article key={post.slug} className="card-hover overflow-hidden">
-                {/* Gradient Top */}
+                {/* Visual Header */}
                 <div
-                  className="h-48 relative"
+                  className="h-48 relative overflow-hidden"
                   style={{ background: post.gradient }}
                 >
-                  <span className="absolute top-4 left-4 inline-flex items-center text-xs font-bold text-white bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                  {/* Grid pattern */}
+                  <div className="absolute inset-0 card-grid-pattern" />
+                  {/* Diagonal lines */}
+                  <div className="absolute inset-0 card-diagonal-pattern" />
+                  {/* Watermark icon */}
+                  <div className="absolute right-4 bottom-3 opacity-[0.08]">
+                    {categoryIcons[post.category] || <Cpu className="w-16 h-16 text-white" strokeWidth={1} />}
+                  </div>
+                  {/* Category badge */}
+                  <span className="absolute top-4 left-4 z-10 inline-flex items-center text-xs font-bold text-white bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
                     {post.category}
                   </span>
                 </div>

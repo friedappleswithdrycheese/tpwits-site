@@ -144,12 +144,25 @@ export default function InsightsPage() {
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 className="group flex flex-col bg-white border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
-                {/* Card Header with type icon */}
-                <div className="flex items-center gap-2 px-6 pt-6 pb-0">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary bg-primary/8 px-3 py-1.5 rounded-full">
-                    {typeIcons[insight.type]}
-                    {typeLabels[insight.type]}
-                  </span>
+                {/* Visual Header */}
+                <div className={`relative h-32 overflow-hidden ${
+                  insight.type === "whitepaper"
+                    ? "bg-gradient-to-br from-[#0A0A0A] to-[#262626]"
+                    : insight.type === "webinar"
+                    ? "bg-gradient-to-br from-[#E8713A] to-[#F5A44C]"
+                    : "bg-gradient-to-br from-[#171717] to-[#0A0A0A]"
+                }`}>
+                  <div className="absolute inset-0 card-grid-pattern" />
+                  <div className="absolute inset-0 card-diagonal-pattern" />
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 opacity-[0.1]">
+                    <div className="w-16 h-16">{typeIcons[insight.type]}</div>
+                  </div>
+                  <div className="absolute bottom-4 left-5 z-10">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                      {typeIcons[insight.type]}
+                      {typeLabels[insight.type]}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Card Body */}
