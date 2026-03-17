@@ -14,42 +14,51 @@ import {
 
 /* ══════════════════════════════════════════════════════════════
    TPWITS Services Overview — Corporate Card Carousel
-   Features: Bold generative SVG patterns with navy backgrounds,
-   professional cards, smooth scroll, clean typography
+   Features: Elegant generative SVG patterns with higher opacity,
+   professional cards, staggered bottom-up animation
    ══════════════════════════════════════════════════════════════ */
 
-/* Animation Variants */
+/* Animation Variants - Staggered bottom-up reveal */
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.12,
+      delayChildren: 0.15,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { 
+    opacity: 0, 
+    y: 60,
+  },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.7,
       ease: [0.16, 1, 0.3, 1],
     },
   },
 };
 
-/* ── Bold SVG Pattern Components with Navy Backgrounds ── */
+/* ── Elegant SVG Pattern Components with higher opacity ── */
 
-// Pattern 1: Concentric Rings
-function ConcentricRings() {
+// Pattern 1: Concentric Circles
+function ConcentricCircles() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {[70, 52, 36, 20].map((r, i) => (
+      <defs>
+        <radialGradient id="cc-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="90" fill="url(#cc-grad)" />
+      {[80, 60, 40, 20].map((r, i) => (
         <circle
           key={i}
           cx="100"
@@ -57,16 +66,11 @@ function ConcentricRings() {
           r={r}
           fill="none"
           stroke="#E8713A"
-          strokeWidth={3 - i * 0.5}
-          opacity={1 - i * 0.2}
+          strokeWidth={1.5}
+          opacity={0.5 - i * 0.08}
         />
       ))}
-      <circle cx="100" cy="100" r="8" fill="#E8713A" />
-      {/* Corner accents */}
-      <circle cx="30" cy="30" r="3" fill="#E8713A" opacity="0.4" />
-      <circle cx="170" cy="30" r="3" fill="#E8713A" opacity="0.4" />
-      <circle cx="30" cy="170" r="3" fill="#E8713A" opacity="0.4" />
-      <circle cx="170" cy="170" r="3" fill="#E8713A" opacity="0.4" />
+      <circle cx="100" cy="100" r="6" fill="#E8713A" opacity="0.7" />
     </svg>
   );
 }
@@ -75,176 +79,117 @@ function ConcentricRings() {
 function GridNetwork() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {/* Grid lines */}
-      {[50, 100, 150].map((pos, i) => (
+      <defs>
+        <linearGradient id="gn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
+        </linearGradient>
+      </defs>
+      <rect x="20" y="20" width="160" height="160" fill="url(#gn-grad)" rx="4" />
+      {[60, 100, 140].map((pos, i) => (
         <g key={i}>
-          <line x1={pos} y1="30" x2={pos} y2="170" stroke="#E8713A" strokeWidth="1" opacity="0.3" />
-          <line x1="30" y1={pos} x2="170" y2={pos} stroke="#E8713A" strokeWidth="1" opacity="0.3" />
+          <line x1={pos} y1="20" x2={pos} y2="180" stroke="#E8713A" strokeWidth="1" opacity="0.35" />
+          <line x1="20" y1={pos} x2="180" y2={pos} stroke="#E8713A" strokeWidth="1" opacity="0.35" />
         </g>
       ))}
-      {/* Intersection nodes */}
-      {[50, 100, 150].map((x, i) =>
-        [50, 100, 150].map((y, j) => (
-          <circle
-            key={`${i}-${j}`}
-            cx={x}
-            cy={y}
-            r={x === 100 && y === 100 ? 8 : 4}
-            fill="#E8713A"
-            opacity={x === 100 && y === 100 ? 1 : 0.6}
-          />
+      {[60, 100, 140].map((x, i) =>
+        [60, 100, 140].map((y, j) => (
+          <circle key={`${i}-${j}`} cx={x} cy={y} r={x === 100 && y === 100 ? 5 : 3} fill="#E8713A" opacity={0.6} />
         ))
       )}
-      {/* Connecting diagonals */}
-      <line x1="50" y1="50" x2="100" y2="100" stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
-      <line x1="150" y1="50" x2="100" y2="100" stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
-      <line x1="50" y1="150" x2="100" y2="100" stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
-      <line x1="150" y1="150" x2="100" y2="100" stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
     </svg>
   );
 }
 
-// Pattern 3: Hexagon Core
-function HexagonCore() {
+// Pattern 3: Hexagon Mesh
+function HexagonMesh() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {/* Outer hexagon */}
-      <polygon 
-        points="100,25 165,62.5 165,137.5 100,175 35,137.5 35,62.5" 
-        fill="none" 
-        stroke="#E8713A" 
-        strokeWidth="2"
-        opacity="0.5"
-      />
-      {/* Middle hexagon */}
-      <polygon 
-        points="100,45 150,75 150,125 100,155 50,125 50,75" 
-        fill="none" 
-        stroke="#E8713A" 
-        strokeWidth="2.5"
-        opacity="0.7"
-      />
-      {/* Inner hexagon - filled */}
-      <polygon 
-        points="100,70 125,85 125,115 100,130 75,115 75,85" 
-        fill="#E8713A" 
-        opacity="0.3"
-      />
-      <polygon 
-        points="100,70 125,85 125,115 100,130 75,115 75,85" 
-        fill="none" 
-        stroke="#E8713A" 
-        strokeWidth="2"
-      />
-      {/* Center dot */}
-      <circle cx="100" cy="100" r="6" fill="#E8713A" />
-      {/* Vertex dots */}
-      <circle cx="100" cy="25" r="4" fill="#E8713A" opacity="0.6" />
-      <circle cx="165" cy="62.5" r="4" fill="#E8713A" opacity="0.6" />
-      <circle cx="165" cy="137.5" r="4" fill="#E8713A" opacity="0.6" />
-      <circle cx="100" cy="175" r="4" fill="#E8713A" opacity="0.6" />
-      <circle cx="35" cy="137.5" r="4" fill="#E8713A" opacity="0.6" />
-      <circle cx="35" cy="62.5" r="4" fill="#E8713A" opacity="0.6" />
+      <defs>
+        <linearGradient id="hm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+        </linearGradient>
+      </defs>
+      <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="url(#hm-grad)" />
+      <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.45" />
+      <polygon points="100,50 145,75 145,125 100,150 55,125 55,75" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.35" />
+      <polygon points="100,75 122,88 122,112 100,125 78,112 78,88" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.25" />
+      <circle cx="100" cy="100" r="4" fill="#E8713A" opacity="0.6" />
     </svg>
   );
 }
 
-// Pattern 4: Radial Burst
-function RadialBurst() {
+// Pattern 4: Radial Lines
+function RadialLines() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {/* Radial lines */}
-      {Array.from({ length: 16 }).map((_, i) => {
-        const angle = (i * 22.5 * Math.PI) / 180;
-        const x2 = 100 + Math.cos(angle) * 75;
-        const y2 = 100 + Math.sin(angle) * 75;
+      <defs>
+        <radialGradient id="rl-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="85" fill="url(#rl-grad)" />
+      {Array.from({ length: 12 }).map((_, i) => {
+        const angle = (i * 30 * Math.PI) / 180;
+        const x2 = 100 + Math.cos(angle) * 80;
+        const y2 = 100 + Math.sin(angle) * 80;
         return (
-          <line
-            key={i}
-            x1="100"
-            y1="100"
-            x2={x2}
-            y2={y2}
-            stroke="#E8713A"
-            strokeWidth={i % 4 === 0 ? 2.5 : 1}
-            opacity={i % 4 === 0 ? 0.9 : 0.4}
-          />
+          <line key={i} x1="100" y1="100" x2={x2} y2={y2} stroke="#E8713A" strokeWidth="1.5" opacity={0.35} />
         );
       })}
-      {/* Concentric rings */}
-      <circle cx="100" cy="100" r="75" fill="none" stroke="#E8713A" strokeWidth="1" opacity="0.3" />
-      <circle cx="100" cy="100" r="50" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
-      <circle cx="100" cy="100" r="25" fill="none" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      {/* Center */}
-      <circle cx="100" cy="100" r="10" fill="#E8713A" />
+      <circle cx="100" cy="100" r="60" fill="none" stroke="#E8713A" strokeWidth="1" opacity="0.25" />
+      <circle cx="100" cy="100" r="35" fill="none" stroke="#E8713A" strokeWidth="1" opacity="0.35" />
+      <circle cx="100" cy="100" r="6" fill="#E8713A" opacity="0.6" />
     </svg>
   );
 }
 
-// Pattern 5: Wave Layers
-function WaveLayers() {
+// Pattern 5: Wave Lines
+function WaveLines() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {/* Stacked wave paths */}
-      <path
-        d="M 0 70 Q 50 50 100 70 T 200 70"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="2"
-        opacity="0.4"
-      />
-      <path
-        d="M 0 90 Q 50 65 100 90 T 200 90"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="2.5"
-        opacity="0.6"
-      />
-      <path
-        d="M 0 110 Q 50 80 100 110 T 200 110"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="3"
-        opacity="0.9"
-      />
-      <path
-        d="M 0 130 Q 50 105 100 130 T 200 130"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="2.5"
-        opacity="0.6"
-      />
-      <path
-        d="M 0 150 Q 50 130 100 150 T 200 150"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="2"
-        opacity="0.4"
-      />
-      {/* Accent dots */}
-      <circle cx="100" cy="110" r="6" fill="#E8713A" />
-      <circle cx="50" cy="90" r="3" fill="#E8713A" opacity="0.7" />
-      <circle cx="150" cy="130" r="3" fill="#E8713A" opacity="0.7" />
+      <defs>
+        <linearGradient id="wl-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="50%" stopColor="#E8713A" stopOpacity="0.08" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.15" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="200" height="200" fill="url(#wl-grad)" />
+      {[50, 80, 110, 140].map((y, i) => (
+        <path
+          key={i}
+          d={`M 0 ${y} Q 50 ${y - 20 + i * 5} 100 ${y} T 200 ${y}`}
+          fill="none"
+          stroke="#E8713A"
+          strokeWidth={1.5}
+          opacity={0.4 - i * 0.05}
+        />
+      ))}
+      <circle cx="100" cy="100" r="4" fill="#E8713A" opacity="0.5" />
     </svg>
   );
 }
 
-// Pattern 6: Dot Matrix Gradient
-function DotMatrixGradient() {
+// Pattern 6: Dot Matrix
+function DotMatrix() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {Array.from({ length: 9 }).map((_, row) =>
-        Array.from({ length: 9 }).map((_, col) => {
-          const x = 24 + col * 19;
-          const y = 24 + row * 19;
+      <defs>
+        <radialGradient id="dm-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="90" fill="url(#dm-grad)" />
+      {Array.from({ length: 7 }).map((_, row) =>
+        Array.from({ length: 7 }).map((_, col) => {
+          const x = 35 + col * 22;
+          const y = 35 + row * 22;
           const distFromCenter = Math.sqrt(Math.pow(x - 100, 2) + Math.pow(y - 100, 2));
-          const size = Math.max(2.5, 7 - distFromCenter / 20);
-          const opacity = Math.max(0.3, 1 - distFromCenter / 100);
+          const size = Math.max(2, 4.5 - distFromCenter / 30);
           return (
             <circle
               key={`${row}-${col}`}
@@ -252,7 +197,7 @@ function DotMatrixGradient() {
               cy={y}
               r={size}
               fill="#E8713A"
-              opacity={opacity}
+              opacity={0.55 - distFromCenter / 250}
             />
           );
         })
@@ -261,146 +206,97 @@ function DotMatrixGradient() {
   );
 }
 
-// Pattern 7: Rotating Squares
-function RotatingSquares() {
+// Pattern 7: Nested Squares
+function NestedSquares() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {/* Rotated squares */}
-      <rect
-        x="40" y="40" width="120" height="120"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="1.5"
-        opacity="0.3"
-      />
-      <rect
-        x="40" y="40" width="120" height="120"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="2"
-        opacity="0.5"
-        transform="rotate(15 100 100)"
-      />
-      <rect
-        x="40" y="40" width="120" height="120"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="2.5"
-        opacity="0.7"
-        transform="rotate(30 100 100)"
-      />
-      <rect
-        x="40" y="40" width="120" height="120"
-        fill="none"
-        stroke="#E8713A"
-        strokeWidth="3"
-        opacity="0.9"
-        transform="rotate(45 100 100)"
-      />
-      {/* Inner square filled */}
-      <rect
-        x="70" y="70" width="60" height="60"
-        fill="#E8713A"
-        opacity="0.2"
-        transform="rotate(45 100 100)"
-      />
-      {/* Center dot */}
-      <circle cx="100" cy="100" r="8" fill="#E8713A" />
+      <defs>
+        <linearGradient id="ns-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+        </linearGradient>
+      </defs>
+      <rect x="25" y="25" width="150" height="150" fill="url(#ns-grad)" rx="4" />
+      {[0, 20, 40, 60].map((offset, i) => (
+        <rect
+          key={i}
+          x={25 + offset}
+          y={25 + offset}
+          width={150 - offset * 2}
+          height={150 - offset * 2}
+          fill="none"
+          stroke="#E8713A"
+          strokeWidth={1.5}
+          opacity={0.45 - i * 0.08}
+          rx={4 - i}
+        />
+      ))}
+      <circle cx="100" cy="100" r="5" fill="#E8713A" opacity="0.55" />
     </svg>
   );
 }
 
-// Pattern 8: Triangle Prism
-function TrianglePrism() {
+// Pattern 8: Triangle Mesh
+function TriangleMesh() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
-      {/* Outer triangle */}
-      <polygon 
-        points="100,20 175,160 25,160" 
-        fill="none" 
-        stroke="#E8713A" 
-        strokeWidth="2"
-        opacity="0.4"
-      />
-      {/* Middle triangle */}
-      <polygon 
-        points="100,45 155,145 45,145" 
-        fill="none" 
-        stroke="#E8713A" 
-        strokeWidth="2.5"
-        opacity="0.6"
-      />
-      {/* Inner triangle filled */}
-      <polygon 
-        points="100,70 135,130 65,130" 
-        fill="#E8713A"
-        opacity="0.25"
-      />
-      <polygon 
-        points="100,70 135,130 65,130" 
-        fill="none" 
-        stroke="#E8713A" 
-        strokeWidth="3"
-        opacity="0.9"
-      />
-      {/* Vertex dots */}
-      <circle cx="100" cy="20" r="5" fill="#E8713A" opacity="0.7" />
-      <circle cx="175" cy="160" r="5" fill="#E8713A" opacity="0.7" />
-      <circle cx="25" cy="160" r="5" fill="#E8713A" opacity="0.7" />
-      {/* Center dot */}
-      <circle cx="100" cy="110" r="6" fill="#E8713A" />
+      <defs>
+        <linearGradient id="tm-grad" x1="50%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+        </linearGradient>
+      </defs>
+      <polygon points="100,15 185,170 15,170" fill="url(#tm-grad)" />
+      <polygon points="100,15 185,170 15,170" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <polygon points="100,50 155,145 45,145" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.3" />
+      <polygon points="100,80 130,125 70,125" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.2" />
+      <circle cx="100" cy="110" r="4" fill="#E8713A" opacity="0.55" />
     </svg>
   );
 }
 
-// Pattern 9: Network Constellation
-function NetworkConstellation() {
+// Pattern 9: Connection Nodes
+function ConnectionNodes() {
   return (
     <svg viewBox="0 0 200 200" className="w-full h-full">
-      <rect width="200" height="200" fill="#0B1628" />
+      <defs>
+        <radialGradient id="cn-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="85" fill="url(#cn-grad)" />
       {/* Connection lines */}
-      <line x1="100" y1="100" x2="40" y2="40" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      <line x1="100" y1="100" x2="160" y2="40" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      <line x1="100" y1="100" x2="40" y2="160" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      <line x1="100" y1="100" x2="160" y2="160" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      <line x1="100" y1="100" x2="100" y2="30" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      <line x1="100" y1="100" x2="100" y2="170" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      <line x1="100" y1="100" x2="30" y2="100" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      <line x1="100" y1="100" x2="170" y2="100" stroke="#E8713A" strokeWidth="2" opacity="0.6" />
-      {/* Secondary connections */}
-      <line x1="40" y1="40" x2="100" y2="30" stroke="#E8713A" strokeWidth="1" opacity="0.3" />
-      <line x1="160" y1="40" x2="100" y2="30" stroke="#E8713A" strokeWidth="1" opacity="0.3" />
-      <line x1="40" y1="160" x2="100" y2="170" stroke="#E8713A" strokeWidth="1" opacity="0.3" />
-      <line x1="160" y1="160" x2="100" y2="170" stroke="#E8713A" strokeWidth="1" opacity="0.3" />
+      <line x1="100" y1="100" x2="50" y2="50" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <line x1="100" y1="100" x2="150" y2="50" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <line x1="100" y1="100" x2="50" y2="150" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <line x1="100" y1="100" x2="150" y2="150" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <line x1="100" y1="100" x2="100" y2="35" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <line x1="100" y1="100" x2="100" y2="165" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
       {/* Outer nodes */}
-      <circle cx="40" cy="40" r="6" fill="#E8713A" opacity="0.8" />
-      <circle cx="160" cy="40" r="6" fill="#E8713A" opacity="0.8" />
-      <circle cx="40" cy="160" r="6" fill="#E8713A" opacity="0.8" />
-      <circle cx="160" cy="160" r="6" fill="#E8713A" opacity="0.8" />
-      <circle cx="100" cy="30" r="5" fill="#E8713A" opacity="0.7" />
-      <circle cx="100" cy="170" r="5" fill="#E8713A" opacity="0.7" />
-      <circle cx="30" cy="100" r="5" fill="#E8713A" opacity="0.7" />
-      <circle cx="170" cy="100" r="5" fill="#E8713A" opacity="0.7" />
+      <circle cx="50" cy="50" r="6" fill="#E8713A" opacity="0.55" />
+      <circle cx="150" cy="50" r="6" fill="#E8713A" opacity="0.55" />
+      <circle cx="50" cy="150" r="6" fill="#E8713A" opacity="0.55" />
+      <circle cx="150" cy="150" r="6" fill="#E8713A" opacity="0.55" />
+      <circle cx="100" cy="35" r="5" fill="#E8713A" opacity="0.45" />
+      <circle cx="100" cy="165" r="5" fill="#E8713A" opacity="0.45" />
       {/* Center node */}
-      <circle cx="100" cy="100" r="12" fill="#E8713A" />
-      <circle cx="100" cy="100" r="6" fill="#0B1628" />
+      <circle cx="100" cy="100" r="8" fill="#E8713A" opacity="0.65" />
     </svg>
   );
 }
 
 // Pattern mapping by service index
 const patternComponents = [
-  ConcentricRings,
+  ConcentricCircles,
   GridNetwork,
-  HexagonCore,
-  RadialBurst,
-  WaveLayers,
-  DotMatrixGradient,
-  RotatingSquares,
-  TrianglePrism,
-  NetworkConstellation,
+  HexagonMesh,
+  RadialLines,
+  WaveLines,
+  DotMatrix,
+  NestedSquares,
+  TriangleMesh,
+  ConnectionNodes,
 ];
 
 export default function ServicesOverview() {
@@ -509,20 +405,13 @@ export default function ServicesOverview() {
               <motion.div
                 key={service.slug}
                 variants={cardVariants}
-                custom={index}
                 className="group flex-shrink-0 w-[85vw] sm:w-[360px] md:w-[380px] snap-start"
               >
-                <div className="relative rounded-xl border border-border bg-background h-full min-h-[440px] flex flex-col overflow-hidden shadow-sm transition-all duration-400 hover:shadow-xl hover:shadow-black/[0.08] hover:border-gray-300">
-                  {/* Pattern visual container - now with navy background */}
-                  <div className="relative h-48 overflow-hidden">
+                <div className="relative rounded-xl border border-border bg-background h-full min-h-[420px] flex flex-col overflow-hidden shadow-sm transition-all duration-400 hover:shadow-lg hover:shadow-black/[0.06] hover:border-gray-200">
+                  {/* Pattern visual container */}
+                  <div className="relative h-44 bg-gray-50 overflow-hidden">
                     <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
                       <PatternComponent />
-                    </div>
-                    {/* Service number badge */}
-                    <div className="absolute top-4 left-4 flex items-center justify-center w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                      <span className="text-xs font-bold text-white">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
                     </div>
                   </div>
 
@@ -556,13 +445,13 @@ export default function ServicesOverview() {
                       )}
                     </div>
 
-                    {/* Bottom CTA */}
+                    {/* CTA Link */}
                     <Link
                       href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors group/cta"
+                      className="group/link inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors"
                     >
-                      Learn more
-                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                      <span>Learn more</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
                     </Link>
                   </div>
                 </div>
@@ -572,14 +461,12 @@ export default function ServicesOverview() {
         </motion.div>
       </div>
 
-      {/* Mobile scroll indicator */}
-      <div className="md:hidden flex justify-center mt-6 gap-1.5">
-        {services.slice(0, 5).map((_, i) => (
-          <div
-            key={i}
-            className="w-1.5 h-1.5 rounded-full bg-gray-300 transition-colors"
-          />
-        ))}
+      {/* Mobile scroll hint */}
+      <div className="md:hidden flex justify-center mt-6">
+        <div className="flex items-center gap-1.5 text-xs text-foreground-subtle">
+          <span>Scroll to explore</span>
+          <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
+        </div>
       </div>
     </section>
   );
