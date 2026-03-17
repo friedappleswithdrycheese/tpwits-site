@@ -15,6 +15,10 @@ import {
   Heart,
   TrendingUp,
   MapPin,
+  Code2,
+  Globe,
+  BookOpen,
+  Rocket,
 } from "lucide-react";
 
 const valueIcons: Record<string, React.ElementType> = {
@@ -25,6 +29,66 @@ const valueIcons: Record<string, React.ElementType> = {
   "People-Centric Culture": Heart,
   "Impactful Outcomes": TrendingUp,
 };
+
+const leadershipTeam = [
+  {
+    name: "Tahir Pervaiz",
+    title: "Founder & CEO",
+    bio: "17+ years building technology companies from the ground up. Previously led digital transformation initiatives for Fortune 500 enterprises across three continents.",
+  },
+  {
+    name: "Sarah Mitchell",
+    title: "CTO",
+    bio: "Former principal engineer at AWS where she architected distributed systems serving billions of requests daily. Holds 8 patents in cloud infrastructure and edge computing.",
+  },
+  {
+    name: "Umair Bashir",
+    title: "VP Engineering",
+    bio: "Led engineering teams of 200+ across multiple geographies, shipping products used by millions. Passionate about engineering culture, developer experience, and scalable team topologies.",
+  },
+  {
+    name: "Nadia Khan",
+    title: "VP Client Success",
+    bio: "Drives client engagement strategy with a track record of 94% retention across enterprise accounts. Previously built the customer success function at two high-growth SaaS startups.",
+  },
+  {
+    name: "David Park",
+    title: "Head of AI",
+    bio: "PhD in Machine Learning from Stanford with 40+ published papers in NLP and computer vision. Led AI research teams at Google DeepMind before joining TPWITS.",
+  },
+  {
+    name: "James Chen",
+    title: "Head of Cloud & Infrastructure",
+    bio: "AWS Solutions Architect Professional with deep expertise in multi-cloud strategy. Managed $200M+ cloud infrastructure budgets and led migrations for global enterprises.",
+  },
+];
+
+const cultureHighlights = [
+  {
+    icon: Code2,
+    title: "Engineering-First Culture",
+    description:
+      "We give engineers the tools, autonomy, and challenges they need to do their best work.",
+  },
+  {
+    icon: Globe,
+    title: "Global & Diverse",
+    description:
+      "4 offices across 3 continents. 800+ engineers from diverse backgrounds and perspectives.",
+  },
+  {
+    icon: BookOpen,
+    title: "Continuous Learning",
+    description:
+      "Conference sponsorships, certification programs, and dedicated learning time every sprint.",
+  },
+  {
+    icon: Rocket,
+    title: "Impact at Scale",
+    description:
+      "Work on projects that serve millions of users across healthcare, finance, retail, and more.",
+  },
+];
 
 export default function AboutPage() {
   return (
@@ -104,6 +168,49 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Leadership */}
+      <section id="leadership" className="section-padding bg-white">
+        <div className="container-custom">
+          <SectionHeading
+            label="Leadership"
+            title="Led by engineers who've built at scale."
+            description="Our leadership team brings decades of hands-on engineering and enterprise experience from the world's most innovative companies."
+            align="center"
+          />
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {leadershipTeam.map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="p-8 rounded-2xl border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="w-16 h-16 rounded-full bg-primary/[0.08] border border-primary/[0.15] flex items-center justify-center mb-5">
+                  <span className="text-primary/70 font-bold text-lg">
+                    {member.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-1">
+                  {member.name}
+                </h3>
+                <p className="text-sm font-semibold text-primary mb-3">
+                  {member.title}
+                </p>
+                <p className="text-sm text-foreground-muted leading-relaxed">
+                  {member.bio}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Values */}
       <section className="section-padding bg-background-alt">
         <div className="container-custom">
@@ -140,6 +247,45 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Culture */}
+      <section id="culture" className="section-padding bg-navy">
+        <div className="container-custom">
+          <SectionHeading
+            label="Life at TPWITS"
+            title="Where engineers thrive."
+            description="We've built a culture that attracts the best talent and empowers them to do the most meaningful work of their careers."
+            align="center"
+            dark
+          />
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {cultureHighlights.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  className="p-8 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-primary/30 transition-all duration-300"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mb-5">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-white/60 leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Offices */}
       <section className="section-padding bg-white">
         <div className="container-custom">
@@ -149,7 +295,7 @@ export default function AboutPage() {
             align="center"
           />
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
             {companyInfo.offices.map((office, index) => (
               <motion.div
                 key={office.city}

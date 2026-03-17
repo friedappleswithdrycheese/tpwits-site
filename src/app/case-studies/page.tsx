@@ -48,7 +48,7 @@ export default function CaseStudiesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="group bg-white rounded-2xl overflow-hidden border border-border hover:border-transparent hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 hover:-translate-y-1 h-full">
+                <Link href={`/case-studies/${study.slug}`} className="group bg-white rounded-2xl overflow-hidden border border-border hover:border-transparent hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 hover:-translate-y-1 h-full block">
                   {/* Image */}
                   <div className="relative h-56 bg-gradient-to-br from-dark to-dark-secondary overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
@@ -104,7 +104,7 @@ export default function CaseStudiesPage() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </div>

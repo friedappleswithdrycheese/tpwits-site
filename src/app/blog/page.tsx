@@ -1,75 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { blogPosts } from "@/data/blog";
 
 export const metadata: Metadata = {
   title: "Blog | TPWITS",
   description:
     "Insights, thought leadership, and technical resources from the TPWITS team. Stay informed on AI, cloud, cybersecurity, Web3, and digital transformation trends.",
 };
-
-const blogPosts = [
-  {
-    title: "How AI Agents Are Redefining Enterprise Automation",
-    excerpt:
-      "Explore how autonomous AI agents are moving beyond simple chatbots to orchestrate complex workflows, make real-time decisions, and transform business operations at scale.",
-    category: "AI",
-    date: "Feb 28, 2026",
-    readTime: "8 min read",
-    gradient: "linear-gradient(135deg, #E8713A 0%, #F5A44C 100%)",
-    slug: "ai-agents-enterprise-automation",
-  },
-  {
-    title: "Cloud Cost Optimization: A FinOps Playbook for 2026",
-    excerpt:
-      "Cloud spending continues to grow unchecked for many organizations. Learn proven FinOps strategies to reduce your cloud bill by up to 40% without sacrificing performance.",
-    category: "Cloud",
-    date: "Feb 15, 2026",
-    readTime: "6 min read",
-    gradient: "linear-gradient(135deg, #262626 0%, #171717 100%)",
-    slug: "cloud-cost-optimization-finops",
-  },
-  {
-    title: "Zero Trust Architecture: Beyond the Buzzword",
-    excerpt:
-      "Zero trust is more than a marketing term. We break down the practical steps to implement a zero trust security model across your organization, from identity to network.",
-    category: "Cybersecurity",
-    date: "Feb 3, 2026",
-    readTime: "10 min read",
-    gradient: "linear-gradient(135deg, #262626 0%, #171717 100%)",
-    slug: "zero-trust-architecture-guide",
-  },
-  {
-    title: "Building Scalable dApps: Lessons from Production",
-    excerpt:
-      "Real-world insights from deploying decentralized applications at scale, including smart contract optimization, gas efficiency, and cross-chain interoperability patterns.",
-    category: "Web3",
-    date: "Jan 22, 2026",
-    readTime: "12 min read",
-    gradient: "linear-gradient(135deg, #262626 0%, #171717 100%)",
-    slug: "building-scalable-dapps",
-  },
-  {
-    title: "The Product Engineering Mindset: Ship Faster, Learn Sooner",
-    excerpt:
-      "Why traditional software development fails modern product teams and how adopting a product engineering mindset accelerates delivery, reduces waste, and drives better outcomes.",
-    category: "Engineering",
-    date: "Jan 10, 2026",
-    readTime: "7 min read",
-    gradient: "linear-gradient(135deg, #E8713A 0%, #F5A44C 100%)",
-    slug: "product-engineering-mindset",
-  },
-  {
-    title: "MLOps Maturity Model: From Notebooks to Production AI",
-    excerpt:
-      "A practical framework for evaluating and advancing your organization's ML operations maturity, from ad-hoc experimentation to fully automated, production-grade AI pipelines.",
-    category: "AI",
-    date: "Dec 28, 2025",
-    readTime: "9 min read",
-    gradient: "linear-gradient(135deg, #262626 0%, #171717 100%)",
-    slug: "mlops-maturity-model",
-  },
-];
 
 export default function BlogPage() {
   return (

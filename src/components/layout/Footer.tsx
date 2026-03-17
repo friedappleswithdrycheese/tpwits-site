@@ -154,6 +154,11 @@ export default function Footer() {
                   country: "UAE",
                   address: "Business Bay, Executive Tower, Dubai",
                 },
+                {
+                  city: "London",
+                  country: "UK",
+                  address: "15 Finsbury Square, London EC2A 1AH",
+                },
               ].map(({ city, country, address }) => (
                 <div key={city}>
                   <h5 className="text-sm font-semibold text-white mb-1">

@@ -101,12 +101,12 @@ export const navigation: NavItem[] = [
   },
   {
     label: "Resources",
-    href: "/resources",
+    href: "/insights",
     children: [
       { label: "Case Studies", href: "/case-studies" },
       { label: "Blog", href: "/blog" },
-      { label: "Whitepapers", href: "/resources#whitepapers" },
-      { label: "Webinars", href: "/resources#webinars" },
+      { label: "Whitepapers", href: "/insights" },
+      { label: "Webinars", href: "/insights" },
     ],
   },
   {
