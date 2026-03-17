@@ -13,25 +13,10 @@ import {
 } from "lucide-react";
 
 /* ══════════════════════════════════════════════════════════════
-   TPWITS Services Overview — Premium Card Carousel
-   Features: Glass-morphism cards, animated shapes, smooth scroll,
-   hover reveals, gradient overlays
+   TPWITS Services Overview — Corporate Card Carousel
+   Features: Consistent generative SVG patterns, professional cards,
+   smooth scroll, clean typography
    ══════════════════════════════════════════════════════════════ */
-
-/* Shape filter for orange color conversion */
-const FILTER = "sepia(1) saturate(2.5) hue-rotate(-10deg) brightness(1.05)";
-
-const shapeConfig: Record<string, string> = {
-  Brain: "/images/services/shape-star.webp",
-  Code2: "/images/services/shape-ring.webp",
-  Cloud: "/images/services/shape-spheres.webp",
-  Blocks: "/images/services/shape-arc.webp",
-  Shield: "/images/services/shape-torus.png",
-  Compass: "/images/services/shape-dome.png",
-  Gauge: "/images/services/shape-chain.png",
-  Puzzle: "/images/services/shape-ripple.png",
-  Rocket: "/images/services/shape-cube.png",
-};
 
 /* Animation Variants */
 const containerVariants = {
@@ -56,6 +41,273 @@ const cardVariants = {
     },
   },
 };
+
+/* ── Consistent SVG Pattern Components ── */
+
+// Pattern 1: Concentric Circles
+function ConcentricCircles() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.02" />
+        </linearGradient>
+      </defs>
+      {[80, 60, 40, 20].map((r, i) => (
+        <circle
+          key={i}
+          cx="100"
+          cy="100"
+          r={r}
+          fill="none"
+          stroke="url(#circleGrad)"
+          strokeWidth={2 - i * 0.3}
+          opacity={1 - i * 0.15}
+        />
+      ))}
+      <circle cx="100" cy="100" r="6" fill="#E8713A" opacity="0.6" />
+    </svg>
+  );
+}
+
+// Pattern 2: Grid Network
+function GridNetwork() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+        </linearGradient>
+      </defs>
+      {/* Grid lines */}
+      {[40, 80, 120, 160].map((pos, i) => (
+        <g key={i}>
+          <line x1={pos} y1="20" x2={pos} y2="180" stroke="url(#gridGrad)" strokeWidth="1" />
+          <line x1="20" y1={pos} x2="180" y2={pos} stroke="url(#gridGrad)" strokeWidth="1" />
+        </g>
+      ))}
+      {/* Nodes */}
+      {[40, 80, 120, 160].map((x, i) =>
+        [40, 80, 120, 160].map((y, j) => (
+          <circle
+            key={`${i}-${j}`}
+            cx={x}
+            cy={y}
+            r={(i + j) % 3 === 0 ? 4 : 2}
+            fill="#E8713A"
+            opacity={(i + j) % 3 === 0 ? 0.5 : 0.2}
+          />
+        ))
+      )}
+    </svg>
+  );
+}
+
+// Pattern 3: Hexagon Mesh
+function HexagonMesh() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.02" />
+        </linearGradient>
+      </defs>
+      {/* Hexagon paths */}
+      <path d="M100 30 L150 60 L150 120 L100 150 L50 120 L50 60 Z" fill="none" stroke="url(#hexGrad)" strokeWidth="2" />
+      <path d="M100 50 L135 72 L135 108 L100 130 L65 108 L65 72 Z" fill="none" stroke="url(#hexGrad)" strokeWidth="1.5" />
+      <path d="M100 70 L120 84 L120 96 L100 110 L80 96 L80 84 Z" fill="none" stroke="url(#hexGrad)" strokeWidth="1" />
+      <circle cx="100" cy="90" r="5" fill="#E8713A" opacity="0.5" />
+      {/* Corner accents */}
+      <circle cx="100" cy="30" r="3" fill="#E8713A" opacity="0.4" />
+      <circle cx="150" cy="60" r="3" fill="#E8713A" opacity="0.3" />
+      <circle cx="150" cy="120" r="3" fill="#E8713A" opacity="0.3" />
+      <circle cx="100" cy="150" r="3" fill="#E8713A" opacity="0.4" />
+      <circle cx="50" cy="120" r="3" fill="#E8713A" opacity="0.3" />
+      <circle cx="50" cy="60" r="3" fill="#E8713A" opacity="0.3" />
+    </svg>
+  );
+}
+
+// Pattern 4: Radial Lines
+function RadialLines() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="radialGrad" x1="50%" y1="50%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
+        </linearGradient>
+      </defs>
+      {Array.from({ length: 12 }).map((_, i) => {
+        const angle = (i * 30 * Math.PI) / 180;
+        const x2 = 100 + Math.cos(angle) * 80;
+        const y2 = 100 + Math.sin(angle) * 80;
+        return (
+          <line
+            key={i}
+            x1="100"
+            y1="100"
+            x2={x2}
+            y2={y2}
+            stroke="url(#radialGrad)"
+            strokeWidth={i % 3 === 0 ? 2 : 1}
+            opacity={i % 3 === 0 ? 0.6 : 0.3}
+          />
+        );
+      })}
+      <circle cx="100" cy="100" r="8" fill="none" stroke="#E8713A" strokeWidth="2" opacity="0.4" />
+      <circle cx="100" cy="100" r="4" fill="#E8713A" opacity="0.6" />
+    </svg>
+  );
+}
+
+// Pattern 5: Wave Lines
+function WaveLines() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.02" />
+          <stop offset="50%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.02" />
+        </linearGradient>
+      </defs>
+      {[60, 80, 100, 120, 140].map((y, i) => (
+        <path
+          key={i}
+          d={`M 20 ${y} Q 60 ${y - 15 + i * 3} 100 ${y} T 180 ${y}`}
+          fill="none"
+          stroke="url(#waveGrad)"
+          strokeWidth={2 - i * 0.2}
+          opacity={1 - i * 0.12}
+        />
+      ))}
+      <circle cx="100" cy="100" r="5" fill="#E8713A" opacity="0.5" />
+    </svg>
+  );
+}
+
+// Pattern 6: Dot Matrix
+function DotMatrix() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      {Array.from({ length: 7 }).map((_, row) =>
+        Array.from({ length: 7 }).map((_, col) => {
+          const x = 35 + col * 22;
+          const y = 35 + row * 22;
+          const distFromCenter = Math.sqrt(Math.pow(x - 100, 2) + Math.pow(y - 100, 2));
+          const size = Math.max(2, 5 - distFromCenter / 30);
+          const opacity = Math.max(0.15, 0.6 - distFromCenter / 120);
+          return (
+            <circle
+              key={`${row}-${col}`}
+              cx={x}
+              cy={y}
+              r={size}
+              fill="#E8713A"
+              opacity={opacity}
+            />
+          );
+        })
+      )}
+    </svg>
+  );
+}
+
+// Pattern 7: Nested Squares
+function NestedSquares() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="squareGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.02" />
+        </linearGradient>
+      </defs>
+      {[70, 50, 30, 15].map((size, i) => (
+        <rect
+          key={i}
+          x={100 - size}
+          y={100 - size}
+          width={size * 2}
+          height={size * 2}
+          fill="none"
+          stroke="url(#squareGrad)"
+          strokeWidth={2 - i * 0.3}
+          opacity={1 - i * 0.15}
+          transform={`rotate(${i * 15} 100 100)`}
+        />
+      ))}
+      <circle cx="100" cy="100" r="5" fill="#E8713A" opacity="0.5" />
+    </svg>
+  );
+}
+
+// Pattern 8: Triangle Mesh
+function TriangleMesh() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="triGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+        </linearGradient>
+      </defs>
+      <polygon points="100,30 160,140 40,140" fill="none" stroke="url(#triGrad)" strokeWidth="2" />
+      <polygon points="100,50 145,130 55,130" fill="none" stroke="url(#triGrad)" strokeWidth="1.5" />
+      <polygon points="100,70 130,120 70,120" fill="none" stroke="url(#triGrad)" strokeWidth="1" />
+      <circle cx="100" cy="30" r="3" fill="#E8713A" opacity="0.4" />
+      <circle cx="160" cy="140" r="3" fill="#E8713A" opacity="0.3" />
+      <circle cx="40" cy="140" r="3" fill="#E8713A" opacity="0.3" />
+      <circle cx="100" cy="95" r="5" fill="#E8713A" opacity="0.5" />
+    </svg>
+  );
+}
+
+// Pattern 9: Connection Nodes
+function ConnectionNodes() {
+  return (
+    <svg viewBox="0 0 200 200" className="w-full h-full">
+      <defs>
+        <linearGradient id="connGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
+        </linearGradient>
+      </defs>
+      {/* Connection lines */}
+      <line x1="100" y1="100" x2="50" y2="50" stroke="url(#connGrad)" strokeWidth="1.5" />
+      <line x1="100" y1="100" x2="150" y2="50" stroke="url(#connGrad)" strokeWidth="1.5" />
+      <line x1="100" y1="100" x2="50" y2="150" stroke="url(#connGrad)" strokeWidth="1.5" />
+      <line x1="100" y1="100" x2="150" y2="150" stroke="url(#connGrad)" strokeWidth="1.5" />
+      <line x1="100" y1="100" x2="100" y2="35" stroke="url(#connGrad)" strokeWidth="1.5" />
+      <line x1="100" y1="100" x2="100" y2="165" stroke="url(#connGrad)" strokeWidth="1.5" />
+      {/* Nodes */}
+      <circle cx="100" cy="100" r="8" fill="#E8713A" opacity="0.5" />
+      <circle cx="50" cy="50" r="4" fill="#E8713A" opacity="0.4" />
+      <circle cx="150" cy="50" r="4" fill="#E8713A" opacity="0.4" />
+      <circle cx="50" cy="150" r="4" fill="#E8713A" opacity="0.4" />
+      <circle cx="150" cy="150" r="4" fill="#E8713A" opacity="0.4" />
+      <circle cx="100" cy="35" r="4" fill="#E8713A" opacity="0.4" />
+      <circle cx="100" cy="165" r="4" fill="#E8713A" opacity="0.4" />
+    </svg>
+  );
+}
+
+// Pattern mapping by service index
+const patternComponents = [
+  ConcentricCircles,
+  GridNetwork,
+  HexagonMesh,
+  RadialLines,
+  WaveLines,
+  DotMatrix,
+  NestedSquares,
+  TriangleMesh,
+  ConnectionNodes,
+];
 
 export default function ServicesOverview() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -92,17 +344,6 @@ export default function ServicesOverview() {
 
   return (
     <section ref={sectionRef} className="section-padding bg-background-alt relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-30"
-          style={{
-            background: "radial-gradient(circle, rgba(232,113,58,0.04) 0%, transparent 70%)",
-            filter: "blur(60px)",
-          }}
-        />
-      </div>
-
       <div className="container-custom relative z-10">
         {/* Header row */}
         <motion.div
@@ -165,79 +406,68 @@ export default function ServicesOverview() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-[max(1.25rem,calc((100vw-1280px)/2+1.25rem))]"
+          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide px-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))]"
         >
           {services.map((service, index) => {
-            const shapeSrc = shapeConfig[service.icon];
+            const PatternComponent = patternComponents[index % patternComponents.length];
 
             return (
               <motion.div
                 key={service.slug}
                 variants={cardVariants}
                 custom={index}
-                className="group flex-shrink-0 w-[85vw] sm:w-[360px] md:w-[400px] lg:w-[420px] snap-start"
+                className="group flex-shrink-0 w-[85vw] sm:w-[360px] md:w-[380px] snap-start"
               >
-                <div className="relative rounded-2xl border border-gray-200/80 bg-white h-full min-h-[480px] flex flex-col overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-black/[0.04] hover:border-gray-300/80 hover:-translate-y-1">
-                  {/* Gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                  {/* Abstract shape image */}
-                  {shapeSrc && (
-                    <div className="absolute -left-[30px] top-[50px] w-[280px] h-[280px] pointer-events-none transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-hover:-left-[10px] group-hover:top-[35px] group-hover:rotate-3">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={shapeSrc}
-                        alt=""
-                        width={302}
-                        height={302}
-                        className="w-full h-full object-contain"
-                        style={{ filter: FILTER }}
-                        aria-hidden="true"
-                      />
+                <div className="relative rounded-xl border border-gray-200 bg-white h-full min-h-[420px] flex flex-col overflow-hidden transition-all duration-400 hover:shadow-lg hover:shadow-black/[0.04] hover:border-gray-300">
+                  {/* Pattern visual container */}
+                  <div className="relative h-40 bg-gray-50 overflow-hidden border-b border-gray-100">
+                    <div className="absolute inset-0 flex items-center justify-center p-6 transition-transform duration-700 group-hover:scale-110">
+                      <div className="w-32 h-32">
+                        <PatternComponent />
+                      </div>
                     </div>
-                  )}
-
-                  {/* Card content */}
-                  <div className="relative z-10 p-8 pb-0 flex flex-col flex-1">
                     {/* Service number */}
-                    <span className="text-xs font-bold text-primary/40 tracking-wider mb-4">
+                    <span className="absolute top-4 left-4 text-xs font-bold text-primary/50 tracking-wider">
                       0{index + 1}
                     </span>
+                  </div>
 
-                    {/* Title with text shadow for readability */}
-                    <h3
-                      className="text-[clamp(26px,1.8vw,34px)] font-extrabold text-foreground leading-[1.15] tracking-tight mb-auto"
-                      style={{ textShadow: "0 0 16px #fff, 0 0 32px #fff" }}
-                    >
+                  {/* Card content */}
+                  <div className="relative z-10 p-6 flex flex-col flex-1">
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-foreground leading-tight tracking-tight mb-3">
                       {service.title}
                     </h3>
 
-                    {/* Sub-services pills — animate in on hover */}
-                    <div className="relative flex flex-wrap gap-2.5 mt-6 max-h-[500px] sm:max-h-0 sm:opacity-0 sm:invisible sm:translate-y-6 sm:group-hover:max-h-[500px] sm:group-hover:opacity-100 sm:group-hover:visible sm:group-hover:translate-y-0 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                      {service.subServices.slice(0, 6).map((sub) => (
-                        <Link
+                    {/* Description snippet */}
+                    <p className="text-sm text-foreground-muted leading-relaxed mb-4 line-clamp-2">
+                      {service.subServices.slice(0, 3).map(s => s.title).join(", ")}
+                      {service.subServices.length > 3 && " and more..."}
+                    </p>
+
+                    {/* Sub-services pills */}
+                    <div className="flex flex-wrap gap-2 mt-auto mb-4">
+                      {service.subServices.slice(0, 3).map((sub) => (
+                        <span
                           key={sub.slug}
-                          href={`/services/${service.slug}`}
-                          className="inline-flex items-center justify-center px-4 py-2 rounded-full border border-gray-200 bg-white/95 backdrop-blur-sm text-sm text-foreground-muted hover:border-primary/50 hover:text-primary hover:bg-primary-light transition-all duration-300"
+                          className="inline-flex items-center px-3 py-1.5 rounded-md border border-gray-200 bg-gray-50 text-xs font-medium text-foreground-muted"
                         >
                           {sub.title}
-                        </Link>
+                        </span>
                       ))}
-                      {service.subServices.length > 6 && (
-                        <span className="inline-flex items-center px-4 py-2 rounded-full border border-dashed border-gray-200 bg-white/95 text-sm text-foreground-subtle">
-                          +{service.subServices.length - 6} more
+                      {service.subServices.length > 3 && (
+                        <span className="inline-flex items-center px-3 py-1.5 rounded-md border border-dashed border-gray-200 bg-white text-xs text-foreground-subtle">
+                          +{service.subServices.length - 3}
                         </span>
                       )}
                     </div>
-                  </div>
 
-                  {/* Bottom CTA */}
-                  <div className="relative z-10 px-8 py-6 mt-auto bg-gradient-to-t from-white via-white/98 to-white/0">
+                    {/* Bottom CTA */}
                     <Link
                       href={`/services/${service.slug}`}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors group/cta"
                     >
-                      Explore {service.title}
+                      Learn more
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
                     </Link>
                   </div>
