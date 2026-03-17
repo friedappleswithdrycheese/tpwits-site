@@ -1,12 +1,27 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { caseStudies } from "@/data/company";
 import CTASection from "@/components/sections/CTASection";
 import { ArrowUpRight } from "lucide-react";
 
+const ACCENT_COLORS = ["#E8713A", "#8B5CF6", "#10B981", "#3B82F6", "#F59E0B", "#EC4899"];
+
 export default function CaseStudiesPage() {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const industries = useMemo(() => {
+    const unique = Array.from(new Set(caseStudies.map((s: any) => s.industry)));
+    return ["All", ...unique];
+  }, []);
+
+  const filteredStudies = useMemo(() => {
+    if (activeFilter === "All") return caseStudies;
+    return caseStudies.filter((s: any) => s.industry === activeFilter);
+  }, [activeFilter]);
+
   return (
     <>
       {/* Hero */}
@@ -39,14 +54,31 @@ export default function CaseStudiesPage() {
       {/* Case Studies Grid */}
       <section className="section-padding bg-white">
         <div className="container-custom">
+          {/* Filter buttons */}
+          <div className="flex flex-wrap gap-3 mb-12 max-w-5xl mx-auto">
+            {industries.map((industry) => (
+              <button
+                key={industry}
+                onClick={() => setActiveFilter(industry)}
+                className={`rounded-full text-sm font-semibold px-5 py-2 transition-colors ${
+                  activeFilter === industry
+                    ? "bg-primary text-white"
+                    : "bg-background-alt text-foreground-muted hover:text-foreground"
+                }`}
+              >
+                {industry}
+              </button>
+            ))}
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {caseStudies.map((study, index) => (
+            {filteredStudies.map((study: any, index: number) => (
               <motion.div
                 key={study.slug}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: (index % 4) * 0.1 }}
               >
                 <Link href={`/case-studies/${study.slug}`} className="group bg-white rounded-2xl overflow-hidden border border-border hover:border-transparent hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 hover:-translate-y-1 h-full block">
                   {/* Image */}
@@ -55,19 +87,11 @@ export default function CaseStudiesPage() {
                     <div
                       className="absolute inset-0 opacity-20"
                       style={{
-                        backgroundImage: `radial-gradient(circle at 30% 50%, ${
-                          index === 0
-                            ? "#E8713A"
-                            : index === 1
-                            ? "#8B5CF6"
-                            : index === 2
-                            ? "#10B981"
-                            : "#3B82F6"
-                        } 0%, transparent 50%)`,
+                        backgroundImage: `radial-gradient(circle at 30% 50%, ${ACCENT_COLORS[index % ACCENT_COLORS.length]} 0%, transparent 50%)`,
                       }}
                     />
                     <div className="absolute bottom-4 left-6 z-20 flex gap-2">
-                      {study.tags.map((tag) => (
+                      {study.tags.map((tag: string) => (
                         <span
                           key={tag}
                           className="text-xs font-medium px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-white/80"
@@ -94,7 +118,7 @@ export default function CaseStudiesPage() {
                       {study.description}
                     </p>
                     <div className="flex flex-wrap gap-3">
-                      {study.results.map((result) => (
+                      {study.results.map((result: string) => (
                         <div
                           key={result}
                           className="text-xs font-semibold text-foreground bg-background-alt px-3 py-1.5 rounded-lg"

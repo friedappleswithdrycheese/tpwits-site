@@ -7,48 +7,19 @@ import { caseStudies } from "@/data/company";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
-const clientTestimonials: Record<
-  string,
-  { quote: string; name: string; title: string }
-> = {
-  "ai-diagnostic-platform": {
-    quote:
-      "We evaluated four vendors over six months. TPWITS was the only team that understood both the clinical workflow and the ML engineering required. Diagnostic accuracy improved to 94.7%, and our clinicians adopted the tool within weeks — not months.",
-    name: "Dr. Sarah Mitchell",
-    title: "Chief Medical Officer",
-  },
-  "defi-lending-protocol": {
-    quote:
-      "TPWITS took us from whitepaper to $50M in processed volume in 90 days — with zero security incidents and sub-200ms decisioning. Their engineers operated at a level I've rarely seen, even from top-tier Silicon Valley firms.",
-    name: "David Park",
-    title: "Founder & CEO",
-  },
-  "cloud-migration-retailer": {
-    quote:
-      "We migrated 340 workloads with zero unplanned downtime during our highest-traffic quarter. Infrastructure costs dropped 40%, and our engineering teams now deploy 3x faster. TPWITS didn't just migrate our systems — they modernized our entire delivery culture.",
-    name: "Amanda Rodriguez",
-    title: "Director of IT",
-  },
-  "intelligent-automation-fintech": {
-    quote:
-      "Their AI platform processes 10,000+ legal documents a day and cut our manual review time by 85%. We saved $3.2M in the first year alone. The ROI case wrote itself after the first quarter.",
-    name: "James Chen",
-    title: "CTO",
-  },
-};
-
 export default function CaseStudies() {
+  const featuredStudies = caseStudies.filter((s: any) => s.featured);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const prevSlide = () =>
     setActiveIndex(
-      (prev) => (prev - 1 + caseStudies.length) % caseStudies.length
+      (prev) => (prev - 1 + featuredStudies.length) % featuredStudies.length
     );
   const nextSlide = () =>
-    setActiveIndex((prev) => (prev + 1) % caseStudies.length);
+    setActiveIndex((prev) => (prev + 1) % featuredStudies.length);
 
-  const study = caseStudies[activeIndex];
-  const testimonial = clientTestimonials[study.slug];
+  const study = featuredStudies[activeIndex];
+  const testimonial = study.testimonial;
 
   return (
     <section className="section-padding bg-navy">
@@ -186,7 +157,7 @@ export default function CaseStudies() {
 
             {/* Dot indicators */}
             <div className="flex gap-2">
-              {caseStudies.map((_, index) => (
+              {featuredStudies.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
