@@ -53,8 +53,8 @@ function ConcentricCircles() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <radialGradient id="cc-grad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
         </radialGradient>
       </defs>
       <circle cx="100" cy="100" r="90" fill="url(#cc-grad)" />
@@ -67,10 +67,10 @@ function ConcentricCircles() {
           fill="none"
           stroke="#E8713A"
           strokeWidth={1.5}
-          opacity={0.5 - i * 0.08}
+          opacity={0.65 - i * 0.1}
         />
       ))}
-      <circle cx="100" cy="100" r="6" fill="#E8713A" opacity="0.7" />
+      <circle cx="100" cy="100" r="6" fill="#E8713A" opacity="0.85" />
     </svg>
   );
 }
@@ -81,20 +81,20 @@ function GridNetwork() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <linearGradient id="gn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.1" />
         </linearGradient>
       </defs>
       <rect x="20" y="20" width="160" height="160" fill="url(#gn-grad)" rx="4" />
       {[60, 100, 140].map((pos, i) => (
         <g key={i}>
-          <line x1={pos} y1="20" x2={pos} y2="180" stroke="#E8713A" strokeWidth="1" opacity="0.35" />
-          <line x1="20" y1={pos} x2="180" y2={pos} stroke="#E8713A" strokeWidth="1" opacity="0.35" />
+          <line x1={pos} y1="20" x2={pos} y2="180" stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
+          <line x1="20" y1={pos} x2="180" y2={pos} stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
         </g>
       ))}
       {[60, 100, 140].map((x, i) =>
         [60, 100, 140].map((y, j) => (
-          <circle key={`${i}-${j}`} cx={x} cy={y} r={x === 100 && y === 100 ? 5 : 3} fill="#E8713A" opacity={0.6} />
+          <circle key={`${i}-${j}`} cx={x} cy={y} r={x === 100 && y === 100 ? 6 : 4} fill="#E8713A" opacity={0.75} />
         ))
       )}
     </svg>
@@ -107,15 +107,15 @@ function HexagonMesh() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <linearGradient id="hm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.08" />
         </linearGradient>
       </defs>
       <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="url(#hm-grad)" />
-      <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.45" />
-      <polygon points="100,50 145,75 145,125 100,150 55,125 55,75" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.35" />
-      <polygon points="100,75 122,88 122,112 100,125 78,112 78,88" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.25" />
-      <circle cx="100" cy="100" r="4" fill="#E8713A" opacity="0.6" />
+      <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.6" />
+      <polygon points="100,50 145,75 145,125 100,150 55,125 55,75" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
+      <polygon points="100,75 122,88 122,112 100,125 78,112 78,88" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <circle cx="100" cy="100" r="5" fill="#E8713A" opacity="0.8" />
     </svg>
   );
 }
@@ -126,8 +126,8 @@ function RadialLines() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <radialGradient id="rl-grad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
         </radialGradient>
       </defs>
       <circle cx="100" cy="100" r="85" fill="url(#rl-grad)" />
@@ -136,12 +136,12 @@ function RadialLines() {
         const x2 = 100 + Math.cos(angle) * 80;
         const y2 = 100 + Math.sin(angle) * 80;
         return (
-          <line key={i} x1="100" y1="100" x2={x2} y2={y2} stroke="#E8713A" strokeWidth="1.5" opacity={0.35} />
+          <line key={i} x1="100" y1="100" x2={x2} y2={y2} stroke="#E8713A" strokeWidth="1.5" opacity={0.5} />
         );
       })}
-      <circle cx="100" cy="100" r="60" fill="none" stroke="#E8713A" strokeWidth="1" opacity="0.25" />
-      <circle cx="100" cy="100" r="35" fill="none" stroke="#E8713A" strokeWidth="1" opacity="0.35" />
-      <circle cx="100" cy="100" r="6" fill="#E8713A" opacity="0.6" />
+      <circle cx="100" cy="100" r="60" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <circle cx="100" cy="100" r="35" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.5" />
+      <circle cx="100" cy="100" r="6" fill="#E8713A" opacity="0.8" />
     </svg>
   );
 }
@@ -152,9 +152,9 @@ function WaveLines() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <linearGradient id="wl-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
-          <stop offset="50%" stopColor="#E8713A" stopOpacity="0.08" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.25" />
+          <stop offset="50%" stopColor="#E8713A" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.25" />
         </linearGradient>
       </defs>
       <rect x="0" y="0" width="200" height="200" fill="url(#wl-grad)" />
@@ -164,11 +164,11 @@ function WaveLines() {
           d={`M 0 ${y} Q 50 ${y - 20 + i * 5} 100 ${y} T 200 ${y}`}
           fill="none"
           stroke="#E8713A"
-          strokeWidth={1.5}
-          opacity={0.4 - i * 0.05}
+          strokeWidth={2}
+          opacity={0.55 - i * 0.08}
         />
       ))}
-      <circle cx="100" cy="100" r="4" fill="#E8713A" opacity="0.5" />
+      <circle cx="100" cy="100" r="5" fill="#E8713A" opacity="0.7" />
     </svg>
   );
 }
@@ -179,8 +179,8 @@ function DotMatrix() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <radialGradient id="dm-grad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
         </radialGradient>
       </defs>
       <circle cx="100" cy="100" r="90" fill="url(#dm-grad)" />
@@ -189,7 +189,7 @@ function DotMatrix() {
           const x = 35 + col * 22;
           const y = 35 + row * 22;
           const distFromCenter = Math.sqrt(Math.pow(x - 100, 2) + Math.pow(y - 100, 2));
-          const size = Math.max(2, 4.5 - distFromCenter / 30);
+          const size = Math.max(3, 5.5 - distFromCenter / 30);
           return (
             <circle
               key={`${row}-${col}`}
@@ -197,7 +197,7 @@ function DotMatrix() {
               cy={y}
               r={size}
               fill="#E8713A"
-              opacity={0.55 - distFromCenter / 250}
+              opacity={0.7 - distFromCenter / 200}
             />
           );
         })
@@ -212,8 +212,8 @@ function NestedSquares() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <linearGradient id="ns-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.08" />
         </linearGradient>
       </defs>
       <rect x="25" y="25" width="150" height="150" fill="url(#ns-grad)" rx="4" />
@@ -227,11 +227,11 @@ function NestedSquares() {
           fill="none"
           stroke="#E8713A"
           strokeWidth={1.5}
-          opacity={0.45 - i * 0.08}
+          opacity={0.6 - i * 0.1}
           rx={4 - i}
         />
       ))}
-      <circle cx="100" cy="100" r="5" fill="#E8713A" opacity="0.55" />
+      <circle cx="100" cy="100" r="5" fill="#E8713A" opacity="0.75" />
     </svg>
   );
 }
@@ -242,15 +242,15 @@ function TriangleMesh() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <linearGradient id="tm-grad" x1="50%" y1="0%" x2="50%" y2="100%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.03" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.08" />
         </linearGradient>
       </defs>
       <polygon points="100,15 185,170 15,170" fill="url(#tm-grad)" />
-      <polygon points="100,15 185,170 15,170" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
-      <polygon points="100,50 155,145 45,145" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.3" />
-      <polygon points="100,80 130,125 70,125" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.2" />
-      <circle cx="100" cy="110" r="4" fill="#E8713A" opacity="0.55" />
+      <polygon points="100,15 185,170 15,170" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.55" />
+      <polygon points="100,50 155,145 45,145" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.45" />
+      <polygon points="100,80 130,125 70,125" fill="none" stroke="#E8713A" strokeWidth="1.5" opacity="0.35" />
+      <circle cx="100" cy="110" r="5" fill="#E8713A" opacity="0.75" />
     </svg>
   );
 }
@@ -261,27 +261,27 @@ function ConnectionNodes() {
     <svg viewBox="0 0 200 200" className="w-full h-full">
       <defs>
         <radialGradient id="cn-grad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="#E8713A" stopOpacity="0" />
+          <stop offset="0%" stopColor="#E8713A" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#E8713A" stopOpacity="0.05" />
         </radialGradient>
       </defs>
       <circle cx="100" cy="100" r="85" fill="url(#cn-grad)" />
       {/* Connection lines */}
-      <line x1="100" y1="100" x2="50" y2="50" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
-      <line x1="100" y1="100" x2="150" y2="50" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
-      <line x1="100" y1="100" x2="50" y2="150" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
-      <line x1="100" y1="100" x2="150" y2="150" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
-      <line x1="100" y1="100" x2="100" y2="35" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
-      <line x1="100" y1="100" x2="100" y2="165" stroke="#E8713A" strokeWidth="1.5" opacity="0.4" />
+      <line x1="100" y1="100" x2="50" y2="50" stroke="#E8713A" strokeWidth="1.5" opacity="0.55" />
+      <line x1="100" y1="100" x2="150" y2="50" stroke="#E8713A" strokeWidth="1.5" opacity="0.55" />
+      <line x1="100" y1="100" x2="50" y2="150" stroke="#E8713A" strokeWidth="1.5" opacity="0.55" />
+      <line x1="100" y1="100" x2="150" y2="150" stroke="#E8713A" strokeWidth="1.5" opacity="0.55" />
+      <line x1="100" y1="100" x2="100" y2="35" stroke="#E8713A" strokeWidth="1.5" opacity="0.55" />
+      <line x1="100" y1="100" x2="100" y2="165" stroke="#E8713A" strokeWidth="1.5" opacity="0.55" />
       {/* Outer nodes */}
-      <circle cx="50" cy="50" r="6" fill="#E8713A" opacity="0.55" />
-      <circle cx="150" cy="50" r="6" fill="#E8713A" opacity="0.55" />
-      <circle cx="50" cy="150" r="6" fill="#E8713A" opacity="0.55" />
-      <circle cx="150" cy="150" r="6" fill="#E8713A" opacity="0.55" />
-      <circle cx="100" cy="35" r="5" fill="#E8713A" opacity="0.45" />
-      <circle cx="100" cy="165" r="5" fill="#E8713A" opacity="0.45" />
+      <circle cx="50" cy="50" r="7" fill="#E8713A" opacity="0.7" />
+      <circle cx="150" cy="50" r="7" fill="#E8713A" opacity="0.7" />
+      <circle cx="50" cy="150" r="7" fill="#E8713A" opacity="0.7" />
+      <circle cx="150" cy="150" r="7" fill="#E8713A" opacity="0.7" />
+      <circle cx="100" cy="35" r="6" fill="#E8713A" opacity="0.6" />
+      <circle cx="100" cy="165" r="6" fill="#E8713A" opacity="0.6" />
       {/* Center node */}
-      <circle cx="100" cy="100" r="8" fill="#E8713A" opacity="0.65" />
+      <circle cx="100" cy="100" r="9" fill="#E8713A" opacity="0.8" />
     </svg>
   );
 }
