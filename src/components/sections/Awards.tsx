@@ -4,10 +4,11 @@ import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
   },
 };
@@ -16,7 +17,8 @@ const stagger = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
@@ -127,7 +129,6 @@ const badges: { svg: React.ReactNode; subtitle: string }[] = [
     subtitle: "Information Security Certified",
     svg: (
       <svg viewBox="0 0 160 80" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        {/* Shield shape */}
         <path
           d="M80 6 L120 18 L120 46 Q120 62 80 76 Q40 62 40 46 L40 18 Z"
           fill="none"
@@ -164,7 +165,6 @@ const badges: { svg: React.ReactNode; subtitle: string }[] = [
     subtitle: "Quality Management Certified",
     svg: (
       <svg viewBox="0 0 160 80" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        {/* Circle badge */}
         <circle
           cx="80"
           cy="40"
@@ -212,7 +212,6 @@ const badges: { svg: React.ReactNode; subtitle: string }[] = [
     subtitle: "Process Maturity Certified",
     svg: (
       <svg viewBox="0 0 160 80" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        {/* Rounded rectangle badge */}
         <rect
           x="28"
           y="6"
@@ -264,14 +263,24 @@ const badges: { svg: React.ReactNode; subtitle: string }[] = [
 
 export default function Awards() {
   return (
-    <section className="section-padding bg-white dot-pattern relative">
-      <div className="container-custom">
+    <section className="py-20 md:py-28 bg-background relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.015]" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+        backgroundSize: '32px 32px'
+      }} />
+      
+      {/* Gradient accents */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/3 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container-wide relative">
         {/* Heading */}
         <SectionHeading
           label="Recognition"
           title="We've been recognized by the best, year after year"
           align="center"
-          className="mb-16"
+          className="mb-16 md:mb-20"
         />
 
         {/* Award Badges */}
@@ -279,24 +288,43 @@ export default function Awards() {
           variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0 }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-10 max-w-6xl mx-auto"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 max-w-6xl mx-auto"
         >
           {badges.map((badge, i) => (
             <motion.div
               key={i}
               variants={fadeUp}
-              className="group flex flex-col items-center justify-start text-center"
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group flex flex-col items-center justify-start text-center p-6 rounded-2xl bg-background hover:bg-background-alt border border-transparent hover:border-border/50 transition-all duration-300"
             >
-              <div className="w-full max-w-[140px] text-gray-700 opacity-40 group-hover:opacity-80 transition-opacity duration-300 mb-3">
-                {badge.svg}
+              {/* Badge container with glow effect */}
+              <div className="relative w-full max-w-[140px] mb-4">
+                {/* Glow on hover */}
+                <div className="absolute inset-0 bg-primary/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Badge SVG */}
+                <div className="relative text-foreground opacity-30 group-hover:opacity-70 transition-all duration-500 group-hover:scale-105 transform">
+                  {badge.svg}
+                </div>
               </div>
-              <p className="text-[11px] text-foreground-muted font-medium leading-snug max-w-[130px]">
+              
+              {/* Subtitle */}
+              <p className="text-xs text-foreground-muted font-medium leading-relaxed max-w-[130px] group-hover:text-foreground transition-colors duration-300">
                 {badge.subtitle}
               </p>
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Bottom accent line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mt-16 md:mt-20 h-px bg-gradient-to-r from-transparent via-border to-transparent max-w-2xl mx-auto"
+        />
       </div>
     </section>
   );
