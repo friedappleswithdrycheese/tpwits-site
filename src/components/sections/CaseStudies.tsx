@@ -56,24 +56,24 @@ export default function CaseStudies() {
               exit={{ opacity: 0, x: -40 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-gray-800">
+              <div className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm hover:border-primary/20 transition-all duration-500 shadow-lg shadow-black/20">
                 {/* Left: Dark panel */}
                 <div
-                  className="relative p-6 md:p-8 lg:p-12 flex flex-col justify-between min-h-[340px]"
-                  style={{ background: "#111111" }}
+                  className="relative p-8 md:p-10 lg:p-14 flex flex-col justify-between min-h-[380px]"
+                  style={{ background: "linear-gradient(135deg, #141414 0%, #0F0F0F 50%, #111111 100%)" }}
                 >
                   {/* Large watermark metric */}
-                  <div className="absolute bottom-4 right-4 text-[50px] md:text-[80px] font-extrabold text-white/[0.04] leading-none select-none pointer-events-none">
+                  <div className="absolute bottom-6 right-6 text-[60px] md:text-[90px] font-extrabold text-white/[0.04] leading-none select-none pointer-events-none">
                     {study.results[0]?.split(' ')[0] || ''}
                   </div>
 
                   <div className="relative z-10">
                     {/* Industry tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-2 mb-8">
                       {study.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-xs font-medium px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-white/80"
+                          className="text-xs font-semibold px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20"
                         >
                           {tag}
                         </span>
@@ -81,12 +81,12 @@ export default function CaseStudies() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-4">
+                    <h3 className="text-2xl md:text-3xl lg:text-[2rem] font-extrabold text-white leading-tight mb-4">
                       {study.title}
                     </h3>
 
                     {/* Client */}
-                    <p className="text-sm text-white/50 font-medium uppercase tracking-wide">
+                    <p className="text-sm text-white/50 font-semibold uppercase tracking-widest">
                       {study.client}
                     </p>
                   </div>
@@ -96,7 +96,7 @@ export default function CaseStudies() {
                     {study.results.map((result) => (
                       <div
                         key={result}
-                        className="text-xs font-semibold text-white/80 bg-white/[0.06] border border-white/[0.08] px-4 py-2 rounded-lg"
+                        className="text-xs font-semibold text-white/90 bg-white/[0.06] border border-white/[0.1] px-4 py-2.5 rounded-lg backdrop-blur-sm"
                       >
                         {result}
                       </div>
@@ -105,7 +105,7 @@ export default function CaseStudies() {
                 </div>
 
                 {/* Right: Testimonial & CTA */}
-                <div className="border-t lg:border-t-0 lg:border-l border-gray-800 p-6 md:p-8 lg:p-12 flex flex-col justify-between" style={{ background: "#0F0F0F" }}>
+                <div className="border-t lg:border-t-0 lg:border-l border-white/[0.08] p-8 md:p-10 lg:p-14 flex flex-col justify-between" style={{ background: "linear-gradient(180deg, #0F0F0F 0%, #0C0C0C 100%)" }}>
                   {testimonial && (
                     <div className="mb-8">
                       <div className="text-white/20 text-5xl font-serif leading-none mb-4">
@@ -140,19 +140,19 @@ export default function CaseStudies() {
           </AnimatePresence>
 
           {/* Navigation */}
-          <div className="flex items-center justify-between mt-8">
+          <div className="flex items-center justify-between mt-10">
             {/* Arrows */}
             <div className="flex items-center gap-3">
               <button
                 onClick={prevSlide}
-                className="w-11 h-11 rounded-full border border-gray-800 flex items-center justify-center hover:border-white/40 text-white/60 hover:text-white transition-colors"
+                className="w-11 h-11 rounded-full border border-white/[0.1] bg-white/[0.03] flex items-center justify-center hover:border-primary/40 hover:bg-white/[0.06] text-white/60 hover:text-white transition-all duration-300"
                 aria-label="Previous case study"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={nextSlide}
-                className="w-11 h-11 rounded-full border border-gray-800 flex items-center justify-center hover:border-white/40 text-white/60 hover:text-white transition-colors"
+                className="w-11 h-11 rounded-full border border-white/[0.1] bg-white/[0.03] flex items-center justify-center hover:border-primary/40 hover:bg-white/[0.06] text-white/60 hover:text-white transition-all duration-300"
                 aria-label="Next case study"
               >
                 <ChevronRight className="w-5 h-5" />

@@ -32,9 +32,11 @@ export default function Industries() {
   const sectionAnim = useScrollAnimation("industries");
 
   return (
-    <section className="section-padding bg-navy">
-      <motion.div {...sectionAnim} className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+    <section className="relative section-padding bg-navy">
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(232,113,58,0.03)_0%,_transparent_70%)] pointer-events-none" />
+      <motion.div {...sectionAnim} className="container-custom relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14">
           <SectionHeading
             label="Industries"
             title="Deep domain expertise across industries."
@@ -50,7 +52,7 @@ export default function Industries() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-5xl mx-auto">
           {industries.map((industry, index) => {
             const Icon = iconMap[industry.icon];
             return (
@@ -63,16 +65,20 @@ export default function Industries() {
               >
                 <Link
                   href={`/industries/${industry.slug}`}
-                  className="group block bg-white/[0.05] border border-white/[0.08] rounded-xl p-6 text-center hover:bg-white/[0.08] hover:border-white/[0.12] hover:-translate-y-1 transition-all duration-300"
+                  className="group relative block bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-7 md:p-8 text-center hover:bg-white/[0.07] hover:border-primary/20 hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-primary/[0.08] border border-primary/[0.1] flex items-center justify-center mx-auto mb-4">
-                    {Icon && (
-                      <Icon className="w-6 h-6 text-primary/60" />
-                    )}
+                  {/* Hover glow effect */}
+                  <div className="absolute inset-0 rounded-2xl bg-primary/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 rounded-full bg-primary/[0.12] border border-primary/[0.15] flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/[0.18] group-hover:border-primary/[0.25] transition-colors duration-300">
+                      {Icon && (
+                        <Icon className="w-6 h-6 text-primary/80 group-hover:text-primary transition-colors duration-300" />
+                      )}
+                    </div>
+                    <h3 className="text-base font-bold text-white group-hover:text-white transition-colors">
+                      {industry.title}
+                    </h3>
                   </div>
-                  <h3 className="text-base font-semibold text-white">
-                    {industry.title}
-                  </h3>
                 </Link>
               </motion.div>
             );

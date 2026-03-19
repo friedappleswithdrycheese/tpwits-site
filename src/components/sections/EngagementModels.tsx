@@ -36,9 +36,10 @@ export default function EngagementModels() {
           align="center"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {engagementModels.slice(0, 3).map((model, index) => {
             const Icon = iconMap[model.icon];
+            const isPopular = model.title === "Dedicated Team";
             return (
               <motion.div
                 key={model.title}
@@ -46,22 +47,43 @@ export default function EngagementModels() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group bg-white border border-border rounded-2xl p-6 sm:p-8 hover:shadow-lg transition-all duration-300"
+                className={`group relative bg-white rounded-2xl p-8 sm:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${
+                  isPopular
+                    ? "border-2 border-primary/40 shadow-lg shadow-primary/[0.06] ring-1 ring-primary/10"
+                    : "border border-border hover:border-neutral-300 shadow-sm hover:shadow-lg"
+                }`}
               >
-                <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-6">
+                {/* Popular badge */}
+                {isPopular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-primary text-white shadow-md">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${
+                  isPopular
+                    ? "bg-primary/10 border border-primary/20"
+                    : "bg-neutral-100 border border-neutral-200"
+                }`}>
                   {Icon && (
-                    <Icon className="w-6 h-6 text-gray-500" />
+                    <Icon className={`w-6 h-6 ${isPopular ? "text-primary" : "text-neutral-500"}`} />
                   )}
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">
+                <h3 className="text-xl font-extrabold text-foreground mb-4">
                   {model.title}
                 </h3>
-                <p className="text-sm text-foreground-muted leading-relaxed mb-6">
+                <p className="text-sm text-foreground-muted leading-relaxed mb-8">
                   {descriptionOverrides[model.title] || model.description}
                 </p>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors"
+                  className={`inline-flex items-center gap-2 text-sm font-bold transition-colors ${
+                    isPopular
+                      ? "text-primary hover:text-primary-hover"
+                      : "text-foreground hover:text-primary"
+                  }`}
                 >
                   {model.title === "Dedicated Team" ? "Partner with Specialists" :
                    model.title === "Offshore Development Center" ? "Build Your ODC" :

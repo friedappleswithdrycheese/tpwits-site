@@ -89,7 +89,7 @@ export default function ServicesOverview() {
               <button
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
-                className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center text-foreground-muted hover:text-primary hover:border-primary/30 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+                className="w-11 h-11 rounded-full border border-neutral-200 bg-white flex items-center justify-center text-foreground-muted hover:text-primary hover:border-primary/30 hover:shadow-sm disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
                 aria-label="Previous"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -97,7 +97,7 @@ export default function ServicesOverview() {
               <button
                 onClick={() => scroll("right")}
                 disabled={!canScrollRight}
-                className="w-10 h-10 rounded-full border border-border bg-white flex items-center justify-center text-foreground-muted hover:text-primary hover:border-primary/30 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+                className="w-11 h-11 rounded-full border border-neutral-200 bg-white flex items-center justify-center text-foreground-muted hover:text-primary hover:border-primary/30 hover:shadow-sm disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
                 aria-label="Next"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -129,7 +129,7 @@ export default function ServicesOverview() {
                 key={service.slug}
                 className="group flex-shrink-0 w-[85vw] sm:w-[360px] md:w-[400px] lg:w-[420px] snap-start"
               >
-                <div className="relative border border-[#1B232E1A] bg-white h-full min-h-[460px] flex flex-col overflow-hidden transition-all duration-300 -ml-px first:ml-0">
+                <div className="relative border border-neutral-200 bg-white h-full min-h-[460px] flex flex-col overflow-hidden transition-all duration-300 -ml-px first:ml-0 hover:border-neutral-300 hover:shadow-lg hover:-translate-y-0.5">
                   {/* Abstract shape image */}
                   {shapeSrc && (
                     <div className="absolute -left-[30px] top-[52px] w-[280px] h-[280px] pointer-events-none transition-all duration-[900ms] ease-in-out group-hover:scale-110 group-hover:-left-[10px] group-hover:top-[35px]">
@@ -147,10 +147,10 @@ export default function ServicesOverview() {
                   )}
 
                   {/* Card content */}
-                  <div className="relative z-10 p-7 sm:p-8 pb-0 flex flex-col flex-1">
+                  <div className="relative z-10 p-8 sm:p-9 pb-0 flex flex-col flex-1">
                     {/* Title with white text-shadow for readability */}
                     <h3
-                      className="text-[clamp(24px,1.66vw,32px)] font-extrabold text-foreground leading-[1.2] mb-auto"
+                      className="text-[clamp(24px,1.66vw,32px)] font-extrabold text-foreground leading-[1.15] mb-auto"
                       style={{ textShadow: "0 0 12px #fff, 0 0 24px #fff" }}
                     >
                       {service.title}
@@ -162,13 +162,13 @@ export default function ServicesOverview() {
                         <Link
                           key={sub.slug}
                           href={`/services/${service.slug}`}
-                          className="inline-flex items-center justify-center px-4 py-2 rounded-[20px] border border-[#1B232E33] bg-white/90 backdrop-blur-sm text-[1rem] text-foreground-muted hover:border-primary hover:text-primary hover:bg-white transition-all duration-200"
+                          className="inline-flex items-center justify-center px-4 py-2.5 rounded-full border border-neutral-200 bg-white/90 backdrop-blur-sm text-sm font-medium text-foreground-muted hover:border-primary hover:text-primary hover:bg-white transition-all duration-200"
                         >
                           {sub.title}
                         </Link>
                       ))}
                       {service.subServices.length > 7 && (
-                        <span className="inline-flex items-center px-4 py-2 rounded-[20px] border border-dashed border-[#1B232E33] bg-white/90 backdrop-blur-sm text-[1rem] text-foreground-subtle">
+                        <span className="inline-flex items-center px-4 py-2.5 rounded-full border border-dashed border-neutral-300 bg-white/90 backdrop-blur-sm text-sm text-foreground-subtle">
                           +{service.subServices.length - 7} more
                         </span>
                       )}
@@ -176,10 +176,10 @@ export default function ServicesOverview() {
                   </div>
 
                   {/* Bottom CTA with white fade backdrop */}
-                  <div className="relative z-10 px-7 sm:px-8 py-6 bg-gradient-to-t from-white via-white/95 to-white/0">
+                  <div className="relative z-10 px-8 sm:px-9 py-7 bg-gradient-to-t from-white via-white/95 to-white/0">
                     <Link
                       href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors group/cta"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary-hover transition-colors group/cta"
                     >
                       Go to {service.title}
                       <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform duration-200" />
