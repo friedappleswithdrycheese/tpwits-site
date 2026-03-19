@@ -16,7 +16,7 @@ const convictions = [
       "We don't ship fast. We ship right — then we ship fast. Every system we build is designed to outlive the roadmap.",
   },
   {
-    thesis: "The best engineering is invisible.",
+    thesis: "We don\u2019t ship fast. We ship right \u2014 then we ship fast.",
     support:
       "When our work is done, your teams move faster, your costs drop, and nobody talks about the infrastructure. That's the point.",
   },
@@ -40,7 +40,7 @@ export default function AISection() {
         {/* Section intro */}
         <h2 className="text-3xl md:text-4xl lg:text-[3.5rem] font-extrabold text-white leading-[1.08] max-w-2xl mb-12 sm:mb-16 md:mb-28">
           We don&apos;t sell services.{" "}
-          <span className="text-white/40">We sell conviction.</span>
+          <span className="text-white/40">We sell homework.</span>
         </h2>
 
         {/* Three conviction cards — orange accent border-left on the container */}

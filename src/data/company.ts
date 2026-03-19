@@ -1,44 +1,36 @@
 export const companyStats = [
-  { value: "17+", label: "Years in Operation" }, // TODO: Verify — replace with real number based on actual founding year
-  { value: "800+", label: "Engineers Worldwide" }, // TODO: Verify — replace with real headcount
-  { value: "94%", label: "Client Retention" }, // TODO: Verify — replace with real number or remove if unverifiable
-  { value: "4", label: "Global Offices" }, // TODO: Verify — replace with real number of offices
+  { value: "10+", label: "Years Building Software" }, // Frizhub since 2016, team experience longer
+  { value: "100+", label: "Team Members" },
+  { value: "15+", label: "Products Shipped" },
+  { value: "3", label: "Sub-brands" }, // TPWITS, Avento Labs, Frizhub
 ];
 
 export const companyInfo = {
   name: "TPWITS",
   fullName: "TPWITS Technologies",
-  tagline: "Engineering Tomorrow's Digital Reality",
+  tagline: "We study the problem before we sell the solution.",
   description:
-    "We are a global technology services company specializing in AI-driven solutions, digital product engineering, cloud infrastructure, Web3 innovation, and cybersecurity. We partner with forward-thinking organizations to build, scale, and secure their digital future.",
+    "TPWITS is a technology firm built by engineers who believe in doing the homework first. With 100+ team members across three sub-brands, we research industries, find the gaps everyone else missed, and build solutions that work in production — not just in demos. Our clients find us through referrals. We'd like to keep it that way.",
   mission:
-    "To empower businesses with transformative technology solutions that drive innovation, efficiency, and sustainable growth in an increasingly digital world.",
+    "We exist to make sure our clients build the right thing, not just the shiny thing. We do the research. We find the gaps. Then we build solutions that work long after the engagement ends.",
   vision:
-    "To be the most trusted technology partner for enterprises navigating digital transformation—known for engineering excellence, deep domain expertise, and an unwavering commitment to client success.",
+    "A technology firm where every recommendation is backed by homework, every system is built to last, and every client knows exactly what they're getting.",
   values: [
     {
-      title: "Engineering Excellence",
-      description: "We hold ourselves to the highest standards of technical craftsmanship, delivering solutions that are robust, scalable, and elegant.",
-    },
-    {
-      title: "Client Partnership",
-      description: "We don't just deliver projects—we build lasting partnerships, aligning our success with the success of our clients.",
-    },
-    {
-      title: "Innovation First",
-      description: "We continuously explore emerging technologies and methodologies, ensuring our clients stay ahead of the curve.",
+      title: "Do the Homework",
+      description: "We study the industry, the competition, and the current solutions before we write a single line of code. We don't guess.",
     },
     {
       title: "Radical Transparency",
-      description: "We believe in open communication, honest assessments, and full visibility into every engagement.",
+      description: "We tell clients what they need to hear, not what they want to hear. If your idea won't work, we'll say so. If our timeline slips, you'll know first.",
     },
     {
-      title: "People-Centric Culture",
-      description: "Our greatest asset is our team. We invest in growth, foster creativity, and celebrate diversity.",
+      title: "Build to Last",
+      description: "We don't optimize for demo day. We build systems that work at 10x the current load, that new engineers can understand, that survive the team that built them.",
     },
     {
-      title: "Impactful Outcomes",
-      description: "We measure our work by the real-world impact it creates—revenue growth, efficiency gains, and competitive advantage.",
+      title: "Own the Outcome",
+      description: "We don't throw code over a wall. We stay accountable for whether the thing we built actually moved the needle.",
     },
   ],
   offices: [
@@ -128,9 +120,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "ai-data-innovation",
-      "cybersecurity",
-      "cloud-infrastructure",
+      "ai-data",
+      "cloud-security",
+      "product-engineering",
     ],
   },
   {
@@ -190,9 +182,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "cybersecurity",
-      "ai-data-innovation",
-      "digital-product-engineering",
+      "cloud-security",
+      "ai-data",
+      "product-engineering",
     ],
   },
   {
@@ -252,9 +244,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "ai-data-innovation",
-      "digital-product-engineering",
-      "cloud-infrastructure",
+      "ai-data",
+      "product-engineering",
+      "cloud-security",
     ],
   },
   {
@@ -314,9 +306,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "digital-product-engineering",
-      "ai-data-innovation",
-      "cloud-infrastructure",
+      "product-engineering",
+      "ai-data",
+      "cloud-security",
     ],
   },
   {
@@ -376,9 +368,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "digital-product-engineering",
-      "cloud-infrastructure",
-      "ai-data-innovation",
+      "product-engineering",
+      "cloud-security",
+      "ai-data",
     ],
   },
   {
@@ -438,9 +430,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "ai-data-innovation",
-      "cloud-infrastructure",
-      "optimization-quality",
+      "ai-data",
+      "cloud-security",
+      "product-engineering",
     ],
   },
   {
@@ -500,9 +492,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "ai-data-innovation",
-      "cloud-infrastructure",
-      "solution-implementation",
+      "ai-data",
+      "cloud-security",
+      "blockchain-enterprise",
     ],
   },
   {
@@ -562,9 +554,9 @@ export const industries: IndustryData[] = [
       },
     ],
     relatedServices: [
-      "ai-data-innovation",
-      "cloud-infrastructure",
-      "digital-product-engineering",
+      "ai-data",
+      "cloud-security",
+      "product-engineering",
     ],
   },
 ];

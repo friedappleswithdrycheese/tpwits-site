@@ -5,22 +5,12 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Link from "next/link";
 import { engagementModels } from "@/data/services";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Users, Building2, FileCheck, GitMerge, ArrowRight } from "lucide-react";
+import { Users, Building2, FileCheck, ArrowRight } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
   Users,
   Building2,
   FileCheck,
-  GitMerge,
-};
-
-const descriptionOverrides: Record<string, string> = {
-  "Dedicated Team":
-    "A hand-picked squad of 5-50 engineers, embedded in your workflows with a dedicated tech lead, weekly sprint reviews, and shared Jira/Confluence governance. Average ramp-up: 2 weeks. 95%+ retention rate across engagements.",
-  "Offshore Development Center":
-    "Your own engineering hub with dedicated workspace, infrastructure, and hand-selected senior talent. Full HR, IT, and facilities management included. Teams of 15-100+ with ISO 27001-certified operations and sub-4-hour response SLAs.",
-  "Fixed Price Projects":
-    "Defined scope, milestone-based delivery, and guaranteed budget with no overruns. Includes architecture review, QA, and UAT sign-off at each gate. Ideal for 8-24 week initiatives with clear requirements and compliance mandates.",
 };
 
 export default function EngagementModels() {
@@ -75,7 +65,7 @@ export default function EngagementModels() {
                   {model.title}
                 </h3>
                 <p className="text-sm text-foreground-muted leading-relaxed mb-8">
-                  {descriptionOverrides[model.title] || model.description}
+                  {model.description}
                 </p>
                 <Link
                   href="/contact"
@@ -87,7 +77,7 @@ export default function EngagementModels() {
                 >
                   {model.title === "Dedicated Team" ? "Partner with Specialists" :
                    model.title === "Offshore Development Center" ? "Build Your ODC" :
-                   model.title === "Fixed Price Projects" ? "Get a Fixed Estimate" :
+                   model.title === "Fixed-Price Project" ? "Get a Fixed Estimate" :
                    "Get Started"}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
