@@ -8,24 +8,34 @@ import CTASection from "@/components/sections/CTASection";
 import {
   Brain,
   Code2,
+  Cloud,
   Blocks,
   Shield,
   Compass,
+  Gauge,
+  Puzzle,
+  Rocket,
   ArrowRight,
   Users,
   Building2,
   FileCheck,
+  GitMerge,
 } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
   Brain,
   Code2,
+  Cloud,
   Blocks,
   Shield,
   Compass,
+  Gauge,
+  Puzzle,
+  Rocket,
   Users,
   Building2,
   FileCheck,
+  GitMerge,
 };
 
 export default function ServicesPage() {
@@ -47,12 +57,12 @@ export default function ServicesPage() {
               Our Services
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-              Five things we do. All of them well.
+              End-to-end technology services that scale.
             </h1>
             <p className="text-lg text-white/60 leading-relaxed max-w-2xl">
-              Research, AI, product engineering, cloud, and enterprise
-              platforms. We narrowed the list to the services where we
-              consistently deliver strong results.
+              From AI strategy to cloud infrastructure, cybersecurity to Web3
+              innovation — we deliver the full spectrum of technology services
+              your business needs to thrive.
             </p>
           </motion.div>
         </div>
@@ -144,7 +154,7 @@ export default function ServicesPage() {
             align="center"
           />
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {engagementModels.map((model, index) => {
               const Icon = iconMap[model.icon];
               return (

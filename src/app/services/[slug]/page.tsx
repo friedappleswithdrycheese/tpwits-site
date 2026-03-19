@@ -8,9 +8,13 @@ import CTASection from "@/components/sections/CTASection";
 import {
   Brain,
   Code2,
+  Cloud,
   Blocks,
   Shield,
   Compass,
+  Gauge,
+  Puzzle,
+  Rocket,
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
@@ -19,9 +23,13 @@ import {
 const iconMap: Record<string, React.ElementType> = {
   Brain,
   Code2,
+  Cloud,
   Blocks,
   Shield,
   Compass,
+  Gauge,
+  Puzzle,
+  Rocket,
 };
 
 export default function ServiceDetailPage() {

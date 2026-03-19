@@ -15,7 +15,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata = generatePageMetadata({
   title: "TPWITS",
   description:
-    "TPWITS is a technology firm that studies the problem before selling the solution. 100+ engineers, 4 founding partners, 15+ products shipped across AI, cloud, blockchain, and enterprise platforms.",
+    "TPWITS is a global technology services company specializing in AI-driven solutions, digital product engineering, cloud infrastructure, Web3 innovation, and cybersecurity.",
   path: "/",
 });
 

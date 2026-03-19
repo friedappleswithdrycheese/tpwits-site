@@ -41,11 +41,12 @@ function CountUp({
   );
 }
 
+// TODO: Verify with real numbers
 const stats = [
-  { value: 10, suffix: "+", label: "Years Building Software" },
-  { value: 100, suffix: "+", label: "Team Members" },
-  { value: 15, suffix: "+", label: "Products Shipped" },
-  { value: 3, suffix: "", label: "Sub-brands" },
+  { value: 17, suffix: "+", label: "Years in Operation" },
+  { value: 800, suffix: "+", label: "Engineers Worldwide" },
+  { value: 94, suffix: "%", label: "Client Retention" },
+  { value: 4, suffix: "", label: "Global Offices" },
 ];
 
 export default function Hero() {
@@ -121,9 +122,9 @@ export default function Hero() {
 
             {/* Headline */}
             <h1 className="text-[clamp(2.5rem,5vw,4.75rem)] font-extrabold text-white leading-[1.08] tracking-tight hero-headline">
-              We study the problem
+              We engineer what&apos;s next.
               <br />
-              <span className="text-white/35">before we sell the solution.</span>
+              <span className="text-white/35">You deploy it today.</span>
             </h1>
 
             {/* Decorative gradient line between headline and subtitle */}
@@ -133,10 +134,9 @@ export default function Hero() {
 
             {/* Subtitle */}
             <p className="mt-4 lg:mt-5 text-[17px] md:text-lg text-white/45 leading-relaxed max-w-lg hero-subtitle">
-              4 founding partners. 100+ engineers. A decade of building
-              software under multiple brands. We do the research, find the
-              gaps, and build technology that works long after the engagement
-              ends.
+              AI systems. Cloud platforms. Enterprise products.
+              We architect and deliver the technology that global
+              enterprises rely on &mdash; on time, at scale, across industries.
             </p>
 
             {/* CTAs */}
