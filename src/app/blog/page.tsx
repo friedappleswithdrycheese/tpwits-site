@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { blogPosts } from "@/data/blog";
+import { generatePageMetadata } from "@/lib/metadata";
 import { Brain, Cloud, Shield, Blocks, Code2, Cpu } from "lucide-react";
 
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -12,11 +12,12 @@ const categoryIcons: Record<string, React.ReactNode> = {
   Engineering: <Code2 className="w-16 h-16 text-white" strokeWidth={1} />,
 };
 
-export const metadata: Metadata = {
-  title: "Blog | TPWITS",
+export const metadata = generatePageMetadata({
+  title: "Blog",
   description:
     "Insights, thought leadership, and technical resources from the TPWITS team. Stay informed on AI, cloud, cybersecurity, Web3, and digital transformation trends.",
-};
+  path: "/blog",
+});
 
 export default function BlogPage() {
   return (

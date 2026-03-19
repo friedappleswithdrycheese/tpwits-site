@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import { generatePageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Careers | TPWITS",
+export const metadata = generatePageMetadata({
+  title: "Careers",
   description:
     "Join the TPWITS team. We're looking for talented engineers and professionals who want to work on challenging projects with global clients.",
-};
+  path: "/careers",
+});
 
 /* TODO: Replace with real job listings when positions are open */
 const teamAreas = [
