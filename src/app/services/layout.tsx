@@ -3,7 +3,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 export const metadata = generatePageMetadata({
   title: "Our Services",
   description:
-    "Explore TPWITS technology services — AI & data innovation, digital product engineering, cloud infrastructure, Web3, cybersecurity, and more.",
+    "TPWITS technology services — research & strategy, AI & data, product engineering, cloud & security, and blockchain & enterprise solutions.",
   path: "/services",
 });
 
