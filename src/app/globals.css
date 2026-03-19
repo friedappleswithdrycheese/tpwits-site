@@ -751,6 +751,21 @@ html {
 .form-input-dark::placeholder { color: rgba(255,255,255,0.4); }
 .form-input-dark:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(232,113,58,0.15); }
 
+/* ============================================================
+   MOBILE TOUCH TARGETS — minimum 44x44px per WCAG
+   ============================================================ */
+@media (max-width: 768px) {
+  button, a[role="button"], [type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Prevent horizontal overflow on mobile */
+  .container-custom {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
 /* ---- Section transition gradients ---- */
 .section-transition-to-light::after {
   content: '';
