@@ -689,3 +689,86 @@ html {
     transform: none !important;
   }
 }
+
+/* ============================================================
+   HERO — CSS-only entrance animations (LCP optimization)
+   ============================================================ */
+@keyframes heroAccent { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes heroFadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes heroFadeUpSmall { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes heroStatIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero-accent { transform-origin: left; animation: heroAccent 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+.hero-headline { animation: heroFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+.hero-subtitle { animation: heroFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+.hero-ctas { animation: heroFadeUpSmall 0.5s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
+.hero-stat { animation: heroStatIn 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-accent, .hero-headline, .hero-subtitle, .hero-ctas, .hero-stat { animation: none; }
+}
+
+/* ============================================================
+   CURSOR GLOW + BUTTON GLOW + DARK SECTION TEXTURES
+   ============================================================ */
+.cursor-glow { position: relative; }
+.cursor-glow::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(600px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(232,113,58,0.03), transparent 40%);
+}
+.btn-glow { box-shadow: 0 0 20px rgba(232,113,58,0.3); }
+.btn-glow:hover { box-shadow: 0 0 32px rgba(232,113,58,0.4); }
+
+.bg-dot-grid { position: relative; }
+.bg-dot-grid::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.bg-ruled-lines { position: relative; }
+.bg-ruled-lines::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.03) 79px, rgba(255,255,255,0.03) 80px);
+}
+.bg-diagonal-grid { position: relative; }
+.bg-diagonal-grid::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 39px, rgba(255,255,255,0.02) 39px, rgba(255,255,255,0.02) 40px);
+}
+
+/* ============================================================
+   FORM INPUTS — shared across all forms (DRY)
+   ============================================================ */
+.form-input {
+  width: 100%; padding: 12px 16px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-family: inherit; font-size: 15px;
+  background: var(--background); color: var(--foreground);
+  transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+}
+.form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(232,113,58,0.1); }
+.form-input::placeholder { color: var(--foreground-subtle); }
+.form-input-dark { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #fff; }
+.form-input-dark::placeholder { color: rgba(255,255,255,0.4); }
+.form-input-dark:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(232,113,58,0.15); }
+
+/* ---- Section transition gradients ---- */
+.section-transition-to-light::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--background));
+  pointer-events: none;
+}
+.section-transition-to-dark::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--navy));
+  pointer-events: none;
+}

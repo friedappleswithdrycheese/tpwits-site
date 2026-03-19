@@ -1,11 +1,10 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Clock, Calendar, User } from "lucide-react";
 import { blogPosts } from "@/data/blog";
-import Button from "@/components/ui/Button";
 import CTASection from "@/components/sections/CTASection";
 
 export default function BlogDetailPage() {
@@ -13,24 +12,7 @@ export default function BlogDetailPage() {
   const slug = params.slug as string;
   const post = blogPosts.find((p) => p.slug === slug);
 
-  if (!post) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Article not found
-          </h1>
-          <p className="text-foreground-muted mb-8">
-            The blog post you&apos;re looking for doesn&apos;t exist or has been
-            moved.
-          </p>
-          <Button href="/blog" variant="primary">
-            Back to Blog
-          </Button>
-        </div>
-      </div>
-    );
-  }
+  if (!post) notFound();
 
   const currentIndex = blogPosts.findIndex((p) => p.slug === slug);
   const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;

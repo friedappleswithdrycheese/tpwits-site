@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Link from "next/link";
 import { engagementModels } from "@/data/services";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -23,9 +24,11 @@ const descriptionOverrides: Record<string, string> = {
 };
 
 export default function EngagementModels() {
+  const sectionAnim = useScrollAnimation("engagement");
+
   return (
     <section className="section-padding bg-white dot-pattern">
-      <div className="container-custom">
+      <motion.div {...sectionAnim} className="container-custom">
         <SectionHeading
           label="Engagement Models"
           title="How can we engage?"
@@ -70,7 +73,7 @@ export default function EngagementModels() {
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

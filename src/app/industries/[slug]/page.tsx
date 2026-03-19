@@ -1,12 +1,11 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { industries } from "@/data/company";
 import { services } from "@/data/services";
 import CTASection from "@/components/sections/CTASection";
-import Button from "@/components/ui/Button";
 import {
   Heart,
   Landmark,
@@ -40,23 +39,7 @@ export default function IndustryDetailPage() {
   const slug = params.slug as string;
   const industry = industries.find((i) => i.slug === slug);
 
-  if (!industry) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Industry not found
-          </h1>
-          <p className="text-foreground-muted mb-8">
-            The industry you are looking for does not exist or has been moved.
-          </p>
-          <Button href="/industries" variant="primary">
-            View all industries
-          </Button>
-        </div>
-      </div>
-    );
-  }
+  if (!industry) notFound();
 
   const Icon = iconMap[industry.icon];
 

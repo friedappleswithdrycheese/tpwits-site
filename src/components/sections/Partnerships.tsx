@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { partnerLogos } from "@/components/ui/PartnerLogos";
 
@@ -12,9 +13,11 @@ const certifications = [
 ];
 
 export default function Partnerships() {
+  const sectionAnim = useScrollAnimation("partnerships");
+
   return (
     <section className="section-padding bg-white">
-      <div className="container-custom">
+      <motion.div {...sectionAnim} className="container-custom">
         <SectionHeading
           label="Partnerships"
           title="Our partnerships with industry leaders"
@@ -58,7 +61,7 @@ export default function Partnerships() {
             </span>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

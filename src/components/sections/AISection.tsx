@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { GridPattern } from "@/components/ui/Visuals";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const convictions = [
   {
@@ -22,32 +23,22 @@ const convictions = [
 ];
 
 export default function AISection() {
+  const sectionAnim = useScrollAnimation("ai");
+
   return (
-    <section className="relative overflow-hidden bg-navy">
+    <section className="relative overflow-hidden bg-navy bg-dot-grid">
       <GridPattern className="opacity-10" />
-      <div className="container-custom section-padding relative z-10">
+      <motion.div {...sectionAnim} className="container-custom section-padding relative z-10">
         {/* Label */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-xs font-bold uppercase tracking-[0.25em] text-primary mb-6"
-        >
+        <p className="text-xs font-bold uppercase tracking-[0.25em] text-primary mb-6">
           What We Believe
-        </motion.p>
+        </p>
 
         {/* Section intro */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl lg:text-[3.25rem] font-extrabold text-white leading-[1.1] max-w-2xl mb-12 sm:mb-16 md:mb-28"
-        >
+        <h2 className="text-3xl md:text-4xl lg:text-[3.25rem] font-extrabold text-white leading-[1.1] max-w-2xl mb-12 sm:mb-16 md:mb-28">
           We don&apos;t sell services.{" "}
           <span className="text-white/40">We sell conviction.</span>
-        </motion.h2>
+        </h2>
 
         {/* Three conviction cards */}
         <div className="grid md:grid-cols-3 gap-px bg-white/[0.06] rounded-2xl overflow-hidden">
@@ -77,7 +68,7 @@ export default function AISection() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

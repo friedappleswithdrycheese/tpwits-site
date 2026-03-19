@@ -8,7 +8,11 @@ import {
   Send,
   Clock,
   MessageSquare,
+  CheckCircle,
+  AlertCircle,
+  Loader2,
 } from "lucide-react";
+import { useFormSubmit } from "@/hooks/useFormSubmit";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -20,6 +24,20 @@ export default function ContactPage() {
     message: "",
   });
 
+  const { isLoading, isSuccess, error, fieldErrors, submit, reset } =
+    useFormSubmit({
+      url: "/api/contact",
+      onSuccess: () =>
+        setFormData({
+          service: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        }),
+    });
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -30,7 +48,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic
+    submit(formData);
   };
 
   return (
@@ -133,7 +151,41 @@ export default function ContactPage() {
                   </h2>
                 </div>
 
+                {isSuccess ? (
+                  <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center">
+                    <CheckCircle className="w-10 h-10 text-green-600 mx-auto mb-3" />
+                    <h3 className="text-lg font-bold text-foreground mb-1">
+                      Message sent!
+                    </h3>
+                    <p className="text-sm text-foreground-muted mb-4">
+                      Thank you for reaching out. A senior solutions architect will respond within 24 hours.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={reset}
+                      className="text-sm font-semibold text-primary hover:underline"
+                    >
+                      Send another message
+                    </button>
+                  </div>
+                ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot */}
+                  <input
+                    type="text"
+                    name="_honeypot"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
+                  {error && (
+                    <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4">
+                      <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-red-700">{error}</p>
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
                       How can we help you?
@@ -156,6 +208,9 @@ export default function ContactPage() {
                       <option value="dedicated">Dedicated Teams</option>
                       <option value="other">Other</option>
                     </select>
+                    {fieldErrors.service && (
+                      <p className="text-xs text-red-600 mt-1">{fieldErrors.service}</p>
+                    )}
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-5">
@@ -172,6 +227,9 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 rounded-xl border border-border text-sm bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                         placeholder="John"
                       />
+                      {fieldErrors.firstName && (
+                        <p className="text-xs text-red-600 mt-1">{fieldErrors.firstName}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -186,6 +244,9 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 rounded-xl border border-border text-sm bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                         placeholder="Doe"
                       />
+                      {fieldErrors.lastName && (
+                        <p className="text-xs text-red-600 mt-1">{fieldErrors.lastName}</p>
+                      )}
                     </div>
                   </div>
 
@@ -202,6 +263,9 @@ export default function ContactPage() {
                       className="w-full px-4 py-3 rounded-xl border border-border text-sm bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                       placeholder="john@company.com"
                     />
+                    {fieldErrors.email && (
+                      <p className="text-xs text-red-600 mt-1">{fieldErrors.email}</p>
+                    )}
                   </div>
 
                   <div>
@@ -216,6 +280,9 @@ export default function ContactPage() {
                       className="w-full px-4 py-3 rounded-xl border border-border text-sm bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                       placeholder="+1 (234) 567-890"
                     />
+                    {fieldErrors.phone && (
+                      <p className="text-xs text-red-600 mt-1">{fieldErrors.phone}</p>
+                    )}
                   </div>
 
                   <div>
@@ -230,14 +297,27 @@ export default function ContactPage() {
                       className="w-full px-4 py-3 rounded-xl border border-border text-sm bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
                       placeholder="Tell us about your project goals, timeline, and any specific requirements..."
                     />
+                    {fieldErrors.message && (
+                      <p className="text-xs text-red-600 mt-1">{fieldErrors.message}</p>
+                    )}
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5"
+                    disabled={isLoading}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
                   >
-                    Book Free Consultation
-                    <Send className="w-4 h-4" />
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Book Free Consultation
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
 
                   <p className="text-xs text-foreground-subtle mt-4">
@@ -252,6 +332,7 @@ export default function ContactPage() {
                     .
                   </p>
                 </form>
+                )}
               </div>
             </div>
           </div>

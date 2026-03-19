@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useCursorGlow } from "@/hooks/useCursorGlow";
 
 /* ── Animated counter — counts up from 0 to target ── */
 function CountUp({
@@ -25,7 +26,6 @@ function CountUp({
     const start = performance.now();
     const step = (now: number) => {
       const progress = Math.min((now - start) / (duration * 1000), 1);
-      // ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(eased * target));
       if (progress < 1) requestAnimationFrame(step);
@@ -41,78 +41,71 @@ function CountUp({
   );
 }
 
+// TODO: Verify with real numbers
 const stats = [
-  { value: 17, suffix: "+", label: "Years in Operation" }, // TODO: Verify with real numbers
-  { value: 800, suffix: "+", label: "Engineers Worldwide" }, // TODO: Verify with real numbers
-  { value: 94, suffix: "%", label: "Client Retention" }, // TODO: Verify with real numbers
-  { value: 4, suffix: "", label: "Global Offices" }, // TODO: Verify with real numbers
+  { value: 17, suffix: "+", label: "Years in Operation" },
+  { value: 800, suffix: "+", label: "Engineers Worldwide" },
+  { value: 94, suffix: "%", label: "Client Retention" },
+  { value: 4, suffix: "", label: "Global Offices" },
 ];
 
-// TODO: Add only verified partnerships and certifications
-const recognitionBadges: string[] = [];
-
-const ease = [0.25, 0.1, 0.25, 1] as const;
-
 export default function Hero() {
-  return (
-    <section className="relative min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden">
-      {/* ── Background ── */}
-      <div className="absolute inset-0 bg-[#0A0A0A]" />
+  const { ref: glowRef, onMouseMove } = useCursorGlow();
 
-      {/* ── Subtle warm glow ── */}
+  return (
+    <section
+      ref={glowRef}
+      onMouseMove={onMouseMove}
+      className="relative min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden cursor-glow"
+    >
+      {/* ── Background ── */}
+      <div className="absolute inset-0 bg-navy" />
+
+      {/* ── Atmospheric gradient mesh — warmest, most dramatic ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse 50% 60% at 70% 40%, rgba(232,113,58,0.045) 0%, transparent 70%)",
+          background: [
+            "radial-gradient(ellipse 60% 50% at 70% 35%, rgba(232,113,58,0.06) 0%, transparent 70%)",
+            "radial-gradient(ellipse 40% 60% at 20% 80%, rgba(232,113,58,0.03) 0%, transparent 60%)",
+          ].join(", "),
         }}
       />
 
-      {/* ── Content ── */}
+      {/* ── Dot grid texture ── */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      {/* ── Content — CSS-only entrance animations for LCP ── */}
       <div className="container-custom relative z-10 pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           {/* ── Left column — messaging ── */}
           <div className="lg:col-span-7">
             {/* Orange accent line */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.7, delay: 0.1, ease }}
-              className="h-[3px] w-14 bg-primary mb-8 lg:mb-10 origin-left"
-            />
+            <div className="h-[3px] w-14 bg-primary mb-8 lg:mb-10 origin-left hero-accent" />
 
             {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease }}
-              className="text-[clamp(2.5rem,5vw,4.75rem)] font-extrabold text-white leading-[1.08] tracking-tight"
-            >
+            <h1 className="text-[clamp(2.5rem,5vw,4.75rem)] font-extrabold text-white leading-[1.08] tracking-tight hero-headline">
               We engineer what&apos;s next.
               <br />
               <span className="text-white/35">You deploy it today.</span>
-            </motion.h1>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease }}
-              className="mt-6 lg:mt-7 text-[17px] md:text-lg text-white/45 leading-relaxed max-w-lg"
-            >
+            <p className="mt-6 lg:mt-7 text-[17px] md:text-lg text-white/45 leading-relaxed max-w-lg hero-subtitle">
               AI systems. Cloud platforms. Enterprise products.
               We architect and deliver the technology that global
               enterprises rely on &mdash; on time, at scale, across industries.
-            </motion.p>
+            </p>
 
             {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45, ease }}
-              className="flex flex-wrap items-center gap-5 mt-9 lg:mt-10"
-            >
-              <Button href="/contact" variant="primary" size="lg">
+            <div className="flex flex-wrap items-center gap-5 mt-9 lg:mt-10 hero-ctas">
+              <Button href="/contact" variant="primary" size="lg" className="btn-glow">
                 Talk to our team
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
@@ -122,22 +115,17 @@ export default function Hero() {
               >
                 Explore capabilities &rarr;
               </Link>
-            </motion.div>
+            </div>
           </div>
 
-          {/* ── Right column — stats with count-up ── */}
+          {/* ── Right column — stats with glass cards ── */}
           <div className="lg:col-span-5 lg:pb-2">
-            <div className="grid grid-cols-2 gap-x-10 gap-y-9 lg:gap-y-11">
+            <div className="grid grid-cols-2 gap-4">
               {stats.map((stat, i) => (
-                <motion.div
+                <div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.4 + i * 0.1,
-                    ease,
-                  }}
+                  className="hero-stat rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-5"
+                  style={{ animationDelay: `${0.4 + i * 0.1}s` }}
                 >
                   <span className="text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-white tracking-tight leading-none">
                     <CountUp
@@ -149,34 +137,14 @@ export default function Hero() {
                   <p className="mt-2 text-[13px] text-white/30 font-medium tracking-wide">
                     {stat.label}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* ── Recognition badges — full width bottom ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-14 lg:mt-18 pt-7 border-t border-white/[0.06]"
-        >
-          <div className="flex flex-wrap items-center gap-x-5 sm:gap-x-7 md:gap-x-10 gap-y-2">
-            {recognitionBadges.map((badge, i) => (
-              <span
-                key={badge}
-                className={`text-[12px] font-medium text-white/25 tracking-wide whitespace-nowrap ${
-                  i > 0
-                    ? "sm:border-l sm:border-white/[0.06] sm:pl-7 md:pl-10"
-                    : ""
-                }`}
-              >
-                {badge}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+        {/* ── Recognition badges — hidden until verified ── */}
+        {/* TODO: Add only verified partnerships and certifications */}
       </div>
     </section>
   );

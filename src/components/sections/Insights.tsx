@@ -2,6 +2,8 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
   ArrowRight,
   ChevronLeft,
@@ -63,6 +65,7 @@ const typeLabels: Record<InsightType, string> = {
 };
 
 export default function Insights() {
+  const sectionAnim = useScrollAnimation("insights");
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -101,7 +104,7 @@ export default function Insights() {
 
   return (
     <section className="section-padding bg-background-alt dot-pattern">
-      <div className="container-custom">
+      <motion.div {...sectionAnim} className="container-custom">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 sm:mb-16">
           <SectionHeading
@@ -218,7 +221,7 @@ export default function Insights() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

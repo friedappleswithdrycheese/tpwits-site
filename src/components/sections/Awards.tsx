@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 const fadeUp = {
@@ -45,9 +46,11 @@ const commitments = [
 ];
 
 export default function Awards() {
+  const sectionAnim = useScrollAnimation("awards");
+
   return (
     <section className="section-padding bg-white dot-pattern relative">
-      <div className="container-custom">
+      <motion.div {...sectionAnim} className="container-custom">
         {/* Heading */}
         <SectionHeading
           label="Our Standards"
@@ -79,7 +82,7 @@ export default function Awards() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

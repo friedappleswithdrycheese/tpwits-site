@@ -1,11 +1,10 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { caseStudies } from "@/data/company";
 import CTASection from "@/components/sections/CTASection";
-import Button from "@/components/ui/Button";
 import {
   ArrowLeft,
   ArrowRight,
@@ -20,24 +19,7 @@ export default function CaseStudyDetailPage() {
   const slug = params.slug as string;
   const study = caseStudies.find((s) => s.slug === slug);
 
-  if (!study) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Case study not found
-          </h1>
-          <p className="text-foreground-muted mb-8">
-            The case study you&apos;re looking for doesn&apos;t exist or has
-            been moved.
-          </p>
-          <Button href="/case-studies" variant="primary">
-            View all case studies
-          </Button>
-        </div>
-      </div>
-    );
-  }
+  if (!study) notFound();
 
   const currentIndex = caseStudies.findIndex((s) => s.slug === slug);
   const prevStudy = currentIndex > 0 ? caseStudies[currentIndex - 1] : null;

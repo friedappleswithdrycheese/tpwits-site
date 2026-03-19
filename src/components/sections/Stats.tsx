@@ -1,22 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { clientLogos } from "@/components/ui/ClientLogos";
 
 export default function Stats() {
+  const sectionAnim = useScrollAnimation("stats");
+
   return (
     <section className="py-14 md:py-18 bg-white overflow-hidden">
-      <div className="container-custom">
+      <motion.div {...sectionAnim} className="container-custom">
         {/* TODO: Verify client logos represent real clients — currently SVG illustrations used as visual elements */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center text-xs uppercase tracking-[0.2em] text-foreground-subtle mb-8 font-semibold"
-        >
+        <p className="text-center text-xs uppercase tracking-[0.2em] text-foreground-subtle mb-8 font-semibold">
           Trusted by industry leaders worldwide
-        </motion.p>
+        </p>
 
         {/* Client Logos Marquee */}
         <div className="relative">
@@ -42,7 +39,7 @@ export default function Stats() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

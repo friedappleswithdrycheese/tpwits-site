@@ -4,6 +4,8 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { services } from "@/data/services";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -30,6 +32,7 @@ const shapeConfig: Record<string, string> = {
 };
 
 export default function ServicesOverview() {
+  const sectionAnim = useScrollAnimation("services");
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -62,6 +65,7 @@ export default function ServicesOverview() {
 
   return (
     <section className="section-padding bg-background-alt">
+      <motion.div {...sectionAnim}>
       <div className="container-custom">
         {/* Header row */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 md:mb-14">
@@ -187,6 +191,7 @@ export default function ServicesOverview() {
           })}
         </div>
       </div>
+      </motion.div>
     </section>
   );
 }

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Link from "next/link";
 import { caseStudies } from "@/data/company";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function CaseStudies() {
+  const sectionAnim = useScrollAnimation("caseStudies");
   const featuredStudies = caseStudies.filter((s: any) => s.featured);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -22,8 +24,8 @@ export default function CaseStudies() {
   const testimonial = study.testimonial;
 
   return (
-    <section className="section-padding bg-navy">
-      <div className="container-custom">
+    <section className="section-padding bg-navy bg-ruled-lines">
+      <motion.div {...sectionAnim} className="container-custom">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16">
           <SectionHeading
@@ -174,7 +176,7 @@ export default function CaseStudies() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

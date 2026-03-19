@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Button from "@/components/ui/Button";
-import { Send } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { useFormSubmit } from "@/hooks/useFormSubmit";
 
 const valueProps = [
   {
@@ -37,6 +39,7 @@ const serviceOptions = [
 ];
 
 export default function ContactFormSection() {
+  const sectionAnim = useScrollAnimation("contact");
   const [activeIndex, setActiveIndex] = useState(0);
   const [formData, setFormData] = useState({
     service: "",
@@ -46,6 +49,20 @@ export default function ContactFormSection() {
     phone: "",
     description: "",
   });
+
+  const { isLoading, isSuccess, error, fieldErrors, submit, reset } =
+    useFormSubmit({
+      url: "/api/contact",
+      onSuccess: () =>
+        setFormData({
+          service: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          description: "",
+        }),
+    });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -64,8 +81,7 @@ export default function ContactFormSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic
-    console.log("Form submitted:", formData);
+    submit(formData);
   };
 
   const inputClasses =
@@ -73,22 +89,16 @@ export default function ContactFormSection() {
 
   return (
     <section className="section-padding relative bg-white">
-      <div className="container-custom">
+      <motion.div {...sectionAnim} className="container-custom">
         {/* Section heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10 sm:mb-16"
-        >
+        <div className="text-center mb-10 sm:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-foreground leading-tight mb-4">
             Power your next digital move.
           </h2>
           <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
             Share your challenge. A senior solutions architect will respond within 24 hours with a scoped proposal and team recommendation.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
           {/* Left — Rotating testimonials */}
@@ -158,10 +168,44 @@ export default function ContactFormSection() {
             viewport={{ once: true, amount: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
+            {isSuccess ? (
+              <div className="rounded-2xl border border-green-200 bg-green-50 p-8 md:p-10 text-center">
+                <CheckCircle className="w-10 h-10 text-green-600 mx-auto mb-3" />
+                <h3 className="text-lg font-bold text-foreground mb-1">
+                  Message sent!
+                </h3>
+                <p className="text-sm text-foreground-muted mb-4">
+                  Thank you for reaching out. A senior solutions architect will respond within 24 hours.
+                </p>
+                <button
+                  type="button"
+                  onClick={reset}
+                  className="text-sm font-semibold text-primary hover:underline"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
             <form
               onSubmit={handleSubmit}
               className="rounded-2xl border border-border p-8 md:p-10 shadow-sm"
             >
+              {/* Honeypot */}
+              <input
+                type="text"
+                name="_honeypot"
+                className="hidden"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+
+              {error && (
+                <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 mb-5">
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-red-700">{error}</p>
+                </div>
+              )}
+
               {/* Service dropdown */}
               <div className="mb-5">
                 <label
@@ -183,6 +227,9 @@ export default function ContactFormSection() {
                     </option>
                   ))}
                 </select>
+                {fieldErrors.service && (
+                  <p className="text-xs text-red-600 mt-1">{fieldErrors.service}</p>
+                )}
               </div>
 
               {/* Name row */}
@@ -204,6 +251,9 @@ export default function ContactFormSection() {
                     className={inputClasses}
                     required
                   />
+                  {fieldErrors.firstName && (
+                    <p className="text-xs text-red-600 mt-1">{fieldErrors.firstName}</p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -222,6 +272,9 @@ export default function ContactFormSection() {
                     className={inputClasses}
                     required
                   />
+                  {fieldErrors.lastName && (
+                    <p className="text-xs text-red-600 mt-1">{fieldErrors.lastName}</p>
+                  )}
                 </div>
               </div>
 
@@ -243,6 +296,9 @@ export default function ContactFormSection() {
                   className={inputClasses}
                   required
                 />
+                {fieldErrors.email && (
+                  <p className="text-xs text-red-600 mt-1">{fieldErrors.email}</p>
+                )}
               </div>
 
               {/* Phone */}
@@ -262,6 +318,9 @@ export default function ContactFormSection() {
                   placeholder="+1 (555) 000-0000"
                   className={inputClasses}
                 />
+                {fieldErrors.phone && (
+                  <p className="text-xs text-red-600 mt-1">{fieldErrors.phone}</p>
+                )}
               </div>
 
               {/* Description */}
@@ -281,6 +340,9 @@ export default function ContactFormSection() {
                   rows={4}
                   className={`${inputClasses} resize-none`}
                 />
+                {fieldErrors.description && (
+                  <p className="text-xs text-red-600 mt-1">{fieldErrors.description}</p>
+                )}
               </div>
 
               {/* Consent */}
@@ -310,14 +372,24 @@ export default function ContactFormSection() {
               </div>
 
               {/* Submit */}
-              <Button type="submit" variant="primary" className="w-full">
-                Book Free Consultation
-                <Send className="w-4 h-4 ml-2" />
+              <Button type="submit" variant="primary" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Book Free Consultation
+                    <Send className="w-4 h-4 ml-2" />
+                  </>
+                )}
               </Button>
             </form>
+            )}
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

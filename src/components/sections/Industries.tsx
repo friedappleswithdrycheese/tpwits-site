@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Link from "next/link";
 import { industries } from "@/data/company";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -28,9 +29,11 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export default function Industries() {
+  const sectionAnim = useScrollAnimation("industries");
+
   return (
-    <section className="section-padding bg-navy dot-pattern-dark">
-      <div className="container-custom">
+    <section className="section-padding bg-navy">
+      <motion.div {...sectionAnim} className="container-custom">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
           <SectionHeading
             label="Industries"
@@ -75,7 +78,7 @@ export default function Industries() {
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

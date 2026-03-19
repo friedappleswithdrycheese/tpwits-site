@@ -1,22 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function TechStack() {
+  const sectionAnim = useScrollAnimation("techStack");
+
   return (
-    <section className="section-padding bg-navy">
-      <div className="container-custom">
+    <section className="section-padding bg-navy bg-diagonal-grid">
+      <motion.div {...sectionAnim} className="container-custom">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Column — Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          >
+          <div>
             <span className="section-label text-primary/80">
               About Us
             </span>
@@ -40,16 +38,10 @@ export default function TechStack() {
             >
               Learn more about us &rarr;
             </Link>
-          </motion.div>
+          </div>
 
           {/* Right Column — Photo */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-            className="border border-white/[0.08] rounded-2xl overflow-hidden"
-          >
+          <div className="border border-white/[0.08] rounded-2xl overflow-hidden">
             <Image
               src="/team-photo.png"
               alt="TPWITS team at a technology conference"
@@ -57,9 +49,9 @@ export default function TechStack() {
               height={540}
               className="rounded-2xl w-full h-auto"
             />
-          </motion.div>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

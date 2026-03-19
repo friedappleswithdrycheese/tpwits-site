@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const valuePropositions = [
@@ -23,6 +24,7 @@ const valuePropositions = [
 ];
 
 export default function Testimonials() {
+  const sectionAnim = useScrollAnimation("testimonials");
   const [current, setCurrent] = useState(0);
 
   const next = () =>
@@ -35,7 +37,7 @@ export default function Testimonials() {
 
   return (
     <section className="section-padding bg-navy">
-      <div className="container-custom">
+      <motion.div {...sectionAnim} className="container-custom">
         <div className="max-w-4xl mx-auto">
           {/* Section label */}
           <div className="text-center mb-8">
@@ -110,7 +112,7 @@ export default function Testimonials() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

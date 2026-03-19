@@ -1,11 +1,30 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { services } from "@/data/services";
-import { Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, Loader2, CheckCircle } from "lucide-react";
+import { useFormSubmit } from "@/hooks/useFormSubmit";
 
 export default function Footer() {
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const {
+    isLoading: nlLoading,
+    isSuccess: nlSuccess,
+    error: nlError,
+    submit: nlSubmit,
+    reset: nlReset,
+  } = useFormSubmit({
+    url: "/api/newsletter",
+    onSuccess: () => setNewsletterEmail(""),
+  });
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    nlSubmit({ email: newsletterEmail });
+  };
+
   return (
     <footer className="bg-navy text-white">
       {/* Pre-footer CTA */}
@@ -139,18 +158,56 @@ export default function Footer() {
               <h5 className="text-sm font-semibold text-white mb-3">
                 Subscribe to our newsletter
               </h5>
-              <div className="flex gap-2">
-                <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-                <input
-                  type="email"
-                  id="newsletter-email"
-                  placeholder="Work email"
-                  className="flex-1 min-w-0 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:border-primary transition-colors"
-                />
-                <button className="flex-shrink-0 px-4 py-2.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary-hover transition-colors">
-                  Subscribe
-                </button>
-              </div>
+              {nlSuccess ? (
+                <div className="flex items-center gap-2 text-sm text-green-400">
+                  <CheckCircle className="w-4 h-4" />
+                  <span>Subscribed!</span>
+                  <button
+                    type="button"
+                    onClick={nlReset}
+                    className="text-xs text-white/50 hover:text-white/80 ml-2 underline"
+                  >
+                    Subscribe another
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleNewsletterSubmit}>
+                  {/* Honeypot */}
+                  <input
+                    type="text"
+                    name="_honeypot"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                  <div className="flex gap-2">
+                    <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+                    <input
+                      type="email"
+                      id="newsletter-email"
+                      placeholder="Work email"
+                      value={newsletterEmail}
+                      onChange={(e) => setNewsletterEmail(e.target.value)}
+                      required
+                      className="flex-1 min-w-0 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:border-primary transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      disabled={nlLoading}
+                      className="flex-shrink-0 px-4 py-2.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      {nlLoading ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        "Subscribe"
+                      )}
+                    </button>
+                  </div>
+                  {nlError && (
+                    <p className="text-xs text-red-400 mt-2">{nlError}</p>
+                  )}
+                </form>
+              )}
             </div>
           </div>
         </div>

@@ -1,11 +1,10 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { services } from "@/data/services";
 import CTASection from "@/components/sections/CTASection";
-import Button from "@/components/ui/Button";
 import {
   Brain,
   Code2,
@@ -38,18 +37,7 @@ export default function ServiceDetailPage() {
   const slug = params.slug as string;
   const service = services.find((s) => s.slug === slug);
 
-  if (!service) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Service not found</h1>
-          <Button href="/services" variant="primary">
-            View all services
-          </Button>
-        </div>
-      </div>
-    );
-  }
+  if (!service) notFound();
 
   const Icon = iconMap[service.icon];
   const currentIndex = services.findIndex((s) => s.slug === slug);
