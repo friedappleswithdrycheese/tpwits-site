@@ -1,77 +1,34 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Careers | TPWITS",
   description:
-    "Join the TPWITS team. Explore open positions in AI, cloud, engineering, and more. Build your career with a global technology company that values innovation, growth, and people.",
+    "Join the TPWITS team. We're looking for talented engineers and professionals who want to work on challenging projects with global clients.",
 };
 
-const openPositions = [
+/* TODO: Replace with real job listings when positions are open */
+const teamAreas = [
   {
-    title: "Senior AI Engineer",
-    location: "San Francisco, USA",
-    type: "Full-time",
-    department: "AI & Data Innovation",
-  },
-  {
-    title: "Full Stack Developer",
-    location: "Lahore, Pakistan",
-    type: "Full-time",
-    department: "Digital Product Engineering",
-  },
-  {
-    title: "Cloud Architect",
-    location: "Remote",
-    type: "Full-time",
-    department: "Cloud & Infrastructure",
-  },
-  {
-    title: "DevOps Engineer",
-    location: "Dubai, UAE",
-    type: "Full-time",
-    department: "Cloud & Infrastructure",
-  },
-  {
-    title: "UX Designer",
-    location: "Remote",
-    type: "Full-time",
-    department: "Digital Product Engineering",
-  },
-];
-
-const benefits = [
-  {
-    title: "Learning Budget",
+    area: "Engineering",
     description:
-      "Annual budget for courses, conferences, and certifications to keep your skills sharp.",
+      "We work on AI, cloud infrastructure, and enterprise systems for global clients. Our engineers solve hard problems across the full stack.",
   },
   {
-    title: "Flexible Hours",
+    area: "Product & Design",
     description:
-      "Work when you are most productive. We trust our team to manage their own schedules.",
+      "Shape user experiences and product strategy for complex enterprise applications. Research, design, and iterate with real users.",
   },
   {
-    title: "Remote-First",
+    area: "Business Development",
     description:
-      "Work from anywhere. Our distributed teams collaborate across time zones seamlessly.",
+      "Build relationships with clients and partners. Help organizations understand how technology can solve their most pressing challenges.",
   },
   {
-    title: "Health Coverage",
+    area: "Operations",
     description:
-      "Comprehensive medical, dental, and vision insurance for you and your family.",
-  },
-  {
-    title: "Equity & Bonuses",
-    description:
-      "Competitive compensation with performance bonuses and equity options for all employees.",
-  },
-  {
-    title: "Paid Time Off",
-    description:
-      "Generous PTO policy plus company-wide recharge days to ensure you stay refreshed.",
+      "Keep the engine running. From project delivery to finance to people operations, every function matters.",
   },
 ];
 
@@ -89,74 +46,88 @@ export default function CareersPage() {
               Careers
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-              Join our team of innovators.
+              Build great software with us.
             </h1>
             <p className="text-lg text-white/60 leading-relaxed max-w-2xl">
-              At TPWITS, we foster a culture of curiosity, collaboration, and
-              continuous learning. Work on cutting-edge projects with talented
-              people who are passionate about engineering tomorrow&apos;s digital
-              reality.
+              We&apos;re always looking for talented engineers and professionals
+              who want to work on challenging projects. If you care about craft
+              and want to solve real problems for real clients, we should talk.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Open Positions */}
+      {/* Team Areas */}
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            label="Open Positions"
-            title="Find your next opportunity."
-            description="We are always looking for exceptional talent to join our global team. Explore our current openings below."
+            label="Where You Fit In"
+            title="We're a growing team."
+            description="If you're passionate about building great software, we want to hear from you. Here are the areas we're building out."
             align="center"
           />
 
-          <div className="max-w-4xl mx-auto space-y-4">
-            {openPositions.map((position) => (
+          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+            {teamAreas.map((item) => (
               <div
-                key={position.title}
-                className="card-hover p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                key={item.area}
+                className="card-hover p-8"
               >
-                <div>
-                  <h3 className="text-lg font-bold text-foreground mb-1">
-                    {position.title}
-                  </h3>
-                  <p className="text-sm text-foreground-muted">
-                    {position.department}
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                  <span className="inline-flex items-center text-xs font-medium text-foreground-muted bg-background-alt px-3 py-1.5 rounded-full">
-                    {position.location}
-                  </span>
-                  <span className="inline-flex items-center text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full">
-                    {position.type}
-                  </span>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary-hover transition-colors"
-                  >
-                    Apply Now &rarr;
-                  </Link>
-                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">
+                  {item.area}
+                </h3>
+                <p className="text-sm text-foreground-muted leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Benefits & Perks */}
+      {/* What We Offer */}
       <section className="section-padding bg-background-alt">
         <div className="container-custom">
           <SectionHeading
-            label="Benefits & Perks"
-            title="Why you will love working here."
-            description="We invest in our people because great work comes from happy, supported teams."
+            label="What We Offer"
+            title="A place to do meaningful work."
+            description="We invest in our people because great work comes from supported, trusted teams."
             align="center"
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {benefits.map((benefit) => (
+            {[
+              {
+                title: "Challenging Projects",
+                description:
+                  "Work on AI, cloud, and enterprise systems for clients across healthcare, finance, retail, and more.",
+              },
+              {
+                title: "Learning & Growth",
+                description:
+                  "Budget for courses, conferences, and certifications. We want you to keep growing.",
+              },
+              {
+                title: "Flexible Work",
+                description:
+                  "Remote-friendly with flexible hours. We trust our team to manage their own schedules.",
+              },
+              {
+                title: "Competitive Compensation",
+                description:
+                  "Fair pay, performance bonuses, and benefits that reflect the value you bring.",
+              },
+              {
+                title: "Small Team Feel",
+                description:
+                  "You won't be a cog in a machine. Your work will be visible and your voice will be heard.",
+              },
+              {
+                title: "Global Clients",
+                description:
+                  "Work with organizations across the US, Middle East, and Europe on problems that matter.",
+              },
+            ].map((benefit) => (
               <div
                 key={benefit.title}
                 className="bg-white p-8 rounded-2xl hover:shadow-lg transition-all duration-300"
@@ -177,15 +148,21 @@ export default function CareersPage() {
       <section className="section-padding overflow-hidden bg-navy">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-5 max-w-3xl mx-auto">
-            Don&apos;t see a role that fits?
+            Interested? Send us your profile.
           </h2>
           <p className="text-lg text-white/60 leading-relaxed max-w-xl mx-auto mb-10">
-            We are always eager to connect with talented individuals. Send us
-            your resume and tell us how you can contribute to our mission.
+            We don&apos;t have a formal application process for every role.
+            If you think you&apos;d be a good fit, reach out and tell us
+            about yourself.
           </p>
-          <Button href="/contact" variant="primary" size="lg">
-            Send Us Your Resume
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button href="mailto:careers@tpwits.com" variant="primary" size="lg">
+              Email careers@tpwits.com
+            </Button>
+            <Button href="/contact" variant="outline" size="lg">
+              Or Use the Contact Form
+            </Button>
+          </div>
         </div>
       </section>
     </>

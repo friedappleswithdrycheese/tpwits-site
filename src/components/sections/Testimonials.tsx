@@ -4,40 +4,33 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const testimonials = [
+const valuePropositions = [
   {
     quote:
-      "We evaluated six firms for our CRM overhaul — TPWITS was the only one that mapped the solution to our revenue targets. Team productivity is up 42%, and we closed the integration in half the projected timeline.",
-    name: "Pam Chitwood",
-    title: "Product Manager, ABB",
+      "We don't hide behind vague promises. Every engagement starts with a clear scope, timeline, and success criteria — agreed before a single line of code is written.",
+    label: "Transparent Process",
   },
   {
     quote:
-      "Their AI engineers didn't just build a document processing system — they embedded it into our compliance workflow. We're processing 12,000 documents daily at 99.2% accuracy, and we eliminated $1.8M in annual manual review costs.",
-    name: "Nick Drogo",
-    title: "Global Director IT, Knowles",
+      "Our engineers work as an extension of your team, not as outsiders handing off code. Daily standups, shared repos, your tools, your workflow.",
+    label: "Embedded Teams",
   },
   {
     quote:
-      "Most cloud migration partners talk about cost savings. TPWITS actually delivered them — 38% infrastructure reduction in the first quarter, zero downtime during cutover, and our release cycles went from monthly to weekly. That's rare at our scale.",
-    name: "Robert K Burger",
-    title: "COO, Sterne Kessler",
-  },
-  {
-    quote:
-      "We needed to scale from 50K to 500K concurrent users in under six months. TPWITS architected the platform, embedded a 14-person squad, and hit every milestone. They operate like a strategic partner, not a vendor.",
-    name: "Umair Bashir",
-    title: "Director, Groupon",
+      "We measure success by business outcomes, not billable hours. If the project isn't delivering value, we course-correct — not upsell.",
+    label: "Outcome-Focused",
   },
 ];
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
 
-  const next = () => setCurrent((prev) => (prev + 1) % testimonials.length);
+  const next = () =>
+    setCurrent((prev) => (prev + 1) % valuePropositions.length);
   const prev = () =>
     setCurrent(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) =>
+        (prev - 1 + valuePropositions.length) % valuePropositions.length
     );
 
   return (
@@ -47,16 +40,18 @@ export default function Testimonials() {
           {/* Section label */}
           <div className="text-center mb-8">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">
-              Testimonials
+              How We Work
             </p>
           </div>
 
           {/* Decorative quote mark */}
           <div className="text-center mb-2">
-            <span className="text-8xl font-serif text-primary/[0.12] leading-none select-none">&ldquo;</span>
+            <span className="text-8xl font-serif text-primary/[0.12] leading-none select-none">
+              &ldquo;
+            </span>
           </div>
 
-          {/* Testimonial content */}
+          {/* Value proposition content */}
           <div className="relative min-h-[220px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.div
@@ -68,27 +63,14 @@ export default function Testimonials() {
                 className="text-center"
               >
                 <blockquote className="text-lg md:text-xl lg:text-[1.75rem] font-medium text-white/90 leading-relaxed mb-10">
-                  &ldquo;{testimonials[current].quote}&rdquo;
+                  &ldquo;{valuePropositions[current].quote}&rdquo;
                 </blockquote>
 
-                {/* Avatar + info */}
+                {/* Label */}
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-14 h-14 rounded-full bg-primary/[0.08] border border-primary/[0.15] flex items-center justify-center">
-                    <span className="text-primary/70 font-bold text-base">
-                      {testimonials[current].name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="text-base font-bold text-white">
-                      {testimonials[current].name}
-                    </div>
-                    <div className="text-sm text-white/50">
-                      {testimonials[current].title}
-                    </div>
-                  </div>
+                  <p className="text-base font-bold text-white">
+                    {valuePropositions[current].label}
+                  </p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -99,13 +81,13 @@ export default function Testimonials() {
             <button
               onClick={prev}
               className="w-11 h-11 rounded-full border border-white/[0.12] flex items-center justify-center text-white/60 hover:border-white/30 hover:text-white transition-colors"
-              aria-label="Previous testimonial"
+              aria-label="Previous"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-2">
-              {testimonials.map((_, index) => (
+              {valuePropositions.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrent(index)}
@@ -114,7 +96,7 @@ export default function Testimonials() {
                       ? "w-8 bg-white"
                       : "w-2 bg-white/20 hover:bg-white/30"
                   }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
+                  aria-label={`Go to item ${index + 1}`}
                 />
               ))}
             </div>
@@ -122,7 +104,7 @@ export default function Testimonials() {
             <button
               onClick={next}
               className="w-11 h-11 rounded-full border border-white/[0.12] flex items-center justify-center text-white/60 hover:border-white/30 hover:text-white transition-colors"
-              aria-label="Next testimonial"
+              aria-label="Next"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

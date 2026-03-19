@@ -30,38 +30,7 @@ const valueIcons: Record<string, React.ElementType> = {
   "Impactful Outcomes": TrendingUp,
 };
 
-const leadershipTeam = [
-  {
-    name: "Tahir Pervaiz",
-    title: "Founder & CEO",
-    bio: "17+ years building technology companies from the ground up. Previously led digital transformation initiatives for Fortune 500 enterprises across three continents.",
-  },
-  {
-    name: "Sarah Mitchell",
-    title: "CTO",
-    bio: "Former principal engineer at AWS where she architected distributed systems serving billions of requests daily. Holds 8 patents in cloud infrastructure and edge computing.",
-  },
-  {
-    name: "Umair Bashir",
-    title: "VP Engineering",
-    bio: "Led engineering teams of 200+ across multiple geographies, shipping products used by millions. Passionate about engineering culture, developer experience, and scalable team topologies.",
-  },
-  {
-    name: "Nadia Khan",
-    title: "VP Client Success",
-    bio: "Drives client engagement strategy with a track record of 94% retention across enterprise accounts. Previously built the customer success function at two high-growth SaaS startups.",
-  },
-  {
-    name: "David Park",
-    title: "Head of AI",
-    bio: "PhD in Machine Learning from Stanford with 40+ published papers in NLP and computer vision. Led AI research teams at Google DeepMind before joining TPWITS.",
-  },
-  {
-    name: "James Chen",
-    title: "Head of Cloud & Infrastructure",
-    bio: "AWS Solutions Architect Professional with deep expertise in multi-cloud strategy. Managed $200M+ cloud infrastructure budgets and led migrations for global enterprises.",
-  },
-];
+/* TODO: Replace with real team member names, titles, and bios */
 
 const cultureHighlights = [
   {
@@ -74,7 +43,7 @@ const cultureHighlights = [
     icon: Globe,
     title: "Global & Diverse",
     description:
-      "4 offices across 3 continents. 800+ engineers from diverse backgrounds and perspectives.",
+      "Offices across multiple continents with engineers from diverse backgrounds and perspectives.",
   },
   {
     icon: BookOpen,
@@ -169,45 +138,38 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership */}
+      {/* TODO: Replace with real team member names, titles, and bios */}
       <section id="leadership" className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
             label="Leadership"
-            title="Led by engineers who've built at scale."
-            description="Our leadership team brings decades of hands-on engineering and enterprise experience from the world's most innovative companies."
+            title="Meet the team behind your project."
+            description="Our team is led by experienced engineers and business leaders who care deeply about delivering real results."
             align="center"
           />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {leadershipTeam.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                className="p-8 rounded-2xl border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300"
-              >
-                <div className="w-16 h-16 rounded-full bg-primary/[0.08] border border-primary/[0.15] flex items-center justify-center mb-5">
-                  <span className="text-primary/70 font-bold text-lg">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-foreground mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-sm font-semibold text-primary mb-3">
-                  {member.title}
-                </p>
-                <p className="text-sm text-foreground-muted leading-relaxed">
-                  {member.bio}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl mx-auto text-center p-10 rounded-2xl border border-border"
+          >
+            <p className="text-lg text-foreground-muted leading-relaxed mb-8">
+              Our team is led by experienced engineers and business leaders.
+              We believe our work speaks louder than bios — schedule a call
+              and meet the people who&apos;ll be building your product.
+            </p>
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl transition-colors duration-300"
+            >
+              Meet the Team
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </motion.div>
         </div>
       </section>
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { services } from "@/data/services";
-import { Linkedin, Twitter, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -59,31 +59,9 @@ export default function Footer() {
                 <Mail className="w-4 h-4" />
                 hello@tpwits.com
               </a>
-              <a
-                href="tel:+1234567890"
-                className="flex items-center gap-3 text-sm text-white/50 hover:text-primary transition-colors"
-              >
-                <Phone className="w-4 h-4" />
-                +1 (234) 567-890
-              </a>
             </div>
 
-            <div className="flex gap-3">
-              {[
-                { icon: Linkedin, href: "#", label: "LinkedIn" },
-                { icon: Twitter, href: "#", label: "Twitter" },
-                { icon: Facebook, href: "#", label: "Facebook" },
-              ].map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-10 h-10 rounded-lg bg-white/[0.06] flex items-center justify-center hover:bg-primary hover:text-white hover:scale-105 transition-all duration-300"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
+            {/* TODO: Add real social media links when accounts are created */}
           </div>
 
           {/* Services Links */}
@@ -139,34 +117,18 @@ export default function Footer() {
             </h4>
             <div className="space-y-5">
               {[
-                {
-                  city: "San Francisco",
-                  country: "USA",
-                  address: "Innovation Hub, Suite 450, San Francisco, CA 94105",
-                },
-                {
-                  city: "Lahore",
-                  country: "Pakistan",
-                  address: "TPWITS Tower, Gulberg III, Lahore 54000",
-                },
-                {
-                  city: "Dubai",
-                  country: "UAE",
-                  address: "Business Bay, Executive Tower, Dubai",
-                },
-                {
-                  city: "London",
-                  country: "UK",
-                  address: "15 Finsbury Square, London EC2A 1AH",
-                },
-              ].map(({ city, country, address }) => (
+                { city: "Lahore", country: "Pakistan" },
+                { city: "San Francisco", country: "USA" },
+                { city: "Dubai", country: "UAE" },
+                { city: "London", country: "UK" },
+              ].map(({ city, country }) => (
                 <div key={city}>
                   <h5 className="text-sm font-semibold text-white mb-1">
                     {country}
                   </h5>
                   <p className="text-xs text-white/40 leading-relaxed flex items-start gap-2">
                     <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-                    {address}
+                    {city}, {country}
                   </p>
                 </div>
               ))}

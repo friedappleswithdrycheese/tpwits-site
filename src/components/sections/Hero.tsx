@@ -42,19 +42,14 @@ function CountUp({
 }
 
 const stats = [
-  { value: 17, suffix: "+", label: "Years in Operation" },
-  { value: 800, suffix: "+", label: "Engineers Worldwide" },
-  { value: 94, suffix: "%", label: "Client Retention" },
-  { value: 4, suffix: "", label: "Global Offices" },
+  { value: 17, suffix: "+", label: "Years in Operation" }, // TODO: Verify with real numbers
+  { value: 800, suffix: "+", label: "Engineers Worldwide" }, // TODO: Verify with real numbers
+  { value: 94, suffix: "%", label: "Client Retention" }, // TODO: Verify with real numbers
+  { value: 4, suffix: "", label: "Global Offices" }, // TODO: Verify with real numbers
 ];
 
-const recognitionBadges = [
-  "AWS Advanced Partner",
-  "Microsoft Gold",
-  "Google Cloud Partner",
-  "ISO 27001",
-  "CMMI Level 3",
-];
+// TODO: Add only verified partnerships and certifications
+const recognitionBadges: string[] = [];
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 

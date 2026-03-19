@@ -29,7 +29,7 @@ export default function CaseStudies() {
           <SectionHeading
             label="Case Studies"
             title="Featured success stories."
-            description="Measurable outcomes from enterprise engagements across healthcare, fintech, retail, and legal tech. Every metric is real. Every result is client-verified."
+            description="Measurable outcomes from enterprise engagements across healthcare, fintech, retail, and legal tech."
             className="mb-0"
             dark
           />
@@ -41,6 +41,8 @@ export default function CaseStudies() {
             <ArrowUpRight className="w-4 h-4" />
           </Link>
         </div>
+
+        <p className="text-center text-sm text-white/30 -mt-4 mb-8">Representative engagements — client details anonymized under NDA</p>
 
         {/* Carousel */}
         <div className="relative">

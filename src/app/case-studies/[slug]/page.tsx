@@ -329,7 +329,7 @@ export default function CaseStudyDetailPage() {
                       {study.testimonial.name}
                     </div>
                     <div className="text-sm text-foreground-muted">
-                      {study.testimonial.title}, {study.client}
+                      {study.testimonial.title ? `${study.testimonial.title}, ${study.client}` : study.client}
                     </div>
                   </div>
                 </div>

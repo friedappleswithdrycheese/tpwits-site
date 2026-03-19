@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
-  Phone,
   MapPin,
   Send,
   Clock,
@@ -88,18 +87,6 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <a href="tel:+1234567890" className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-foreground-subtle mb-0.5">Call us</div>
-                    <div className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
-                      +1 (234) 567-890
-                    </div>
-                  </div>
-                </a>
-
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Clock className="w-5 h-5 text-primary" />
@@ -119,18 +106,9 @@ export default function ContactPage() {
               <h3 className="text-lg font-bold text-foreground mb-4">Our offices</h3>
               <div className="space-y-4">
                 {[
-                  {
-                    city: "San Francisco, USA",
-                    address: "Innovation Hub, Suite 450, San Francisco, CA 94105",
-                  },
-                  {
-                    city: "Lahore, Pakistan",
-                    address: "TPWITS Tower, Gulberg III, Lahore 54000",
-                  },
-                  {
-                    city: "Dubai, UAE",
-                    address: "Business Bay, Executive Tower, Dubai",
-                  },
+                  { city: "Lahore, Pakistan", address: "Engineering Hub" },
+                  { city: "San Francisco, USA", address: "Headquarters" },
+                  { city: "Dubai, UAE", address: "Regional Office" },
                 ].map((office) => (
                   <div key={office.city} className="flex items-start gap-3">
                     <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />

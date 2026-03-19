@@ -5,24 +5,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { Send } from "lucide-react";
 
-const testimonials = [
+const valueProps = [
   {
     quote:
-      "We migrated 140+ microservices to a cloud-native architecture in 18 weeks — on time and 12% under budget. TPWITS brought the senior architects other firms only promise in the pitch deck.",
-    name: "Sarah Mitchell",
-    title: "CTO, FinEdge Solutions",
+      "Every engagement starts with a clear scope, timeline, and success criteria.",
+    name: "Our Promise",
+    title: "",
   },
   {
     quote:
-      "Their AI team automated 83% of our clinical document review pipeline, saving 6,200 staff hours per quarter. The technical depth of their engineers set them apart from every vendor we evaluated.",
-    name: "James Rodriguez",
-    title: "VP of Engineering, MedCore Health",
+      "Our engineers work as an extension of your team — your tools, your workflow.",
+    name: "Embedded Teams",
+    title: "",
   },
   {
     quote:
-      "TPWITS embedded a 20-person squad that delivered our omnichannel platform in five months. Revenue per digital customer is up 31% since launch — they understood the business case, not just the code.",
-    name: "Amina Khalid",
-    title: "Director of Digital, RetailNova",
+      "We measure success by business outcomes, not billable hours.",
+    name: "Outcome-Focused",
+    title: "",
   },
 ];
 
@@ -49,7 +49,7 @@ export default function ContactFormSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+      setActiveIndex((prev) => (prev + 1) % valueProps.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -101,12 +101,12 @@ export default function ContactFormSection() {
           >
             <div className="mb-12">
               <p className="text-gray-500 text-sm">
-                Join 500+ enterprises that trust TPWITS
+                Why teams choose to work with us
               </p>
             </div>
 
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-8">
-              What Our Clients Say
+              Why Work With Us
             </p>
 
             <div className="relative">
@@ -120,14 +120,14 @@ export default function ContactFormSection() {
                   className=""
                 >
                   <blockquote className="text-lg md:text-xl font-medium text-foreground leading-relaxed mb-8">
-                    &ldquo;{testimonials[activeIndex].quote}&rdquo;
+                    &ldquo;{valueProps[activeIndex].quote}&rdquo;
                   </blockquote>
                   <div>
                     <p className="font-semibold text-foreground">
-                      {testimonials[activeIndex].name}
+                      {valueProps[activeIndex].name}
                     </p>
                     <p className="text-sm text-foreground-subtle">
-                      {testimonials[activeIndex].title}
+                      {valueProps[activeIndex].title}
                     </p>
                   </div>
                 </motion.div>
@@ -136,7 +136,7 @@ export default function ContactFormSection() {
 
             {/* Dots indicator */}
             <div className="flex gap-2 mt-8">
-              {testimonials.map((_, i) => (
+              {valueProps.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
@@ -145,7 +145,7 @@ export default function ContactFormSection() {
                       ? "bg-gray-900 w-8"
                       : "w-2.5 bg-gray-300 hover:bg-gray-400"
                   }`}
-                  aria-label={`View testimonial ${i + 1}`}
+                  aria-label={`View value prop ${i + 1}`}
                 />
               ))}
             </div>

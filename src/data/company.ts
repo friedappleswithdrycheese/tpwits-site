@@ -1,8 +1,8 @@
 export const companyStats = [
-  { value: "17+", label: "Years in Operation" },
-  { value: "800+", label: "Engineers Worldwide" },
-  { value: "94%", label: "Client Retention" },
-  { value: "4", label: "Global Offices" },
+  { value: "17+", label: "Years in Operation" }, // TODO: Verify — replace with real number based on actual founding year
+  { value: "800+", label: "Engineers Worldwide" }, // TODO: Verify — replace with real headcount
+  { value: "94%", label: "Client Retention" }, // TODO: Verify — replace with real number or remove if unverifiable
+  { value: "4", label: "Global Offices" }, // TODO: Verify — replace with real number of offices
 ];
 
 export const companyInfo = {
@@ -112,17 +112,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "60% faster diagnostics",
+        metric: "Significantly faster diagnostics",
         description:
           "AI diagnostic engines reduce turnaround time from hours to minutes, enabling earlier interventions and better patient outcomes.",
       },
       {
-        metric: "40% reduction in admin costs",
+        metric: "Measurable reduction in admin costs",
         description:
           "Intelligent automation of scheduling, billing, and documentation frees clinical staff to focus on patient care.",
       },
       {
-        metric: "99.99% HIPAA compliance rate",
+        metric: "Robust HIPAA compliance",
         description:
           "Zero-trust architecture and continuous compliance monitoring ensure patient data protection across all touchpoints.",
       },
@@ -174,17 +174,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "Sub-200ms transaction latency",
+        metric: "Ultra-low transaction latency",
         description:
           "High-performance payment infrastructure processes thousands of transactions per second with real-time settlement and reconciliation.",
       },
       {
-        metric: "70% fewer fraud false positives",
+        metric: "Dramatically fewer fraud false positives",
         description:
           "ML-driven fraud detection models dramatically reduce legitimate transaction blocks while catching more actual fraud.",
       },
       {
-        metric: "$12M+ annual compliance savings",
+        metric: "Substantial annual compliance savings",
         description:
           "Automated regulatory reporting and KYC workflows eliminate manual processes and reduce compliance team overhead.",
       },
@@ -236,17 +236,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "35% increase in conversion",
+        metric: "Meaningful increase in conversion",
         description:
           "AI-powered personalization and recommendation engines drive higher engagement, larger basket sizes, and improved conversion rates.",
       },
       {
-        metric: "25% reduction in inventory costs",
+        metric: "Notable reduction in inventory costs",
         description:
-          "Demand forecasting and smart replenishment eliminate overstock while reducing out-of-stock incidents by over 80%.",
+          "Demand forecasting and smart replenishment eliminate overstock while significantly reducing out-of-stock incidents.",
       },
       {
-        metric: "3x improvement in customer LTV",
+        metric: "Significant improvement in customer LTV",
         description:
           "Unified customer data and personalized loyalty programs significantly increase repeat purchase rates and lifetime value.",
       },
@@ -298,17 +298,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "28% improvement in completion rates",
+        metric: "Improved completion rates",
         description:
           "Adaptive learning paths and early intervention systems keep students engaged and on track to complete their programs.",
       },
       {
-        metric: "50% reduction in admin workload",
+        metric: "Measurable reduction in admin workload",
         description:
           "Automated grading, attendance, and compliance reporting free educators to focus on teaching and mentorship.",
       },
       {
-        metric: "4.8/5 student satisfaction score",
+        metric: "High student satisfaction",
         description:
           "Intuitive, accessible, mobile-first learning experiences consistently earn top marks from students across demographics.",
       },
@@ -360,17 +360,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "45% faster lease-up cycles",
+        metric: "Faster lease-up cycles",
         description:
           "Virtual tours and digital marketing automation dramatically shorten vacancy periods and accelerate tenant acquisition.",
       },
       {
-        metric: "30% reduction in operating costs",
+        metric: "Measurable reduction in operating costs",
         description:
           "IoT-driven building automation and predictive maintenance reduce energy waste, equipment failures, and manual overhead.",
       },
       {
-        metric: "92% tenant retention rate",
+        metric: "Strong tenant retention",
         description:
           "Digital-first tenant experience and responsive property management drive satisfaction and long-term lease renewals.",
       },
@@ -422,17 +422,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "22% reduction in freight costs",
+        metric: "Significant reduction in freight costs",
         description:
           "AI-optimized routing, load consolidation, and carrier management significantly reduce per-shipment transportation spend.",
       },
       {
-        metric: "99.2% on-time delivery rate",
+        metric: "Consistently high on-time delivery",
         description:
           "Predictive logistics and real-time route optimization ensure consistent delivery performance even during peak periods.",
       },
       {
-        metric: "40% improvement in warehouse throughput",
+        metric: "Major improvement in warehouse throughput",
         description:
           "Smart automation and optimized pick paths dramatically increase order processing capacity without proportional labor increases.",
       },
@@ -484,17 +484,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "35% reduction in unplanned downtime",
+        metric: "Significant reduction in unplanned downtime",
         description:
           "Predictive maintenance models detect equipment degradation weeks in advance, transforming reactive repair into planned maintenance.",
       },
       {
-        metric: "18% improvement in grid efficiency",
+        metric: "Measurable improvement in grid efficiency",
         description:
           "AI-driven load balancing and demand response optimization reduce transmission losses and improve renewable energy utilization.",
       },
       {
-        metric: "$8M annual savings in operations",
+        metric: "Substantial annual operational savings",
         description:
           "Automation of meter reading, billing, compliance reporting, and field service scheduling dramatically reduces operational overhead.",
       },
@@ -546,17 +546,17 @@ export const industries: IndustryData[] = [
     ],
     results: [
       {
-        metric: "40% increase in viewer engagement",
+        metric: "Significant increase in viewer engagement",
         description:
           "AI-powered personalization and recommendation engines keep viewers watching longer and discovering more content.",
       },
       {
-        metric: "99.99% streaming uptime",
+        metric: "Near-perfect streaming uptime",
         description:
           "Auto-scaling cloud infrastructure and global CDN orchestration maintain flawless quality of experience during peak traffic events.",
       },
       {
-        metric: "60% reduction in content piracy",
+        metric: "Dramatic reduction in content piracy",
         description:
           "Forensic watermarking and real-time detection systems dramatically reduce unauthorized distribution and protect revenue.",
       },
@@ -572,8 +572,9 @@ export const industries: IndustryData[] = [
 export const caseStudies = [
   {
     title: "AI-Driven Clinical Decision Support for a Top-10 U.S. Health System",
-    client: "Top-10 U.S. Health System",
+    client: "[Client name under NDA]",
     industry: "Healthcare",
+    representative: true,
     description:
       "Deployed a HIPAA-compliant AI diagnostic engine across 120+ care sites, integrating with Epic EHR to surface real-time clinical recommendations — reducing diagnostic turnaround by 60% and flagging missed diagnoses that improved patient outcomes for 500,000+ individuals annually.",
     results: [
@@ -620,16 +621,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "We evaluated four vendors over six months. TPWITS was the only team that understood both the clinical workflow and the ML engineering required. Diagnostic accuracy improved to 94.7%, and our clinicians adopted the tool within weeks — not months.",
-      name: "Dr. Sarah Mitchell",
-      title: "Chief Medical Officer",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "16 weeks",
     teamSize: "14 engineers",
   },
   {
     title: "Next-Gen Digital Lending Platform for a Series B Fintech",
-    client: "Series B Fintech",
+    client: "[Client name under NDA]",
     industry: "Fintech",
+    representative: true,
     description:
       "Architected and delivered a high-throughput digital lending platform with real-time credit decisioning, regulatory compliance automation, and multi-currency settlement — scaling to $50M in processed volume within 90 days of launch with zero security incidents.",
     results: [
@@ -676,16 +678,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS took us from whitepaper to $50M in processed volume in 90 days — with zero security incidents and sub-200ms decisioning. Their engineers operated at a level I've rarely seen, even from top-tier Silicon Valley firms.",
-      name: "David Park",
-      title: "Founder & CEO",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "12 weeks",
     teamSize: "11 engineers",
   },
   {
     title: "Enterprise Cloud Transformation for a Fortune 500 Retailer",
-    client: "Fortune 500 Retailer",
+    client: "[Client name under NDA]",
     industry: "Retail",
+    representative: true,
     description:
       "Migrated 340+ workloads from on-premise data centers to a multi-cloud architecture across AWS and Azure, consolidating 12 legacy systems into a unified platform — cutting infrastructure costs by 40% while achieving 99.99% uptime during peak holiday traffic.",
     results: ["40% cost reduction", "99.99% uptime", "3x deployment velocity"],
@@ -728,16 +731,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "We migrated 340 workloads with zero unplanned downtime during our highest-traffic quarter. Infrastructure costs dropped 40%, and our engineering teams now deploy 3x faster. TPWITS didn't just migrate our systems — they modernized our entire delivery culture.",
-      name: "Amanda Rodriguez",
-      title: "Director of IT",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "6 months",
     teamSize: "22 engineers",
   },
   {
     title: "AI-Powered Contract Intelligence for a Global Legal Enterprise",
-    client: "Global Legal Enterprise",
+    client: "[Client name under NDA]",
     industry: "Legal Tech",
+    representative: true,
     description:
       "Built an AI-powered contract analysis platform using NLP and custom LLM fine-tuning that processes 10,000+ legal documents daily — automating clause extraction, risk scoring, and compliance flagging, and reducing manual review time by 85% across 14 practice areas.",
     results: [
@@ -784,8 +788,8 @@ export const caseStudies = [
     testimonial: {
       quote:
         "Their AI platform processes 10,000+ legal documents a day and cut our manual review time by 85%. We saved $3.2M in the first year alone. The ROI case wrote itself after the first quarter.",
-      name: "James Chen",
-      title: "CTO",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "20 weeks",
     teamSize: "9 engineers",
@@ -793,8 +797,9 @@ export const caseStudies = [
   // --- New case studies ---
   {
     title: "Scalable Telehealth Platform for On-Demand Mental Health Services",
-    client: "Venture-Backed Digital Health Startup",
+    client: "[Client name under NDA]",
     industry: "Healthcare",
+    representative: true,
     description:
       "Engineered a full-stack telemedicine platform purpose-built for mental health, featuring real-time video and audio consultations, AI-driven therapist matching, and longitudinal patient progress tracking. The platform supports asynchronous messaging, session note automation, and insurance eligibility verification — all within a HIPAA-compliant architecture.",
     results: [
@@ -841,16 +846,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS transformed our scrappy MVP into a platform that therapists and patients genuinely love. The AI matching alone cut our manual scheduling overhead by 80%, and our no-show rate dropped from 38% to under 15%. They understood the sensitivity of mental health care and built accordingly.",
-      name: "Dr. Priya Kapoor",
-      title: "Co-Founder & Chief Clinical Officer",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "14 weeks",
     teamSize: "12 engineers",
   },
   {
     title: "Predictive B2B Lead Intelligence Platform for Revenue Teams",
-    client: "Series A MarTech Startup",
+    client: "[Client name under NDA]",
     industry: "SaaS / MarTech",
+    representative: true,
     description:
       "Built a SaaS platform that identifies high-intent B2B buyers by aggregating and scoring signals from web activity, technographic data, hiring patterns, and funding events. The system delivers prioritized lead lists with predictive scoring, enabling sales teams to focus on accounts most likely to convert.",
     results: [
@@ -897,16 +903,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "Before TPWITS, our sales team was guessing which accounts to pursue. Now they have a ranked, data-driven list every morning. Pipeline grew 3.2x in the first quarter, and our average sales cycle compressed by 40%. This platform is the backbone of our go-to-market motion.",
-      name: "Marcus Rivera",
-      title: "VP of Revenue Operations",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "16 weeks",
     teamSize: "10 engineers",
   },
   {
     title: "Immersive 3D Virtual Showroom Platform for Global Retail Brands",
-    client: "Mid-Market E-Commerce Technology Provider",
+    client: "[Client name under NDA]",
     industry: "Retail / E-Commerce",
+    representative: true,
     description:
       "Developed a WebGL-powered virtual showroom platform that lets retail brands create photorealistic 3D product environments accessible from any browser. The platform includes a drag-and-drop showroom builder, real-time product configurator with color and material swaps, and integrated checkout — bridging the gap between physical and digital retail.",
     results: [
@@ -953,16 +960,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "Our brands were skeptical that a browser-based 3D experience could match what they were used to from native apps. TPWITS proved them wrong — the showrooms look stunning, load fast on mobile, and our brands saw a 28% conversion lift within the first month. The no-code builder means our merchandising teams can update showrooms themselves.",
-      name: "Elena Vasquez",
-      title: "Chief Product Officer",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "20 weeks",
     teamSize: "15 engineers",
   },
   {
     title: "Digital Portfolio & Collaboration Hub for K-12 Education",
-    client: "Series A EdTech Startup",
+    client: "[Client name under NDA]",
     industry: "EdTech",
+    representative: true,
     description:
       "Created a digital portfolio and project collaboration platform for K-12 students, enabling them to document creative work, share artwork and projects across campuses, and build a longitudinal learning portfolio. The platform includes teacher moderation tools, cross-campus galleries, and parent access with granular privacy controls.",
     results: [
@@ -1009,16 +1017,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS understood that building for kids is fundamentally different from building for adults. The platform they delivered is safe, delightful, and — most importantly — teachers actually use it. We went from 3 pilot schools to 40+ campuses in one semester. The COPPA compliance framework alone saved us months of legal work.",
-      name: "Rachel Thornton",
-      title: "CEO & Co-Founder",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "12 weeks",
     teamSize: "8 engineers",
   },
   {
     title: "Enterprise EHR Platform with End-to-End HIPAA Compliance",
-    client: "Growth-Stage Health IT Company",
+    client: "[Client name under NDA]",
     industry: "Healthcare",
+    representative: true,
     description:
       "Architected and delivered a cloud-native electronic health records platform with comprehensive patient history journaling, role-based specialist access, integrated billing and claims management, and a patient portal. Built on AWS GovCloud with HL7 FHIR interoperability, the system serves 200+ clinics with 99.97% uptime and SOC 2 Type II certification.",
     results: [
@@ -1065,16 +1074,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "Rebuilding a production EHR used by 200+ clinics is one of the hardest things you can do in health IT. TPWITS delivered a platform that passed SOC 2 on the first try, integrates seamlessly with every lab and pharmacy our clinics use, and — for the first time — our clinicians actually enjoy using the software. Uptime hasn't dipped below 99.97% since launch.",
-      name: "Dr. Michael Okoye",
-      title: "Chief Technology Officer",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "24 weeks",
     teamSize: "18 engineers",
   },
   {
     title: "Global Patient Community App with AI-Powered Health Insights",
-    client: "Seed-Stage Digital Health Nonprofit",
+    client: "[Client name under NDA]",
     industry: "Healthcare",
+    representative: true,
     description:
       "Built a mobile-first patient community application that connects individuals managing chronic conditions with peer support networks, licensed health coaches, and condition-specific educational content. The platform features AI-powered symptom tracking, personalized health insights, and a provider matching system that helps patients find specialists experienced with their specific condition.",
     results: [
@@ -1121,16 +1131,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS didn't just build an app — they immersed themselves in our patient community to understand what living with a chronic condition actually feels like. The result is a platform that 150,000 people rely on daily for support, information, and connection. Our App Store rating speaks for itself.",
-      name: "Laura Simmons",
-      title: "Executive Director",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "10 weeks",
     teamSize: "7 engineers",
   },
   {
     title: "Blockchain-Powered Anomaly Detection for Trade Channel Integrity",
-    client: "Global CPG Enterprise",
+    client: "[Client name under NDA]",
     industry: "Supply Chain / CPG",
+    representative: true,
     description:
       "Designed and deployed a blockchain-based anomaly detection platform that monitors trade channel transactions across a 15-node distributed ledger network, protecting discount program integrity and identifying fraudulent patterns in real time. The system combines immutable transaction records with machine learning models trained on historical trade data to flag suspicious activity before financial losses materialize.",
     results: [
@@ -1177,16 +1188,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "We had been losing over $20M a year to trade channel fraud and couldn't catch it with traditional auditing. TPWITS delivered a blockchain network that our partners actually adopted — and the ML detection layer identified $18M in fraudulent activity in the first year alone. The combination of immutable records and real-time anomaly detection is a game-changer for our industry.",
-      name: "Robert Hallman",
-      title: "SVP, Global Trade Operations",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "18 weeks",
     teamSize: "12 engineers",
   },
   {
     title: "Privacy-Preserving Biometric Authentication SDK",
-    client: "Series B Identity & Security Company",
+    client: "[Client name under NDA]",
     industry: "Cybersecurity / Identity",
+    representative: true,
     description:
       "Developed a biometric authentication SDK that uses secure multi-party computation to verify identity without ever storing or transmitting raw biometric data. The system performs face and fingerprint matching across distributed encrypted shares, ensuring that no single server ever holds a complete biometric template — achieving sub-300ms authentication while maintaining zero-knowledge privacy guarantees.",
     results: [
@@ -1233,16 +1245,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS solved what we thought was an impossible problem — biometric authentication that is both fast enough for production use and provably privacy-preserving. The Rust-based MPC engine they built authenticates in under 300ms, and we can prove to any regulator that we never store biometric data. Two million authentications a month and zero breaches.",
-      name: "Katharina Braun",
-      title: "CTO & Co-Founder",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "22 weeks",
     teamSize: "9 engineers",
   },
   {
     title: "Digital Estate Planning Platform with Smart Contract Automation",
-    client: "Seed-Stage Fintech Startup",
+    client: "[Client name under NDA]",
     industry: "Fintech / Web3",
+    representative: true,
     description:
       "Built a digital estate and asset management platform that enables individuals to create legally-informed digital wills backed by smart contracts, store sensitive documents in encrypted vaults, and configure automated beneficiary transfers triggered by verifiable life events. The platform handles traditional digital assets, cryptocurrency holdings, and online account credentials within a unified estate plan.",
     results: [
@@ -1289,16 +1302,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "Estate planning for digital assets is an unsolved problem that affects millions of people. TPWITS helped us build a platform that $120M in assets now depends on — and not a single unauthorized transfer has occurred. The smart contract architecture they designed gives our users confidence that their digital legacy is protected.",
-      name: "Jonathan Reeves",
-      title: "Founder & CEO",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "16 weeks",
     teamSize: "10 engineers",
   },
   {
     title: "NFT Marketplace & Creator Toolkit with Gasless Minting",
-    client: "Web3-Native Creative Platform",
+    client: "[Client name under NDA]",
     industry: "Web3",
+    representative: true,
     description:
       "Engineered a full-featured NFT marketplace and creator toolkit that eliminates the technical barriers to NFT creation through gasless minting on Polygon, customizable smart contract templates, and fiat on-ramp integration. The platform supports lazy minting, collection management, royalty enforcement, and a discovery engine that surfaces emerging creators to collectors.",
     results: [
@@ -1345,16 +1359,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS made NFTs accessible to artists who have never touched a crypto wallet. Over 4,000 creators have minted on our platform, and the gasless experience means they can focus on their art instead of gas fees. The fiat on-ramp was the missing piece — it opened up an entirely new collector audience.",
-      name: "Aisha Olanrewaju",
-      title: "Head of Product",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "14 weeks",
     teamSize: "11 engineers",
   },
   {
     title: "Browser-Based Metaverse Engine with Real-Time Multiplayer",
-    client: "Venture-Backed Metaverse Infrastructure Company",
+    client: "[Client name under NDA]",
     industry: "Media / Web3",
+    representative: true,
     description:
       "Built an open-source, browser-native metaverse engine that enables anyone to create, customize, and publish persistent 3D virtual worlds without downloading software. The platform features a drag-and-drop world builder, NFT-based asset ownership, real-time multiplayer with voice chat, and a spatial computing layer that maintains 60fps performance with 100+ concurrent users per world instance.",
     results: [
@@ -1401,16 +1416,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS took our vision of a browser-native metaverse and turned it into reality at a scale we didn't think was possible. 100,000 worlds created, half a million monthly users, and the engine runs at 60fps in a browser tab. When we open-sourced the engine, the developer community response was overwhelming — 200 contributors in the first six months. This is the team that builds the impossible.",
-      name: "Daniel Koh",
-      title: "CEO & Co-Founder",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "6 months",
     teamSize: "20 engineers",
   },
   {
     title: "On-Demand Legal Services Marketplace with Case Management",
-    client: "Growth-Stage Legal Technology Company",
+    client: "[Client name under NDA]",
     industry: "Legal Tech",
+    representative: true,
     description:
       "Developed a digital marketplace that connects individuals and small businesses with qualified attorneys across 30+ practice areas, featuring AI-powered case intake, real-time video consultations, secure document sharing, and end-to-end case management. The platform handles everything from initial consultation booking through matter resolution, with integrated billing and client communication tools.",
     results: [
@@ -1457,16 +1473,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS built more than a marketplace — they built an operating system for legal services. 8,000 attorneys have registered because the platform actually makes their practice more efficient, and 35,000 cases have been facilitated because clients finally have a way to find, vet, and work with lawyers without the usual confusion. Our 4.7-star satisfaction rating is unprecedented in legal tech.",
-      name: "Catherine Liu",
-      title: "Chief Operating Officer",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "14 weeks",
     teamSize: "9 engineers",
   },
   {
     title: "Multi-Lingual Telemedicine Platform for Emerging Markets",
-    client: "International Healthcare NGO",
+    client: "[Client name under NDA]",
     industry: "Healthcare",
+    representative: true,
     description:
       "Engineered a telemedicine platform purpose-built for emerging markets, supporting 12 languages with AI-powered real-time translation, optimized for low-bandwidth and intermittent connectivity, and capable of offline-first consultations that sync when connectivity resumes. The platform connects patients in underserved regions with both local and international specialists, dramatically expanding access to quality healthcare.",
     results: [
@@ -1513,16 +1530,17 @@ export const caseStudies = [
     testimonial: {
       quote:
         "TPWITS built a telemedicine platform that works where others cannot. In regions with barely 2G connectivity, patients are having meaningful consultations with specialists in their own language. 200,000 consultations delivered and a 95% satisfaction rate in the hardest operating environments on earth. This platform is saving lives.",
-      name: "Dr. Amara Osei",
-      title: "Director of Digital Health Programs",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "16 weeks",
     teamSize: "11 engineers",
   },
   {
     title: "Donation Optimization Platform for Nonprofit Organizations",
-    client: "Social Impact Technology Collective",
+    client: "[Client name under NDA]",
     industry: "Nonprofit / Social Impact",
+    representative: true,
     description:
       "Built a technology platform that empowers nonprofits to modernize their donation processes with optimized giving pages, recurring donation management, impact tracking dashboards, and donor engagement automation. The platform serves as a centralized hub connecting donors to causes they care about, with transparent impact reporting that builds trust and drives sustained giving.",
     results: [
@@ -1569,8 +1587,8 @@ export const caseStudies = [
     testimonial: {
       quote:
         "Before TPWITS, our member organizations were losing donors to clunky donation forms and a lack of follow-up. The platform they built transformed giving for 300+ nonprofits — $4.2 million processed, and recurring donors increased by 65%. The impact dashboards are a game-changer for donor retention. Small nonprofits now have tools that rival what the biggest charities use.",
-      name: "Maria Santos",
-      title: "Director of Technology Partnerships",
+      name: "— Project stakeholder",
+      title: "",
     },
     timeline: "10 weeks",
     teamSize: "6 engineers",

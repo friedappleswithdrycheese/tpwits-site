@@ -7,6 +7,7 @@ export default function Stats() {
   return (
     <section className="py-14 md:py-18 bg-white overflow-hidden">
       <div className="container-custom">
+        {/* TODO: Verify client logos represent real clients — currently SVG illustrations used as visual elements */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
